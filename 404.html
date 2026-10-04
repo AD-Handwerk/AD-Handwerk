@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 – AD-Handwerk</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="not-found-overlay" class="visible">
+    <div class="not-found-close-wrap">
+      <button id="notFoundClose" onclick="history.back()"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+      <span class="not-found-close-label">Zurück</span>
+    </div>
+    <span class="not-found-nav-label">(404)</span>
+    <div class="not-found-graphic-wrap">
+      <img src="media/ad_logo-ohne-schrift.png" alt="AD Logo" class="not-found-graphic" />
+      <span class="not-found-wordswap" id="notFoundWord">handwerk</span>
+    </div>
+    <p class="not-found-label">Diese Seite ist noch in Arbeit.</p>
+    <p class="not-found-sub">Wie unsere Keramik braucht auch Gutes im Web manchmal etwas Zeit.<br>Wir formen, feilen und gestalten – bald ist alles bereit.</p>
+  </div>
+
+  <script>
+    const notFoundWord = document.getElementById('notFoundWord');
+    const words = ['handwerk', 'error 404'];
+    let wordIndex = 0;
+    setInterval(() => {
+      notFoundWord.style.opacity = '0';
+      setTimeout(() => {
+        wordIndex = (wordIndex + 1) % words.length;
+        notFoundWord.textContent = words[wordIndex];
+        notFoundWord.style.opacity = '1';
+      }, 500);
+    }, 3000);
+  </script>
+</body>
+</html>

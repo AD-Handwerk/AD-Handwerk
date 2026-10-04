@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Workshops – AD Handwerk</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/ueber-uns.css" />
+  <link rel="stylesheet" href="css/workshops.css" />
+</head>
+<body>
+
+  <!-- ── Burger Menu Button ── -->
+  <button class="ueber-burger-btn" id="ueberBurgerBtn">
+    <span class="ueber-burger-label">Suchst du was?</span>
+    <img src="media/ad_logo-ohne-schrift.png" alt="Menü" />
+  </button>
+
+  <!-- ── Nav Overlay ── -->
+  <div class="ueber-nav-backdrop" id="ueberNavBackdrop"></div>
+  <div id="ueber-nav-overlay">
+    <div class="ueber-nav-btns" data-dot-x="0.4">
+      <a href="index.html" class="person-close ueber-nav-home">
+        <img src="media/ad_button_home.svg" alt="Home" />
+      </a>
+      <button class="person-close" id="ueberNavClose">
+        <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+      </button>
+    </div>
+    <img src="media/ad_grafik_burger-menu_portrait.svg" alt="" class="ueber-nav-grafik" />
+    <a href="ueber-uns.html" class="ueber-nav-item menu-item-page" data-dot-x="0.498" style="top:8vh"><img class="menu-hover-circle" style="width:8.5vw!important;height:8.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Über Uns</span></a>
+    <a href="404.html" class="ueber-nav-item" data-dot-x="0.474" style="top:17.8vh"><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Werke</span></a>
+    <a href="404.html" class="ueber-nav-item" data-dot-x="0.56" style="top:31.3vh"><span class="menu-text">Raku<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
+    <a href="404.html" class="ueber-nav-item" data-dot-x="0.51" style="top:69.3vh"><span class="menu-text">Märkte<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:7.5vw!important;height:7.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
+    <a href="workshops.html" class="ueber-nav-item menu-item-page" data-dot-x="0.43" style="top:85vh"><img class="menu-hover-circle" style="width:9.5vw!important;height:9.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Workshops</span></a>
+  </div>
+
+  <!-- Kalender Section -->
+  <section class="kalender" id="kalender">
+
+    <img src="media/ad_grafik_calender_background_leaf_01.svg" alt="" class="kalender-bg-leaf kalender-bg-leaf-01" />
+    <img src="media/ad_grafik_calender_background_leaf_02.svg" alt="" class="kalender-bg-leaf kalender-bg-leaf-02" />
+    <img src="media/ad_grafik_calender_leaf.svg" alt="" class="kalender-fg-leaf" />
+
+    <!-- Monats-Overlay -->
+    <div class="kalender-months-overlay">
+      <button class="kalender-month" data-month="01" data-name="Jänner"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">01</span></button>
+      <button class="kalender-month" data-month="02" data-name="Februar"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">02</span></button>
+      <button class="kalender-month" data-month="03" data-name="März"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">03</span></button>
+      <button class="kalender-month" data-month="04" data-name="April"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">04</span></button>
+      <button class="kalender-month" data-month="05" data-name="Mai"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">05</span></button>
+      <button class="kalender-month" data-month="06" data-name="Juni"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">06</span></button>
+      <button class="kalender-month" data-month="07" data-name="Juli"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">07</span></button>
+      <button class="kalender-month" data-month="08" data-name="August"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">08</span></button>
+      <button class="kalender-month" data-month="09" data-name="September"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">09</span></button>
+      <button class="kalender-month" data-month="10" data-name="Oktober"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">10</span></button>
+      <button class="kalender-month" data-month="11" data-name="November"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">11</span></button>
+      <button class="kalender-month" data-month="12" data-name="Dezember"><img class="kalender-month-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="kalender-month-label">12</span></button>
+    </div>
+
+    <header class="kalender-header">
+      <button class="kalender-back" onclick="history.back()">
+        <img src="media/ad_button_back_pfeil.svg" alt="Zurück" />
+      </button>
+      <div class="kalender-year-wrap" id="kalenderYearWrap">
+        <div class="kalender-year-panel" id="kalenderYearPanel">
+          <div class="kalender-year-top">
+            <span class="kalender-year-num">26</span>
+            <span class="kalender-year-label">Jahr wählen</span>
+            <img src="media/ad_burger-menu-feil-grafik.svg" alt="" class="kalender-year-arrow" id="kalenderYearArrow" />
+          </div>
+          <button class="kalender-year-close" id="kalenderYearClose">
+            <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+          </button>
+          <div class="kalender-year-list" id="kalenderYearList">
+            <span class="kalender-year-item" data-year="2025">2025</span>
+            <span class="kalender-year-item" data-year="2026">2026</span>
+            <span class="kalender-year-item" data-year="2027">2027</span>
+          </div>
+        </div>
+      </div>
+      <span class="kalender-label">(Kalender)</span>
+    </header>
+
+    <!-- Wellenübergang -->
+    <div class="kalender-wave">
+      <svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+        <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+      </svg>
+    </div>
+
+  </section>
+  <!-- Blob ClipPath -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <clipPath id="blobClip" clipPathUnits="objectBoundingBox">
+        <path d="M0 0.50218 C0 0.13974 0.24873 0 0.44162 0 C0.84772 0 1 0.20960 1 0.50218 C0.99531 0.88028 0.70558 1 0.44162 1 C0.27411 1 0 0.91703 0 0.50218 Z"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- Monats-Overlay -->
+  <div class="monat-overlay-backdrop" id="monatBackdrop"></div>
+  <div class="monat-overlay" id="monatOverlay">
+    <button class="monat-overlay-close" id="monatClose">
+      <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+    </button>
+
+    <!-- Step 1: Workshops des Monats -->
+    <div class="monat-step" id="monatStep1">
+      <span class="monat-overlay-heading" id="monatHeading1"></span>
+      <ul class="monat-workshop-list" id="monatWorkshopList"></ul>
+      <p class="monat-overlay-spots" id="monatSpots"></p>
+    </div>
+
+    <!-- Step 2: Termine eines Workshops -->
+    <div class="monat-step" id="monatStep2" hidden>
+      <span class="monat-overlay-heading" id="monatHeading2"></span>
+      <ul class="monat-workshop-list" id="monatDateList"></ul>
+      <p class="monat-overlay-spots" id="monatSpots2"></p>
+    </div>
+
+    <!-- Step 3: Bestätigung -->
+    <div class="monat-step" id="monatStep3" hidden>
+      <span class="monat-overlay-heading" id="monatHeading3"></span>
+      <p class="monat-confirm-text" id="monatConfirmText"></p>
+      <button class="monat-action-btn" id="monatAnfragenBtn">Jetzt Anfragen!</button>
+    </div>
+
+    <!-- Step 4: Formular -->
+    <div class="monat-step" id="monatStep4" hidden>
+      <span class="monat-overlay-heading">Anfrage</span>
+      <form class="monat-form" id="monatForm">
+        <input class="monat-input" type="text" placeholder="Vor- & Nachname" required />
+        <input class="monat-input" type="text" placeholder="Adresse" />
+        <input class="monat-input" type="email" placeholder="Email" required />
+        <div class="monat-anzahl-row">
+          <span class="monat-anzahl-label">Anzahl</span>
+          <button type="button" class="monat-anzahl-btn" id="monatMinus">−</button>
+          <span class="monat-anzahl-num" id="monatAnzahl">0</span>
+          <button type="button" class="monat-anzahl-btn" id="monatPlus">+</button>
+        </div>
+        <button type="submit" class="monat-action-btn">Jetzt Abschicken!</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Workshops Überblick -->
+  <section class="workshops-bottom" id="workshopsBottom">
+    <header class="kalender-header workshops-header">
+      <span></span>
+      <span></span>
+      <span class="kalender-label">(Workshops)</span>
+    </header>
+    <div class="kalender-scroll-zone">
+      <a href="#kalender" class="kalender-scroll-label">Hier alle Workshops im Überblick!</a>
+      <a href="#workshopsList" class="kalender-scroll-arrow">
+        <img src="media/ad_burger-menu-feil-grafik.svg" alt="" />
+      </a>
+    </div>
+
+    <div id="workshopsList" class="workshops-list">
+
+      <!-- Workshop 1 -->
+      <div class="workshop-item" data-months="01,03,06,09" data-short="Töpfern für Einsteiger" data-spots="01:6,03:4,06:8,09:2">
+        <div class="workshop-book-col">
+          <a href="#kalender" class="workshop-book-btn">Jetzt Termine Ansehen und Buchen!</a>
+          <div class="workshop-info-box">
+            <span class="workshop-info-level">Einstiegskurs</span>
+            Vorkenntnisse: Nicht erforderlich<br>
+            Dauer: ca. 3 Stunden<br>
+            Gruppengröße: 4–8 Personen
+          </div>
+        </div>
+        <div class="workshop-circles-col">
+          <div class="workshop-num">1</div>
+          <button class="workshop-info-btn"><span>i</span></button>
+        </div>
+        <div class="workshop-title-col">
+          <h2 class="workshop-title">Keramik entdecken – Töpfern<br>für Einsteiger:innen</h2>
+          <p class="workshop-desc">Du wolltest schon immer mal Ton in den Händen halten und etwas Eigenes formen? In diesem Workshop zeigen wir dir die Grundlagen des Töpferns per Hand. Gemeinsam gestalten wir Schalen, Becher oder kleine Objekte – ganz ohne Vorkenntnisse.</p>
+        </div>
+      </div>
+
+      <!-- Workshop 2 -->
+      <div class="workshop-item" data-months="02,05,08,11" data-short="Raku Brand mit Fred" data-spots="02:3,05:5,08:1,11:4">
+        <div class="workshop-book-col">
+          <a href="#kalender" class="workshop-book-btn">Jetzt Termine Ansehen und Buchen!</a>
+          <div class="workshop-info-box">
+            <span class="workshop-info-level">Spezialtechnik</span>
+            Vorkenntnisse: Nicht nötig, aber<br>
+            Interesse an Experiment &amp; Feuer<br>
+            Dauer: ca. 3–4 Stunden<br>
+            Gruppengröße: 4–6 Personen
+          </div>
+        </div>
+        <div class="workshop-circles-col">
+          <div class="workshop-num">2</div>
+          <button class="workshop-info-btn"><span>i</span></button>
+        </div>
+        <div class="workshop-title-col">
+          <h2 class="workshop-title">Raku erleben – Ton,<br>Feuer &amp; Überraschung</h2>
+          <p class="workshop-desc">Ein echtes Erlebnis: Wir glasieren vorgefertigte Stücke und brennen sie gemeinsam in der offenen Flamme – ganz in Raku-Technik. Dabei entstehen faszinierende Effekte, Risse, Rauchspuren – jedes Stück ein Unikat. Ideal für alle, die das Besondere lieben.</p>
+        </div>
+      </div>
+
+      <!-- Workshop 3 -->
+      <div class="workshop-item" data-months="01,04,07,10" data-short="Tiere & Objekte aus Ton" data-spots="01:4,04:7,07:3,10:6">
+        <div class="workshop-book-col">
+          <a href="#kalender" class="workshop-book-btn">Jetzt Termine Ansehen und Buchen!</a>
+          <div class="workshop-info-box">
+            <span class="workshop-info-level">Kreativkurs</span>
+            Vorkenntnisse: Nicht erforderlich<br>
+            Dauer: ca. 2,5 Stunden<br>
+            Gruppengröße: 4–8 Personen
+          </div>
+        </div>
+        <div class="workshop-circles-col">
+          <div class="workshop-num">3</div>
+          <button class="workshop-info-btn"><span>i</span></button>
+        </div>
+        <div class="workshop-title-col">
+          <h2 class="workshop-title">Tiere &amp; Objekte aus Ton –<br>Formen mit Charakter</h2>
+          <p class="workshop-desc">Ob Raben, Fische, Hühner oder Zwerge – in diesem Workshop entstehen aus Ton kleine Wesen und dekorative Objekte mit Persönlichkeit. Gemeinsam wird modelliert, verziert und experimentiert – jedes Stück ein Unikat, genau wie sein Schöpfer.</p>
+        </div>
+      </div>
+
+      <!-- Workshop 4 -->
+      <div class="workshop-item" data-months="03,06,09,12" data-short="Fliesen & Magnete" data-spots="03:8,06:5,09:4,12:2">
+        <div class="workshop-book-col">
+          <a href="#kalender" class="workshop-book-btn">Jetzt Termine Ansehen und Buchen!</a>
+          <div class="workshop-info-box">
+            <span class="workshop-info-level">Design-Workshop</span>
+            Vorkenntnisse: Nicht erforderlich<br>
+            Dauer: ca. 2 Stunden<br>
+            Gruppengröße: 4–10 Personen
+          </div>
+        </div>
+        <div class="workshop-circles-col">
+          <div class="workshop-num">4</div>
+          <button class="workshop-info-btn"><span>i</span></button>
+        </div>
+        <div class="workshop-title-col">
+          <h2 class="workshop-title">Fliesen mit Charakter – Ton,<br>Muster &amp; Magnete</h2>
+          <p class="workshop-desc">Gestalte deine eigene Keramikfliese oder einen Magneten mit individuellem Muster. Wir zeigen dir, wie du mit einfachen Werkzeugen beeindruckende Strukturen und Ornamente in Ton drückst – ein tolles Geschenk oder Deko-Stück für zu Hause.</p>
+        </div>
+      </div>
+
+      <!-- Workshop 5 -->
+      <div class="workshop-item" data-months="02,04,07,11" data-short="Offene Werkstattzeit" data-spots="02:2,04:6,07:5,11:3">
+        <div class="workshop-book-col">
+          <a href="#kalender" class="workshop-book-btn">Jetzt Termine Ansehen und Buchen!</a>
+          <div class="workshop-info-box">
+            <span class="workshop-info-level">Offener Kurs für freie Projekte</span>
+            Vorkenntnisse: Empfohlen, aber<br>
+            nicht zwingend<br>
+            Dauer: ca. 3 Stunden oder mehr<br>
+            Gruppengröße: 2–6 Personen
+          </div>
+        </div>
+        <div class="workshop-circles-col">
+          <div class="workshop-num">5</div>
+          <button class="workshop-info-btn"><span>i</span></button>
+        </div>
+        <div class="workshop-title-col">
+          <h2 class="workshop-title">Freies Formen –<br>Offene Werkstattzeit</h2>
+          <p class="workshop-desc">Du hast schon Ideen im Kopf oder möchtest einfach drauflos formen? In unserer offenen Werkstatt begleiten wir dich technisch und kreativ bei deinem eigenen Projekt. Du bringst die Idee – wir das Know-how und das Material.</p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </section>
+
+  <!-- Pattern Footer -->
+  <div class="workshops-pattern">
+    <img src="media/ad_grafik_pattern_terracotta.svg" alt="" />
+    <div class="workshops-bubble-text">
+      Juhu ... gemeinsam<br>Ton erleben!
+    </div>
+  </div>
+
+  <!-- Impressum -->
+  <div id="impressum">
+    <div class="impressum-content">
+      <img class="impressum-bg" src="media/ad_impressum-menu-background.svg" alt="" />
+      <button class="impressum-toggle" id="impressumToggle">
+        <img src="media/ad_button_more_punkte.svg" alt="Mehr" />
+      </button>
+      <div class="impressum-inner impressum-nav-view">
+        <button class="impressum-close" id="impressumClose"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        <nav class="impressum-nav">
+          <a href="#" id="openKontakt">Kontakt</a>
+          <span class="impressum-sep">|</span>
+          <a href="#" id="openImpressum">Impressum</a>
+          <span class="impressum-sep">|</span>
+          <a href="#" id="openRechtliches">Rechtliches</a>
+        </nav>
+      </div>
+      <div class="impressum-inner impressum-full-view" id="impressumFull">
+        <div class="impressum-header">
+          <button class="impressum-back" id="impressumBack2"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose2"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        </div>
+        <h3 class="impressum-heading">Impressum</h3>
+        <div class="impressum-body">
+          <p>AD-Handwerk</p>
+          <p>Doris Holzleitner &amp; Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe – Keramikerzeugung)</p>
+          <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: [+43 664 590 432]<br>E-Mail: [info@ad-handwerk.at]</p>
+          <p>Grafik &amp; Design: Moritz Holzleitner<br>Umsetzung &amp; Web-Interface: Moritz Holzleitner</p>
+          <p>© AD-Handwerk. Alle Rechte vorbehalten.</p>
+        </div>
+      </div>
+      <div class="impressum-inner impressum-kontakt-view">
+        <div class="impressum-header">
+          <button class="impressum-back" id="impressumBack4"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose4"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        </div>
+        <h3 class="impressum-heading">Kontakt</h3>
+        <div class="impressum-body">
+          <p>Du hast ein Auge auf unsere Objekte geworfen?</p>
+          <a href="mailto:info@ad-handwerk.at" class="kontakt-btn">info@ad-handwerk.at</a>
+          <a href="tel:+436645904320" class="kontakt-btn">+43 664 590 432</a>
+          <a href="https://maps.google.com/?q=Baumgarten+6,+4644+Scharnstein" target="_blank" class="kontakt-btn">Baumgarten 6, 4644 Scharnstein</a>
+        </div>
+      </div>
+      <div class="impressum-inner impressum-rechtliches-view" id="impressumRechtliches">
+        <div class="impressum-header">
+          <button class="impressum-back" id="impressumBack3"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose3"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        </div>
+        <h3 class="impressum-heading">Rechtliches</h3>
+        <div class="impressum-body">
+          <p><strong>1. Allgemeines</strong><br>Der Schutz deiner persönlichen Daten ist uns ein Anliegen.</p>
+          <p><strong>2. Kontakt mit uns</strong><br>Wenn du per E-Mail Kontakt mit uns aufnimmst, werden deine Daten zwecks Bearbeitung der Anfrage gespeichert, aber nicht weitergegeben.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/workshops.js"></script>
+</body>
+</html>

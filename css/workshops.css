@@ -1,0 +1,1028 @@
+/* ── AD Handwerk – Workshops ── */
+body {
+  background: #F7F5F2 !important;
+}
+
+/* Kalender Section */
+.kalender {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #BF5E3B;
+  overflow: hidden;
+}
+
+.kalender-bg-leaf,
+.kalender-fg-leaf {
+  position: absolute;
+  pointer-events: none;
+  filter: none;
+}
+
+.kalender-bg-leaf {
+  width: max(115vw, 202vh);
+  left: 0%;
+  top: -40%;
+}
+
+.kalender-bg-leaf-01 {
+  animation: leaf-sway-01 20s ease-in-out infinite;
+  transform-origin: 18% 92%;
+}
+
+.kalender-bg-leaf-02 {
+  animation: leaf-sway-02 24s ease-in-out infinite;
+  animation-delay: -8s;
+  transform-origin: 70% 20%;
+}
+
+@keyframes leaf-sway-01 {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-0.6%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes leaf-sway-02 {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(0.6%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes leafSway {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(1.8deg); }
+  50%  { transform: rotate(-1.2deg); }
+  80%  { transform: rotate(1.4deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.kalender-fg-leaf {
+  width: max(115vw, 202vh);
+  left: 0%;
+  top: -40%;
+}
+
+/* Back button in kalender */
+.kalender-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8vw;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.25s ease;
+  position: absolute;
+  left: 3vw;
+}
+
+.kalender-back:hover {
+  background: rgba(247,245,242,0.15);
+}
+
+.kalender-back img {
+  display: block;
+  width: clamp(10px, 0.8vw, 16px);
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+/* Header */
+.kalender-header {
+  position: absolute;
+  top: 2.5vw;
+  left: 0;
+  right: 0;
+  height: clamp(28px, 2.6vw, 44px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3vw;
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+.kalender-year {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(10px, 1vw, 16px);
+  color: #F7F5F2;
+  width: clamp(28px, 2.6vw, 44px);
+  height: clamp(28px, 2.6vw, 44px);
+  border: 1.5px solid rgba(247,245,242,0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Year Selector */
+.kalender-year-wrap {
+  position: relative;
+  pointer-events: auto;
+  align-self: flex-start;
+}
+
+.kalender-year-panel {
+  border: 2px solid rgba(247,245,242,0.85);
+  border-radius: 999px;
+  overflow: hidden;
+  width: clamp(28px, 2.6vw, 44px);
+  max-height: clamp(28px, 2.6vw, 44px);
+  transition: width 0.3s ease, max-height 0.4s ease, background 0.2s ease;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.kalender-year-wrap:hover .kalender-year-panel,
+.kalender-year-wrap.open .kalender-year-panel {
+  width: clamp(150px, 15vw, 230px);
+  background: rgba(247,245,242,0.08);
+}
+
+.kalender-year-wrap.open .kalender-year-panel {
+  max-height: 20vw;
+  border-radius: 1.2vw;
+  background: rgba(247,245,242,0.12);
+}
+
+.kalender-year-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  height: clamp(28px, 2.6vw, 44px);
+  flex-shrink: 0;
+  padding: 0 0.6vw;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.kalender-year-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0.6vw;
+  height: clamp(28px, 2.6vw, 44px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+.kalender-year-wrap.open .kalender-year-close {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.kalender-year-close img {
+  width: clamp(8px, 0.7vw, 12px);
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.kalender-year-panel * {
+  color: #F7F5F2 !important;
+}
+
+.kalender-year-num {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(13px, 1.3vw, 22px);
+  color: #F7F5F2;
+  flex-shrink: 0;
+  line-height: 1;
+  max-width: 2vw;
+  overflow: hidden;
+  transition: max-width 0.3s ease, opacity 0.2s ease;
+}
+
+.kalender-year-wrap:hover .kalender-year-num,
+.kalender-year-wrap.open .kalender-year-num {
+  max-width: 0;
+  opacity: 0;
+}
+
+.kalender-year-label {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(13px, 1.3vw, 22px);
+  color: #F7F5F2;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: opacity 0.25s ease 0.1s, max-width 0.3s ease, margin-left 0.3s ease;
+  margin-left: 0;
+}
+
+.kalender-year-wrap:hover .kalender-year-label,
+.kalender-year-wrap.open .kalender-year-label {
+  opacity: 1;
+  max-width: 8vw;
+  margin-left: 0.4vw;
+}
+
+.kalender-year-arrow {
+  width: clamp(8px, 0.7vw, 12px);
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: opacity 0.25s ease 0.1s, max-width 0.3s ease, margin-left 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
+.kalender-year-wrap:hover .kalender-year-arrow,
+.kalender-year-wrap.open .kalender-year-arrow {
+  opacity: 0.8;
+  max-width: 2vw;
+  margin-left: 0.3vw;
+}
+
+.kalender-year-wrap.open .kalender-year-arrow {
+  opacity: 0 !important;
+  max-width: 0 !important;
+  margin-left: 0 !important;
+}
+
+.kalender-year-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0.6vw;
+  gap: 0.2vw;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
+}
+
+.kalender-year-wrap.open .kalender-year-list {
+  max-height: 15vw;
+  opacity: 1;
+  padding: 0.2vw 0.6vw 0.8vw;
+}
+
+.kalender-year-item {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(13px, 1.3vw, 22px);
+  color: rgba(247,245,242,0.8);
+  cursor: pointer;
+  padding: 0.2vw 1.5vw;
+  border-radius: 999px;
+  text-align: center;
+  width: 100%;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.kalender-year-item:hover {
+  background: rgba(247,245,242,0.2);
+  color: #F7F5F2;
+}
+
+.kalender-label {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: 1.4vw;
+  color: #F7F5F2;
+  position: absolute;
+  right: 3vw;
+}
+
+.workshops-header .kalender-label {
+  color: #BF5E3B;
+}
+
+/* Close button */
+.kalender-close {
+  position: absolute;
+  right: 2.5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.8vw;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease;
+  z-index: 10;
+}
+
+.kalender-close img {
+  width: clamp(10px, 0.8vw, 14px);
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.kalender-close:hover {
+  background: rgba(247,245,242,0.15);
+}
+
+.kalender-close:hover img {
+  opacity: 1;
+}
+
+/* Hint text */
+.kalender-hint {
+  position: absolute;
+  left: 31%;
+  top: 18%;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(9px, 0.9vw, 14px);
+  color: #F7F5F2;
+  opacity: 0.8;
+  line-height: 1.6;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.kalender-hint::after {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 24px;
+  border-left: 1.5px solid rgba(247,245,242,0.6);
+  border-bottom: 1.5px solid rgba(247,245,242,0.6);
+  border-radius: 0 0 0 6px;
+  margin-top: 6px;
+  margin-left: 8px;
+}
+
+/* Month buttons */
+.kalender-months-overlay {
+  position: absolute;
+  width: max(115vw, 202vh);
+  left: 0%;
+  top: -40%;
+  aspect-ratio: 2216 / 1830;
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* Positionen als % des SVG-ViewBox (2216×1830) */
+.kalender-month[data-month="01"] { left: 44.5%; top: 52.2%; }
+.kalender-month[data-month="02"] { left: 42.2%; top: 42.2%; }
+.kalender-month[data-month="03"] { left: 31.8%; top: 50.7%; }
+.kalender-month[data-month="04"] { left: 52.5%; top: 45.3%; }
+.kalender-month[data-month="05"] { left: 30.9%; top: 58.1%; }
+.kalender-month[data-month="06"] { left: 23.6%; top: 48.4%; }
+.kalender-month[data-month="07"] { left: 29.3%; top: 44.3%; }
+.kalender-month[data-month="08"] { left: 57.7%; top: 46%; }
+.kalender-month[data-month="09"] { left: 37.1%; top: 46.8%; }
+.kalender-month[data-month="10"] { left: 25.1%; top: 56.6%; }
+.kalender-month[data-month="11"] { left: 50.4%; top: 40.7%; }
+.kalender-month[data-month="12"] { left: 39.2%; top: 58.1%; }
+
+.kalender-month {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.2vw, 20px);
+  color: #BF5E3B;
+  pointer-events: auto;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), color 0.2s ease, font-size 0.2s ease;
+  z-index: 10;
+  padding: 0;
+  line-height: 1;
+}
+
+
+.kalender-month-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: clamp(60px, 7vw, 120px);
+  height: clamp(60px, 7vw, 120px);
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+  z-index: 0;
+}
+
+.kalender-month:hover .kalender-month-circle {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.kalender-month-label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.kalender-month-label.scale-in {
+  animation: label-scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes label-scale-in {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+
+.kalender-month:hover {
+  color: #BF5E3B;
+  font-size: clamp(16px, 2vw, 32px);
+}
+
+/* Scroll-Pfeil */
+.kalender-mehr-zone {
+  position: absolute;
+  bottom: 6vw;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+}
+
+.kalender-mehr-scroll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 1.5vw 3vw;
+  pointer-events: auto;
+}
+
+.kalender-mehr-pfeil {
+  display: block;
+  width: clamp(14px, 1.2vw, 24px);
+  height: auto;
+  filter: brightness(0) invert(1);
+  animation: arrow-bounce 1.8s ease-in-out infinite;
+}
+
+/* Wave transition */
+.kalender-wave {
+  position: absolute;
+  top: 78vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max(140vw, 245vh);
+  height: max(65vw, 115vh);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.kalender-wave svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.25));
+}
+
+.kalender-scroll-zone {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8vw;
+  padding: 0 0 4vw;
+  margin-top: calc(-22vh + 2vw);
+  position: relative;
+  z-index: 11;
+  padding-left: calc(clamp(7px, 0.6vw, 12px) + 12px);
+}
+
+.kalender-scroll-label {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(13px, 1.4vw, 22px);
+  color: #BF5E3B;
+  white-space: nowrap;
+  text-align: center;
+  margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.kalender-scroll-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.kalender-scroll-arrow img {
+  display: block;
+  width: clamp(14px, 1.2vw, 24px);
+  height: auto;
+  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  animation: arrow-bounce 1.8s ease-in-out infinite;
+}
+
+/* Workshops Bottom */
+.workshops-bottom {
+  position: relative;
+  background: #F7F5F2;
+  padding: 5vw 8vw 10vw;
+  position: relative;
+  z-index: 10;
+}
+
+/* Workshop List */
+.workshops-list {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 7vw;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.workshop-item {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2vw;
+  align-items: start;
+}
+
+/* Linke Spalte: Buchungsbox + Infobox, rechtsbündig */
+.workshop-book-col {
+  display: grid;
+  justify-items: end;
+  position: relative;
+}
+
+/* Mittlere Spalte: Kreise, zentriert = Seitenmitte */
+.workshop-circles-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6vw;
+}
+
+/* Rechte Spalte: Text, linksbündig */
+.workshop-title-col {
+  text-align: left;
+}
+
+.workshop-title {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(18px, 2vw, 36px);
+  color: #BF5E3B;
+  font-weight: normal;
+  margin: 0 0 0.8em;
+  line-height: 1.3;
+}
+
+.workshop-desc {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.4vw, 22px);
+  color: #77716B;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 28vw;
+}
+
+
+.workshop-num {
+  width: clamp(28px, 2.4vw, 42px);
+  height: clamp(28px, 2.4vw, 42px);
+  border-radius: 50%;
+  background: #BF5E3B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(13px, 1.3vw, 22px);
+  color: #F7F5F2;
+}
+
+.workshop-info-btn {
+  width: clamp(28px, 2.4vw, 42px);
+  height: clamp(28px, 2.4vw, 42px);
+  border-radius: 50%;
+  border: 1.5px solid #BF5E3B;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s ease;
+}
+
+.workshop-info-btn:hover {
+  background: #BF5E3B;
+}
+
+.workshop-info-btn:hover span {
+  color: #F7F5F2;
+}
+
+.workshop-info-btn span {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(13px, 1.3vw, 22px);
+  color: #BF5E3B;
+}
+
+/* Info Box — unter dem Buchen-Button, rechtsbündig */
+.workshop-info-box {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.6vw);
+  right: 0;
+  background: #F7F5F2;
+  border: 1.5px solid #BF5E3B;
+  border-radius: 1.2vw;
+  padding: 1.2vw 1.2vw;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: 1vw;
+  color: #BF5E3B;
+  line-height: 1.8;
+  white-space: normal;
+  z-index: 20;
+}
+
+.workshop-info-box.visible {
+  display: block;
+}
+
+.workshop-info-level {
+  display: block;
+  margin-bottom: 0.8em;
+}
+
+.workshop-book-btn {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: 1vw;
+  color: #BF5E3B;
+  border: 1.5px solid #BF5E3B;
+  border-radius: 999px;
+  height: clamp(28px, 2.4vw, 42px);
+  padding: 0 1.2vw;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.workshop-book-btn:hover {
+  background: #BF5E3B;
+  color: #F7F5F2;
+}
+
+.workshop-book-btn {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.workshop-book-btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pattern Footer */
+.workshops-pattern {
+  width: 100%;
+  overflow: hidden;
+  margin-top: -2vw;
+  line-height: 0;
+  position: relative;
+}
+
+.workshops-pattern img {
+  width: 70%;
+  display: block;
+  margin: 0 auto;
+  transform: translateY(15%);
+}
+
+.workshops-bubble-text {
+  position: absolute;
+  top: calc(20% + 10px);
+  left: 80%;
+  transform: translateX(calc(-50% - 15px));
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.4vw, 22px);
+  color: #BF5E3B;
+  text-align: center;
+  line-height: 1.6;
+  pointer-events: none;
+}
+
+/* Figuren */
+.workshops-figuren {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16vw;
+  pointer-events: none;
+}
+
+.workshops-figur-l {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.workshops-figur-r {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: auto;
+}
+
+/* ── Monats-Overlay ── */
+.monat-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.monat-overlay-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.monat-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: min(70vw, 70vh);
+  height: min(70vw, 70vh);
+  border-radius: 0;
+  clip-path: url(#blobClip);
+  background: #F7F5F2;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s ease;
+}
+
+.monat-overlay.closing {
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.35s cubic-bezier(0.55, 0, 1, 0.45);
+}
+
+.monat-overlay.open {
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.monat-overlay-name {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(32px, 6vw, 90px);
+  color: #BF5E3B;
+}
+
+.monat-overlay-close {
+  position: absolute;
+  top: 18%;
+  right: 18%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: clamp(24px, 2.5vw, 40px);
+}
+
+.monat-overlay-close img {
+  width: 100%;
+  height: auto;
+}
+
+.monat-overlay-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5vw;
+  width: 80%;
+}
+
+.monat-overlay-heading {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(18px, 2.5vw, 42px);
+  color: #BF5E3B;
+  text-align: center;
+}
+
+.monat-workshop-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vw;
+  width: 100%;
+}
+
+.monat-workshop-pill {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1.5px solid #BF5E3B;
+  border-radius: 999px;
+  overflow: hidden;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.4vw, 22px);
+  color: #BF5E3B;
+}
+
+.monat-pill-spots {
+  background: #BF5E3B;
+  color: #F7F5F2;
+  width: clamp(28px, 3vw, 50px);
+  height: clamp(28px, 3vw, 50px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: clamp(11px, 1.2vw, 20px);
+}
+
+.monat-pill-spots:empty,
+.monat-pill-spots[data-zero="true"] {
+  background: transparent;
+  border: 1.5px solid #BF5E3B;
+  color: #BF5E3B;
+}
+
+.monat-pill-name {
+  padding: 0 1.2vw;
+  flex: 1;
+  text-align: center;
+}
+
+.monat-overlay-spots {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.2vw, 20px);
+  color: #BF5E3B;
+  text-align: center;
+  line-height: 1.4;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* ── Overlay Terracotta State (Steps 3+4) ── */
+.monat-overlay.terracotta {
+  background: #BF5E3B;
+  transition: background 0.4s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.monat-overlay.terracotta .monat-overlay-heading,
+.monat-overlay.terracotta .monat-confirm-text,
+.monat-overlay.terracotta .monat-overlay-close img {
+  filter: brightness(0) invert(1);
+}
+
+.monat-confirm-text {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(14px, 1.6vw, 26px);
+  color: #F7F5F2;
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 5%;
+}
+
+.monat-action-btn {
+  background: none;
+  border: 2px solid #F7F5F2;
+  border-radius: 999px;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(14px, 1.4vw, 24px);
+  color: #F7F5F2;
+  padding: 0.6em 2em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.monat-action-btn:hover {
+  background: #F7F5F2;
+  color: #BF5E3B;
+}
+
+/* ── Formular ── */
+.monat-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8vw;
+  width: 80%;
+}
+
+.monat-input {
+  width: 100%;
+  background: #F7F5F2;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6em 1.2em;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.2vw, 20px);
+  color: #BF5E3B;
+  outline: none;
+}
+
+.monat-input::placeholder { color: #BF5E3B; opacity: 0.5; }
+
+.monat-anzahl-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6vw;
+  width: 100%;
+}
+
+.monat-anzahl-label {
+  flex: 1;
+  background: #F7F5F2;
+  border-radius: 999px;
+  padding: 0.6em 1.2em;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.2vw, 20px);
+  color: #BF5E3B;
+  opacity: 0.5;
+}
+
+.monat-anzahl-btn {
+  width: clamp(28px, 2.5vw, 42px);
+  height: clamp(28px, 2.5vw, 42px);
+  border-radius: 50%;
+  border: 2px solid #F7F5F2;
+  background: none;
+  color: #F7F5F2;
+  font-size: clamp(14px, 1.4vw, 22px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.monat-anzahl-btn:hover { background: #F7F5F2; color: #BF5E3B; }
+
+.monat-anzahl-num {
+  width: clamp(28px, 2.5vw, 42px);
+  height: clamp(28px, 2.5vw, 42px);
+  border-radius: 50%;
+  border: 2px solid #F7F5F2;
+  color: #F7F5F2;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.2vw, 20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* pill .empty = 0 Plätze */
+.monat-pill-spots.empty {
+  background: transparent;
+  border: 1.5px solid #BF5E3B;
+  color: #BF5E3B;
+}
+
+/* ── Monats-Highlight (nach Workshop-Buchungsklick) ── */
+.kalender-month.highlight::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(30px, 3.5vw, 60px);
+  height: clamp(30px, 3.5vw, 60px);
+  border-radius: 50%;
+  background: white;
+  pointer-events: none;
+  z-index: 0;
+  animation: highlight-ring 2s ease-in-out infinite;
+}
+
+@keyframes highlight-ring {
+  0%   { transform: translate(-50%, -50%) scale(0.8); filter: blur(0px); }
+  50%  { transform: translate(-50%, -50%) scale(1.2); filter: blur(2px); }
+  100% { transform: translate(-50%, -50%) scale(0.8); filter: blur(0px); }
+}
