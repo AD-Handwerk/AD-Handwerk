@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 4775.06 2034.84">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #caba9f;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #34363a;
+      }
+
+      .cls-4 {
+        isolation: isolate;
+      }
+
+      .cls-5 {
+        fill: url(#Unbenannter_Verlauf_2-5);
+      }
+
+      .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        mix-blend-mode: multiply;
+        opacity: .5;
+      }
+
+      .cls-6 {
+        fill: url(#Unbenannter_Verlauf_2-2);
+      }
+
+      .cls-7 {
+        fill: url(#Unbenannter_Verlauf_2-4);
+      }
+
+      .cls-8 {
+        fill: url(#Unbenannter_Verlauf_2-3);
+      }
+
+      .cls-9 {
+        fill: url(#Unbenannter_Verlauf_2);
+      }
+
+      .cls-3 {
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+    </style>
+    <linearGradient id="Unbenannter_Verlauf_2" data-name="Unbenannter Verlauf 2" x1="2374.34" y1="556.74" x2="2374.34" y2="620.15" gradientTransform="translate(4748.6869) scale(-1 1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fae91a" stop-opacity=".5"/>
+      <stop offset=".2" stop-color="#fae920" stop-opacity=".49"/>
+      <stop offset=".38" stop-color="#faeb33" stop-opacity=".44"/>
+      <stop offset=".55" stop-color="#fbee54" stop-opacity=".37"/>
+      <stop offset=".71" stop-color="#fcf382" stop-opacity=".27"/>
+      <stop offset=".86" stop-color="#fdf8bd" stop-opacity=".14"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Unbenannter_Verlauf_2-2" data-name="Unbenannter Verlauf 2" x1="2374.34" y1="187.17" x2="2374.34" y2="250.58" xlink:href="#Unbenannter_Verlauf_2"/>
+    <linearGradient id="Unbenannter_Verlauf_2-3" data-name="Unbenannter Verlauf 2" y1="956.37" y2="1019.79" xlink:href="#Unbenannter_Verlauf_2"/>
+    <linearGradient id="Unbenannter_Verlauf_2-4" data-name="Unbenannter Verlauf 2" y1="1247.88" y2="1311.29" xlink:href="#Unbenannter_Verlauf_2"/>
+    <linearGradient id="Unbenannter_Verlauf_2-5" data-name="Unbenannter Verlauf 2" y1="1734.99" y2="1798.41" xlink:href="#Unbenannter_Verlauf_2"/>
+  </defs>
+  <g class="cls-4">
+    <g id="Ebene_1" data-name="Ebene 1">
+      <rect class="cls-1" x="924.65" y="540.16" width="2917.32" height="28.59" transform="translate(4766.6257 1108.8979) rotate(-180)"/>
+      <polygon class="cls-9" points="828.95 624.96 3919.74 624.96 3841.97 570.22 924.65 570.22 828.95 624.96"/>
+      <rect class="cls-1" x="924.65" y="170.59" width="2917.32" height="28.59" transform="translate(4766.6257 369.7583) rotate(-180)"/>
+      <polygon class="cls-6" points="828.95 255.39 3919.74 255.39 3841.97 200.65 924.65 200.65 828.95 255.39"/>
+      <rect class="cls-1" x="924.65" y="939.79" width="2917.32" height="28.59" transform="translate(4766.6257 1908.1634) rotate(-180)"/>
+      <polygon class="cls-8" points="828.95 1024.59 3919.74 1024.59 3841.97 969.85 924.65 969.85 828.95 1024.59"/>
+      <rect class="cls-1" x="924.65" y="1231.29" width="2917.32" height="28.59" transform="translate(4766.6257 2491.1709) rotate(-180)"/>
+      <polygon class="cls-7" points="828.95 1316.09 3919.74 1316.09 3841.97 1261.36 924.65 1261.36 828.95 1316.09"/>
+      <rect class="cls-1" x="924.65" y="1718.41" width="2917.32" height="28.59" transform="translate(4766.6257 3465.4073) rotate(-180)"/>
+      <polygon class="cls-5" points="828.95 1803.21 3919.74 1803.21 3841.97 1748.47 924.65 1748.47 828.95 1803.21"/>
+      <rect class="cls-2" x="1832.8" y="14.33" width="11.04" height="2020.51" transform="translate(3676.6523 2049.1755) rotate(-180)"/>
+      <rect class="cls-2" x="1509.26" y="14.33" width="11.04" height="2020.51" transform="translate(3029.5623 2049.1755) rotate(-180)"/>
+      <rect class="cls-2" x="2412.5" y="14.33" width="11.04" height="2020.51" transform="translate(4836.0495 2049.1755) rotate(-180)"/>
+      <rect class="cls-2" x="2408.71" y="0" width="18.8" height="28.67" transform="translate(4836.2142 28.6675) rotate(-180)"/>
+      <rect class="cls-2" x="2997.14" y="14.33" width="11.04" height="2020.51" transform="translate(6005.3341 2049.1755) rotate(-180)"/>
+      <rect class="cls-2" x="2993.35" y="0" width="18.8" height="28.67" transform="translate(6005.4987 28.6675) rotate(-180)"/>
+      <rect class="cls-2" x="921.94" y="14.33" width="11.04" height="2020.51" transform="translate(1854.9292 2049.1755) rotate(-180)"/>
+      <rect class="cls-2" x="918.15" y="0" width="18.8" height="28.67" transform="translate(1855.0938 28.6675) rotate(-180)"/>
+      <rect class="cls-2" x="3836.45" y="14.33" width="11.04" height="2020.51" transform="translate(7683.9477 2049.1755) rotate(-180)"/>
+      <rect class="cls-2" x="3832.66" y="0" width="18.8" height="28.67" transform="translate(7684.1123 28.6675) rotate(-180)"/>
+      <circle class="cls-3" cx="1838.33" cy="579.21" r="10.47"/>
+      <circle class="cls-3" cx="1514.78" cy="579.21" r="10.47"/>
+      <circle class="cls-3" cx="927.46" cy="579.21" r="10.47"/>
+      <circle class="cls-3" cx="2418.02" cy="579.21" r="10.47"/>
+      <circle class="cls-3" cx="3002.67" cy="579.21" r="10.47"/>
+      <circle class="cls-3" cx="3841.97" cy="579.21" r="10.47"/>
+      <rect class="cls-2" x="3522.37" y="14.33" width="11.04" height="2020.51" transform="translate(7055.7838 2049.1755) rotate(-180)"/>
+      <rect class="cls-2" x="3518.58" y="0" width="18.8" height="28.67" transform="translate(7055.9484 28.6675) rotate(-180)"/>
+      <rect class="cls-2" x="1828.93" y="0" width="18.8" height="28.67" transform="translate(3676.6523 28.6675) rotate(-180)"/>
+      <rect class="cls-2" x="1505.38" y="0" width="18.8" height="28.67" transform="translate(3029.5623 28.6675) rotate(-180)"/>
+      <circle class="cls-3" cx="3527.89" cy="579.21" r="10.47"/>
+      <circle class="cls-3" cx="1838.33" cy="209.64" r="10.47"/>
+      <circle class="cls-3" cx="1514.78" cy="209.64" r="10.47"/>
+      <circle class="cls-3" cx="927.46" cy="209.64" r="10.47"/>
+      <circle class="cls-3" cx="2418.02" cy="209.64" r="10.47"/>
+      <circle class="cls-3" cx="3002.67" cy="209.64" r="10.47"/>
+      <circle class="cls-3" cx="3841.97" cy="209.64" r="10.47"/>
+      <circle class="cls-3" cx="3527.89" cy="209.64" r="10.47"/>
+      <circle class="cls-3" cx="1838.33" cy="978.84" r="10.47"/>
+      <circle class="cls-3" cx="1514.78" cy="978.84" r="10.47"/>
+      <circle class="cls-3" cx="927.46" cy="978.84" r="10.47"/>
+      <circle class="cls-3" cx="2418.02" cy="978.84" r="10.47"/>
+      <circle class="cls-3" cx="3002.67" cy="978.84" r="10.47"/>
+      <circle class="cls-3" cx="3841.97" cy="978.84" r="10.47"/>
+      <circle class="cls-3" cx="3527.89" cy="978.84" r="10.47"/>
+      <circle class="cls-3" cx="1838.33" cy="1270.34" r="10.47"/>
+      <circle class="cls-3" cx="1514.78" cy="1270.34" r="10.47"/>
+      <circle class="cls-3" cx="927.46" cy="1270.34" r="10.47"/>
+      <circle class="cls-3" cx="2418.02" cy="1270.34" r="10.47"/>
+      <circle class="cls-3" cx="3002.67" cy="1270.34" r="10.47"/>
+      <circle class="cls-3" cx="3841.97" cy="1270.34" r="10.47"/>
+      <circle class="cls-3" cx="3527.89" cy="1270.34" r="10.47"/>
+      <circle class="cls-3" cx="1838.33" cy="1757.46" r="10.47"/>
+      <circle class="cls-3" cx="1514.78" cy="1757.46" r="10.47"/>
+      <circle class="cls-3" cx="927.46" cy="1757.46" r="10.47"/>
+      <circle class="cls-3" cx="2418.02" cy="1757.46" r="10.47"/>
+      <circle class="cls-3" cx="3002.67" cy="1757.46" r="10.47"/>
+      <circle class="cls-3" cx="3841.97" cy="1757.46" r="10.47"/>
+      <circle class="cls-3" cx="3527.89" cy="1757.46" r="10.47"/>
+    </g>
+  </g>
+</svg>
