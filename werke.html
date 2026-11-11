@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Werke – AD Handwerk</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/ueber-uns.css" />
+  <link rel="stylesheet" href="css/werke.css" />
+  <script src="js/seitenuebergang.js"></script>
+</head>
+<body>
+
+  <div class="page-back-wrap">
+    <a href="index.html" class="page-back-btn">
+      <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" />
+      <img src="media/ad_button_back_pfeil.svg" alt="Zurück" />
+    </a>
+    <span class="page-back-label">Zurück</span>
+  </div>
+  <span class="page-nav-label">(Werke)</span>
+
+  <!-- ── Burger Menu Button ── -->
+  <button class="ueber-burger-btn" id="ueberBurgerBtn">
+    <span class="ueber-burger-label">Suchst du was?</span>
+    <img src="media/ad_logo-ohne-schrift.png" alt="Menü" />
+  </button>
+
+  <!-- ── Nav Overlay ── -->
+  <div class="ueber-nav-backdrop" id="ueberNavBackdrop"></div>
+  <div id="ueber-nav-overlay">
+    <div class="ueber-nav-btns" data-dot-x="0.4">
+      <a href="index.html" class="person-close ueber-nav-home">
+        <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" />
+        <img src="media/ad_button_home.svg" alt="Home" />
+      </a>
+      <button class="person-close" id="ueberNavClose">
+        <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+      </button>
+    </div>
+    <img src="media/ad_grafik_burger-menu_portrait.svg" alt="" class="ueber-nav-grafik" />
+    <a href="ueber-uns.html" class="ueber-nav-item menu-item-page" data-dot-x="0.498" style="top:8vh"><img class="menu-hover-circle" style="width:8.5vw!important;height:8.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Über Uns</span></a>
+    <a href="werke.html" class="ueber-nav-item menu-item-page" data-dot-x="0.474" style="top:17.8vh"><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Werke</span></a>
+    <a href="404.html" class="ueber-nav-item" data-dot-x="0.56" style="top:31.3vh"><span class="menu-text">Raku<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
+    <a href="404.html" class="ueber-nav-item" data-dot-x="0.51" style="top:69.3vh"><span class="menu-text">Märkte<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:7.5vw!important;height:7.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
+    <a href="workshops.html" class="ueber-nav-item menu-item-page" data-dot-x="0.43" style="top:85vh"><img class="menu-hover-circle" style="width:9.5vw!important;height:9.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Workshops</span></a>
+  </div>
+
+  <!-- ── Punkte Hintergrund ── -->
+
+  <!-- ── Regal ── -->
+  <div class="werke-scroll-prompt-wrap">
+    <div class="werke-wave" aria-hidden="true">
+      <svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+        <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+      </svg>
+    </div>
+    <a href="#" class="scroll-prompt" id="werkeScrollPrompt">
+      <span class="scroll-prompt-text">Scrolle nach unten für weitere Werke!</span>
+      <img src="media/ad_burger-menu-feil-grafik.svg" alt="" class="scroll-prompt-arrow" />
+    </a>
+  </div>
+
+  <div class="regal-wrap">
+
+    <!-- Positionen: --x = Mitte des Fachs, --b = Brettoberkante (von unten), --h = Höhe, jeweils in % des Regalabschnitts -->
+    <div class="regal-section" data-reihe="1">
+      <img src="media/ad_grafik_werke_regal_mittelteil.svg" alt="" class="regal-svg" />
+      <div class="regal-produkte">
+        <button type="button" class="regal-produkt" style="--x:25.57%;--b:73.36%;--h:13.02%" data-produkt="kuerbis-punkte" aria-label="Keramik-Kürbis mit Punkten – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_kuerbis-punkte.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_kuerbis-punkte.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:44.57%;--b:73.36%;--h:15.23%" data-produkt="wichtel" aria-label="Keramik-Wichtel mit Zipfelmütze und Stern – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_wichtel.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_wichtel.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:68.38%;--b:73.36%;--h:9.34%" data-produkt="pusteblume-klein" aria-label="Kleine Keramikkugel mit Pusteblumen-Motiv – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_pusteblume-klein.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_pusteblume-klein.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:25.57%;--b:53.72%;--h:11.30%" data-produkt="schale-blumen" aria-label="Keramikschale mit Blumenmuster – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_schale-blumen.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_schale-blumen.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:44.57%;--b:53.72%;--h:16.46%" data-produkt="vase-graeser" aria-label="Rissglasierte Vase mit Gräsern – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_vase-graeser.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_vase-graeser.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:77.16%;--b:53.72%;--h:16.95%" data-produkt="laterne-hoch" aria-label="Hohe Keramiklaterne mit Henkel – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_laterne-hoch.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_laterne-hoch.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="regal-section" data-reihe="2">
+      <img src="media/ad_grafik_werke_regal_mittelteil.svg" alt="" class="regal-svg" />
+      <div class="regal-produkte">
+        <button type="button" class="regal-produkt" style="--x:25.57%;--b:73.36%;--h:16.22%" data-produkt="laterne-zwiebel" aria-label="Keramiklaterne mit Lochmuster und Henkel – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_laterne-zwiebel.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_laterne-zwiebel.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:44.57%;--b:73.36%;--h:15.73%" data-produkt="schneemann" aria-label="Keramik-Schneemann mit Schal und Hut – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_schneemann.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_schneemann.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:68.38%;--b:73.36%;--h:11.80%" data-produkt="kuerbis-rund" aria-label="Runder Keramik-Kürbis mit Punkten – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_kuerbis-rund.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_kuerbis-rund.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:56.76%;--b:53.72%;--h:14.74%" data-produkt="pusteblume-gross" aria-label="Große Keramikkugel mit Pusteblumen-Motiv – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_pusteblume-gross.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_pusteblume-gross.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="regal-section regal-ende">
+      <img src="media/ad_grafik_werke_regal_ende.svg" alt="" class="regal-svg" />
+    </div>
+
+  </div>
+
+  <!-- Blob-Form (wie auf der Workshop-Seite) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <clipPath id="blobClip" clipPathUnits="objectBoundingBox">
+        <path d="M0 0.50218 C0 0.13974 0.24873 0 0.44162 0 C0.84772 0 1 0.20960 1 0.50218 C0.99531 0.88028 0.70558 1 0.44162 1 C0.27411 1 0 0.91703 0 0.50218 Z"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- ── Produkt-Overlay: Schritt 1 Illustration + Infos, Schritt 2 echte Fotos im Blob ── -->
+  <div class="produkt-backdrop" id="produktBackdrop"></div>
+  <div class="produkt-overlay terracotta" id="produktOverlay" role="dialog" aria-modal="true" aria-labelledby="produktTitel">
+    <button type="button" class="produkt-close" id="produktClose" aria-label="Schließen">
+      <img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img src="media/ad_button_close_kreuz.svg" alt="" />
+      <span class="produkt-hover-label produkt-hover-label-rechts">Schließen</span>
+    </button>
+    <!-- Zurück zur Illustration: nur im Foto-Schritt, links neben dem X -->
+    <button type="button" class="produkt-zurueck" id="produktZurueck" aria-label="Zurück zur Illustration" hidden>
+      <img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img src="media/ad_button_back_pfeil.svg" alt="" />
+      <span class="produkt-hover-label produkt-hover-label-links">Zurück</span>
+    </button>
+
+    <!-- Schritt 1: Illustration + Infos -->
+    <div class="produkt-step" id="produktStep1">
+      <div class="produkt-illu-wrap">
+        <picture class="produkt-illu">
+          <source id="produktIlluAvif" type="image/avif" />
+          <img id="produktIllu" alt="" draggable="false" />
+        </picture>
+      </div>
+      <button type="button" class="produkt-btn produkt-btn-fotos" id="produktFotosBtn">Mehr Fotos</button>
+      <h2 class="produkt-titel" id="produktTitel"></h2>
+      <p class="produkt-jahr" id="produktJahr"></p>
+      <ul class="produkt-liste" id="produktListe"></ul>
+      <p class="produkt-masse" id="produktMasse"></p>
+    </div>
+
+    <!-- Schritt 2: echte Fotos (immer im Blob beschnitten) -->
+    <div class="produkt-step" id="produktStep2" hidden>
+      <div class="produkt-foto-stage">
+        <button type="button" class="produkt-pfeil" id="produktPrev" aria-label="Voriges Foto"><img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img src="media/ad_button_back_pfeil.svg" alt="" /></button>
+        <div class="produkt-foto-wrap">
+        <img class="produkt-foto" id="produktFoto" alt="" hidden />
+        <div class="produkt-foto-platzhalter" id="produktFotoPlatzhalter">
+          <img id="produktFotoIllu" alt="" draggable="false" />
+          <span>Fotos folgen</span>
+        </div>
+        </div>
+        <button type="button" class="produkt-pfeil produkt-pfeil-next" id="produktNext" aria-label="Nächstes Foto"><img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img src="media/ad_button_back_pfeil.svg" alt="" /></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Impressum ── -->
+  <div id="impressum">
+    <div class="impressum-content">
+      <picture>
+        <source media="(max-width: 768px)" srcset="media/ad_impressum-menu-background_beige.svg" />
+        <img class="impressum-bg" src="media/ad_impressum-menu-background_ohne-filter.svg" alt="" />
+      </picture>
+      <button class="impressum-toggle" id="impressumToggle">
+        <img src="media/ad_button_more_punkte.svg" alt="Mehr" />
+      </button>
+
+      <!-- Stufe 1: Nav-Links -->
+      <div class="impressum-inner impressum-nav-view">
+        <button class="impressum-close" id="impressumClose"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        <nav class="impressum-nav">
+          <a href="#" id="openKontakt">Kontakt</a>
+          <span class="impressum-sep">|</span>
+          <a href="#" id="openImpressum">Impressum</a>
+          <span class="impressum-sep">|</span>
+          <a href="#" id="openRechtliches">Rechtliches</a>
+        </nav>
+      </div>
+
+      <!-- Stufe 2: Vollständiges Impressum -->
+      <div class="impressum-inner impressum-full-view" id="impressumFull">
+        <div class="impressum-header">
+          <button class="impressum-back" id="impressumBack2"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose2"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        </div>
+        <h3 class="impressum-heading">Impressum</h3>
+        <div class="impressum-body">
+          <p>AD-Handwerk</p>
+          <p>Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe – Keramikerzeugung)</p>
+          <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: [+43 664 590 432]<br>E-Mail: [info@ad-handwerk.at]<br>Website: [www.ad-handwerk.at]</p>
+          <p>Mitglied der Wirtschaftskammer [Oberösterreich]<br>Gewerbebehörde: [Bezirkshauptmannschaft oder Magistrat Gmunden]<br>Verantwortlich für den Inhalt: Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
+          <p>Grafik &amp; Design: Moritz Holzleitner<br>Umsetzung &amp; Web-Interface: Moritz Holzleitner<br>Schrift: AD-Unghia von Moritz Holzleitner</p>
+          <p>© AD-Handwerk. Alle Rechte vorbehalten. Download, Weitergabe und Vervielfältigung der Inhalte, Grafiken und Schriften nur mit ausdrücklicher schriftlicher Genehmigung.</p>
+        </div>
+      </div>
+
+      <!-- Stufe 4: Kontakt -->
+      <div class="impressum-inner impressum-kontakt-view">
+        <div class="impressum-header">
+          <button class="impressum-back" id="impressumBack4"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose4"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        </div>
+        <h3 class="impressum-heading">Kontakt</h3>
+        <div class="impressum-body">
+          <p>Du hast ein Auge auf unsere Objekte geworfen, möchtest etwas kaufen oder ein persönliches Unikat in Auftrag geben?</p>
+          <p>Melde dich gerne per E-Mail oder Telefon bei uns. Wenn du persönlich vorbeikommen möchtest, vereinbare bitte vorab einen Termin mit uns. Alle nötigen Kontakt- und Standortinfos findest du direkt hier drunter.</p>
+          <a href="mailto:info@ad-handwerk.at" class="kontakt-btn">info@ad-handwerk.at</a>
+          <a href="tel:+436645904320" class="kontakt-btn">+43 664 590 432</a>
+          <a href="https://maps.google.com/?q=Baumgarten+6,+4644+Scharnstein" target="_blank" class="kontakt-btn">Baumgarten 6, 4644 Scharnstein</a>
+          <p>Wir freuen uns von dir zu hören.</p>
+        </div>
+      </div>
+
+      <!-- Stufe 3: Rechtliches -->
+      <div class="impressum-inner impressum-rechtliches-view" id="impressumRechtliches">
+        <div class="impressum-header">
+          <button class="impressum-back" id="impressumBack3"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose3"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        </div>
+        <h3 class="impressum-heading">Rechtliches</h3>
+        <div class="impressum-body">
+          <p><strong>1. Allgemeines</strong><br>Der Schutz deiner persönlichen Daten ist uns ein Anliegen. Wir verarbeiten deine Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TKG 2003).</p>
+          <p><strong>2. Kontakt mit uns</strong><br>Wenn du per E-Mail Kontakt mit uns aufnimmst, werden deine Daten zwecks Bearbeitung der Anfrage bei uns gespeichert, aber nicht weitergegeben.</p>
+          <p><strong>3. Zugriffsdaten / Hosting</strong><br>Beim Besuch dieser Website werden automatisch Informationen wie IP-Adresse, Uhrzeit oder Browsertyp vom Hostinganbieter gespeichert. Diese Daten dienen der technischen Sicherheit.</p>
+          <p><strong>4. Keine Cookies, kein Tracking</strong><br>Unsere Website verwendet derzeit keine Cookies und keine externen Analyse-Tools.</p>
+          <p><strong>5. Deine Rechte</strong><br>Dir stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu. Bei Anliegen wende dich bitte an: info@ad-handwerk.at</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/ueber-uns.js" defer></script>
+  <script src="js/produkte.js" defer></script>
+  <script src="js/werke.js" defer></script>
+</body>
+</html>

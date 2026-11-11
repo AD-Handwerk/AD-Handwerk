@@ -1,0 +1,759 @@
+/* ── AD Handwerk – Werke ── */
+html,
+body {
+  background: #F7F5F2 !important;
+}
+
+/* Impressum-Verhalten (Bounce, Öffnen) kommt aus style.css */
+
+body {
+  background: #F7F5F2 !important;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  background-image: url('../media/ad_point-background_4K-transparent.png');
+  background-size: 50%;
+  background-repeat: repeat;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Beige Welle (wie auf den anderen Seiten) am unteren Bildschirmrand mit dem Scroll-Hinweis darauf.
+   Beides blendet aus, sobald man scrollt. */
+.werke-scroll-prompt-wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 13vw;
+  z-index: 20;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.werke-wave {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(-3vw 0 0 0);
+}
+
+.werke-wave svg {
+  display: block;
+  width: 140%;
+  margin-left: -20%;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
+}
+
+.werke-scroll-prompt-wrap .scroll-prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5vw;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.werke-scroll-prompt-wrap.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.werke-scroll-prompt-wrap.hidden .scroll-prompt { pointer-events: none; }
+
+/* Pfostenspitzen schließen auf der Zeile von "(Werke)" ab (Label: fixed, top 2vw) */
+.regal-wrap {
+  width: 100%;
+  margin-top: 2.4vw;
+}
+
+.regal-section {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  font-size: 0;
+}
+
+.regal-section + .regal-section {
+  margin-top: 0;
+}
+
+.regal-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+/* Produkte über dem SVG positioniert */
+.regal-produkte {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Position/Größe kommen aus dem HTML (--x Fachmitte, --b Brettoberkante von unten, --h Höhe, in % des Abschnitts) */
+.regal-produkt {
+  position: absolute;
+  left: var(--x);
+  bottom: var(--b);
+  height: var(--h);
+  transform: translateX(-50%);
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.45s cubic-bezier(0.34, 1.8, 0.64, 1);
+}
+
+.regal-produkt picture {
+  display: block;
+  height: 100%;
+}
+
+.regal-produkt picture img {
+  display: block;
+  height: 100%;
+  width: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Blob hinter dem Stück (nur bei Hover/Fokus sichtbar) */
+/* Immer gleich groß (Größe wie beim Schneemann, ≈13 % der Abschnittshöhe), Unterkante knapp über dem Brett,
+   wächst von dort nach oben – so läuft er nie über die Regalböden. Abschnittsbreite = 100vw. */
+.produkt-blob {
+  position: absolute;
+  left: 50%;
+  bottom: 0.26vw;
+  width: 5.55vw;
+  height: 5.55vw;
+  transform: translateX(-50%) scale(0);
+  transform-origin: 50% 100%;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+}
+
+/* Titel als kleine Blase über dem Stück */
+.produkt-label {
+  position: absolute;
+  top: calc(100% + 0.3vw);
+  left: 50%;
+  transform: translate(-50%, 0);
+  padding: 0.4em 1.1em;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--terra);
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(12px, 1.1vw, 18px);
+  line-height: 1.3;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.regal-produkt:focus-visible { outline: none; }
+
+@media (hover: hover) {
+  .regal-produkt:hover,
+  .regal-produkt:focus-visible {
+    transform: translateX(-50%) translateY(-6px);
+  }
+
+  .regal-produkt:hover .produkt-blob,
+  .regal-produkt:focus-visible .produkt-blob {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+
+  /* Stück hüpft 6px hoch, das Schild bleibt auf dem Brett */
+  .regal-produkt:hover .produkt-label,
+  .regal-produkt:focus-visible .produkt-label {
+    opacity: 1;
+    transform: translate(-50%, 6px);
+  }
+}
+
+/* ── Produkt-Overlay (Blob wie bei den Workshops) ── */
+.produkt-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.produkt-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.produkt-overlay {
+  --w: min(92vw, 92vh);
+  --h: var(--w);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: var(--w);
+  height: var(--h);
+  clip-path: url(#blobClip);
+  background: #F7F5F2;
+  z-index: 301;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4% 0 8%; /* unten Platz für das X in der Mitte */
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.34, 1.35, 0.64, 1), background 0.4s ease;
+}
+
+.produkt-overlay.open {
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.produkt-overlay.closing {
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.35s cubic-bezier(0.55, 0, 1, 0.45);
+}
+
+.produkt-overlay.terracotta { background: var(--terra); }
+
+.produkt-close {
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.produkt-close img:not(.back-hover-circle) {
+  position: relative;
+  z-index: 1;
+  height: 16px;
+  width: auto;
+  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+}
+
+.produkt-close:hover .back-hover-circle {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.produkt-overlay.terracotta .produkt-close img:not(.back-hover-circle) {
+  filter: brightness(0) invert(1);
+}
+
+.produkt-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 62%;
+  gap: 0;
+  color: var(--terra);
+  font-family: 'AD-Unghia', sans-serif;
+}
+
+.produkt-step[hidden] { display: none; }
+
+/* Objekt sitzt in einem sanft getönten Blob (wie im Foto-Schritt, dort hell auf Terracotta) */
+.produkt-illu-wrap {
+  width: calc(var(--h) * 0.4);
+  height: calc(var(--h) * 0.4);
+  clip-path: url(#blobClip);
+  background: rgba(191, 94, 59, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.produkt-illu { display: contents; }
+
+.produkt-illu img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 66%;
+  max-height: 66%;
+}
+
+.produkt-titel {
+  margin: calc(var(--h) * 0.07) 0 0; /* Abstand zum Button darüber (Entwurf) */
+  font-size: clamp(24px, calc(var(--h) * 0.05), 46px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+/* Jahr direkt unter dem Titel */
+.produkt-jahr {
+  margin: calc(var(--h) * 0.012) 0 0;
+  font-size: clamp(15px, calc(var(--h) * 0.024), 21px);
+  line-height: 1.2;
+  color: #77716b;
+}
+
+/* Angaben in einer Zeile mit Trennstrichen (wie Kontakt | Impressum | Rechtliches), Abstand zum Jahr */
+.produkt-liste {
+  list-style: none;
+  margin: calc(var(--h) * 0.07) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: clamp(15px, calc(var(--h) * 0.022), 20px);
+  line-height: 1.45;
+  color: #77716b;
+}
+
+.produkt-liste li + li::before {
+  content: '|';
+  margin: 0 0.7em;
+  opacity: 0.6;
+}
+
+.produkt-masse {
+  margin: 0;
+  font-size: clamp(15px, calc(var(--h) * 0.022), 20px);
+  line-height: 1.45;
+  color: #77716b;
+}
+
+/* Button mit Abstand zur Aufzählung */
+.produkt-btn-fotos { margin-top: calc(var(--h) * 0.06); }
+
+.produkt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 1.5em;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(15px, calc(var(--h) * 0.021), 20px);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.produkt-btn:hover { background: var(--terra); color: #F7F5F2; }
+
+/* Ausgegraut, solange es keine Fotos gibt */
+.produkt-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.produkt-btn-leise { border-color: transparent; }
+.produkt-btn-leise:hover { border-color: transparent; background: none; text-decoration: underline; color: inherit; }
+
+.produkt-overlay.terracotta .produkt-step { color: #F7F5F2; }
+.produkt-overlay.terracotta .produkt-btn:hover { background: #F7F5F2; color: var(--terra); }
+.produkt-overlay.terracotta .produkt-btn-leise:hover { background: none; color: #F7F5F2; }
+
+/* Schritt 2: Foto im Blob */
+.produkt-foto-wrap {
+  position: relative;
+  width: calc(var(--h) * 0.5);
+  aspect-ratio: 1;
+  clip-path: url(#blobClip);
+  background: rgba(247, 245, 242, 0.14);
+}
+
+.produkt-foto {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.produkt-foto[hidden] { display: none; }
+
+.produkt-foto-platzhalter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  font-size: clamp(15px, calc(var(--h) * 0.022), 20px);
+}
+
+.produkt-foto-platzhalter[hidden] { display: none; }
+
+.produkt-foto-platzhalter img {
+  height: 60%;
+  width: auto;
+  opacity: 0.55;
+}
+
+.produkt-foto-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.produkt-foto-nav[hidden] { display: none; }
+
+.produkt-pfeil {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.produkt-pfeil img {
+  height: 16px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.produkt-pfeil-next img { transform: rotate(180deg); }
+
+.produkt-dots { display: flex; gap: 8px; }
+
+.produkt-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #F7F5F2;
+  opacity: 0.4;
+}
+
+.produkt-dots i.aktiv { opacity: 1; }
+
+.produkt-titel-klein {
+  margin: 0;
+  font-size: clamp(20px, calc(var(--h) * 0.032), 30px);
+  line-height: 1.15;
+}
+
+.produkt-aktionen {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 10px;
+}
+
+@media (max-width: 768px) {
+  .produkt-overlay {
+    --w: 94vw;
+    --h: min(88vh, 150vw);
+  }
+
+  .produkt-step { width: 72%; }
+  .produkt-illu-wrap { width: calc(var(--h) * 0.34); height: calc(var(--h) * 0.34); }
+  .produkt-btn-fotos { margin-top: calc(var(--h) * 0.03); }
+  .produkt-titel { margin-top: calc(var(--h) * 0.04); }
+  .produkt-liste { margin-top: calc(var(--h) * 0.05); }
+  .produkt-close { bottom: 5%; }
+  .produkt-label { display: none; }
+}
+
+/* ── Schritt 2 (Foto): großes Foto im Blob mit hellem Rand, X unten mit Zurück-Pfeil daneben ── */
+.produkt-overlay.schritt2 { padding-bottom: 14%; }   /* Platz für X + Zurück unten */
+
+.produkt-foto-wrap {
+  width: calc(var(--h) * 0.58);
+  height: calc(var(--h) * 0.58);
+  aspect-ratio: auto;
+}
+
+/* Foto selbst: etwas kleiner als der helle Blob dahinter, so bleibt ein Rand */
+.produkt-foto {
+  position: absolute;
+  inset: 7%;
+  width: 86%;
+  height: 86%;
+}
+
+.produkt-foto-nav { margin-top: calc(var(--h) * 0.015); gap: 4px; }
+.produkt-titel-klein { margin: calc(var(--h) * 0.02) 0 0; }
+.produkt-btn-anfragen { margin-top: calc(var(--h) * 0.02); }
+
+/* Zurück-Pfeil links neben dem X (X bleibt in beiden Schritten an derselben Stelle) */
+.produkt-zurueck {
+  position: absolute;
+  bottom: 7%;
+  left: calc(50% - 44px - 16px);
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.produkt-zurueck[hidden] { display: none; }
+
+.produkt-zurueck img:not(.back-hover-circle) {
+  position: relative;
+  z-index: 1;
+  height: 16px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.produkt-zurueck:hover .back-hover-circle {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* ── Pop-up immer Terracotta: auch der erste Schritt (Illustration + Infos) ── */
+.produkt-illu-wrap { background: rgba(247, 245, 242, 0.14); }   /* heller Blob hinter dem Objekt wie im Foto-Schritt */
+
+.produkt-overlay.terracotta .produkt-jahr,
+.produkt-overlay.terracotta .produkt-liste,
+.produkt-overlay.terracotta .produkt-masse { color: #F7F5F2; }   /* volles Beige statt Taupe: besserer Kontrast auf Terracotta */
+
+/* ── Foto-Schritt nach der PS-Skizze: größeres Foto, echter Blob, Hover der Symbole ── */
+.produkt-overlay.schritt2 { padding: 3% 0 14%; }
+
+/* Foto-Bereich: bis 66 % der Overlay-Höhe, am Handy höchstens 80 % der Breite (sonst läuft er aus dem Blob) */
+.produkt-foto-wrap {
+  --foto: min(calc(var(--h) * 0.66), calc(var(--w) * 0.8));
+  width: var(--foto);
+  height: var(--foto);
+}
+
+/* Das Foto selbst ist ein Blob (bisher nur der Rahmen dahinter), der helle Blob bleibt als Rand sichtbar */
+.produkt-foto {
+  inset: 5%;
+  width: 90%;
+  height: 90%;
+  clip-path: url(#blobClip);
+}
+
+.produkt-foto-nav { margin-top: calc(var(--h) * 0.012); }
+.produkt-titel-klein {
+  margin-top: calc(var(--h) * 0.012);
+  font-size: clamp(22px, calc(var(--h) * 0.032), 30px);
+}
+.produkt-btn-anfragen { margin-top: calc(var(--h) * 0.012); }
+
+/* Hover auf dem Terracotta-Pop-up: heller Kreis dahinter, Symbol wird terracotta (wie im Impressum) */
+.produkt-overlay.terracotta .produkt-close:hover img:not(.back-hover-circle),
+.produkt-zurueck:hover img:not(.back-hover-circle) {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+}
+
+/* Foto-Schritt: Pfeile/Punkte und Titel weiter unten (mehr Luft unter dem Foto, weniger Leere über dem X) */
+.produkt-overlay.schritt2 { padding: 3% 0 12%; }
+.produkt-foto-nav { margin-top: calc(var(--h) * 0.05); }
+.produkt-titel-klein { margin-top: calc(var(--h) * 0.028); }
+
+/* Foto größer (72 % der Overlay-Höhe); Abstände darunter etwas gestrafft, damit alles ins Overlay passt */
+.produkt-overlay.schritt2 { padding: 2% 0 12%; }
+.produkt-foto-wrap { --foto: min(calc(var(--h) * 0.72), calc(var(--w) * 0.84)); }
+.produkt-foto-nav { margin-top: calc(var(--h) * 0.035); }
+.produkt-titel-klein { margin-top: calc(var(--h) * 0.02); }
+
+/* Foto nochmals größer: Pop-up am Desktop etwas größer (96 %), Foto 75 % der Höhe,
+   X/Zurück ein Stück tiefer, damit mehr Platz nach oben bleibt */
+@media (min-width: 769px) {
+  .produkt-overlay { --w: min(96vw, 96vh); }
+}
+
+.produkt-close,
+.produkt-zurueck { bottom: 4.5%; }
+
+.produkt-overlay.schritt2 { padding: 2% 0 9%; }
+.produkt-foto-wrap { --foto: min(calc(var(--h) * 0.75), calc(var(--w) * 0.86)); }
+.produkt-foto-nav { margin-top: calc(var(--h) * 0.03); }
+.produkt-titel-klein { margin-top: calc(var(--h) * 0.018); }
+
+/* Foto-Schritt: Pfeile/Punkte und Titel weiter nach unten – Inhalt sitzt unten bündig über X/Zurück,
+   mehr Abstand zwischen Foto und Pfeilen */
+.produkt-overlay.schritt2 { align-items: flex-end; padding: 0 0 9%; }
+.produkt-foto-nav { margin-top: calc(var(--h) * 0.055); }
+.produkt-titel-klein { margin-top: calc(var(--h) * 0.03); }
+
+/* Foto nicht mehr oben angeschnitten: Inhalt wieder mittig im Blob, Foto 70 % der Höhe, Abstände darunter moderat */
+.produkt-overlay.schritt2 { align-items: center; padding: 4% 0 10%; }
+.produkt-foto-wrap { --foto: min(calc(var(--h) * 0.70), calc(var(--w) * 0.84)); }
+.produkt-foto-nav { margin-top: calc(var(--h) * 0.03); }
+.produkt-titel-klein { margin-top: calc(var(--h) * 0.015); }
+
+/* Foto-Schritt: Zurück-Pfeil und X als Paar exakt mittig unter dem Titel (Mitten je 19px neben der Mittellinie) */
+.produkt-overlay.schritt2 .produkt-close { left: calc(50% + 19px); }
+.produkt-zurueck { left: calc(50% - 19px - 22px); }
+
+/* Vertikal zentriert: oben 4,5 % Rand, unten Platz für X/Zurück (4,5 % + 44px) → Inhalt samt X-Zeile sitzt mittig im Blob */
+.produkt-overlay,
+.produkt-overlay.schritt2 { padding: 4.5% 0 12%; }
+
+/* Foto-Schritt ohne Titel: Foto dafür größer (75 % der Höhe) */
+.produkt-foto-wrap { --foto: min(calc(var(--h) * 0.75), calc(var(--w) * 0.86)); }
+
+/* Ring/Blob hinter Foto und Objekt: schwarze Füllung mit Transparenz (statt hell) */
+.produkt-foto-wrap,
+.produkt-illu-wrap { background: rgba(0, 0, 0, 0.10); }
+
+/* ── Foto-Schritt: Pfeile links und rechts neben dem Foto, keine Punkte ── */
+.produkt-foto-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.produkt-pfeil { position: relative; }
+.produkt-pfeil.aus { visibility: hidden; }   /* bei nur einem Foto: Platz bleibt, Pfeil unsichtbar */
+
+/* Symbol über dem Hover-Kreis; Drehung nur am Symbol, nicht am Kreis */
+.produkt-pfeil img:not(.back-hover-circle) {
+  position: relative;
+  z-index: 1;
+  height: 16px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.produkt-pfeil-next img:not(.back-hover-circle) { transform: rotate(180deg); }
+
+/* gleicher Hover wie bei allen Pfeilen: heller Kreis, Symbol wird terracotta */
+.produkt-pfeil:hover .back-hover-circle {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.produkt-pfeil:hover img:not(.back-hover-circle) {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+}
+
+/* Foto kann jetzt größer werden (keine Pfeilzeile mehr darunter); Breite inkl. Pfeile bleibt im Blob */
+.produkt-foto-wrap { --foto: min(calc(var(--h) * 0.78), calc(var(--w) * 0.72)); }
+
+@media (max-width: 768px) {
+  .produkt-foto-wrap { --foto: min(calc(var(--h) * 0.78), calc(var(--w) * 0.66)); }
+  .produkt-pfeil { width: 36px; }
+}
+
+/* Foto nochmals größer: bis 80 % der Pop-up-Breite (Pfeile daneben), Höhe bis 82 % */
+.produkt-foto-wrap { --foto: min(calc(var(--h) * 0.82), calc(var(--w) * 0.80)); }
+
+@media (max-width: 768px) {
+  .produkt-foto-wrap { --foto: min(calc(var(--h) * 0.78), calc(var(--w) * 0.68)); }
+}
+
+/* Rechter Pfeil: nur das Symbol wird gedreht, der Hover-Kreis behält seine eigene Grundstellung */
+.produkt-pfeil-next img.back-hover-circle { transform: translate(-50%, -50%) scale(0); }
+.produkt-pfeil-next:hover img.back-hover-circle { transform: translate(-50%, -50%) scale(1); }
+
+/* ── Pfeile auf dem Foto (links/rechts im Bild) mit Schatten, damit klar ist, dass sie zum Foto gehören ── */
+.produkt-foto-stage { position: relative; display: block; }
+
+.produkt-pfeil {
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.produkt-pfeil-next { left: auto; right: 6%; }
+
+.produkt-pfeil img:not(.back-hover-circle) {
+  height: 22px;
+  filter: brightness(0) invert(1) drop-shadow(0 1px 5px rgba(0, 0, 0, 0.6));
+}
+
+/* Hover: heller Kreis dahinter, Symbol terracotta (Schatten dann nicht mehr nötig) */
+.produkt-pfeil:hover img:not(.back-hover-circle) {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+}
+
+/* Foto darf breiter werden, die Pfeile brauchen keinen eigenen Platz mehr daneben */
+.produkt-foto-wrap { --foto: min(calc(var(--h) * 0.84), calc(var(--w) * 0.88)); }
+
+@media (max-width: 768px) {
+  .produkt-foto-wrap { --foto: min(calc(var(--h) * 0.78), calc(var(--w) * 0.84)); }
+}
+
+/* ── Hover-Beschriftung wie bei deinen anderen Buttons: Text gleitet seitlich neben dem Symbol ein ── */
+.produkt-close,
+.produkt-zurueck { overflow: visible; }
+
+.produkt-hover-label {
+  position: absolute;
+  top: 50%;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(14px, 1.1vw, 18px);
+  line-height: 1;
+  color: #F7F5F2;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.produkt-hover-label-rechts { left: calc(100% + 4px); transform: translate(-8px, -50%); }   /* Schließen: rechts vom X */
+.produkt-hover-label-links  { right: calc(100% + 4px); transform: translate(8px, -50%); }   /* Zurück: links vom Pfeil */
+
+@media (hover: hover) {
+  .produkt-close:hover .produkt-hover-label,
+  .produkt-zurueck:hover .produkt-hover-label {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+/* Foto etwas tiefer: oben mehr Rand (6 %), unten dichter über dem X (10 %), Foto 83 % der Höhe */
+.produkt-overlay.schritt2 { padding: 6% 0 10%; }
+.produkt-foto-wrap { --foto: min(calc(var(--h) * 0.83), calc(var(--w) * 0.88)); }
+
+@media (max-width: 768px) {
+  .produkt-foto-wrap { --foto: min(calc(var(--h) * 0.78), calc(var(--w) * 0.84)); }
+}

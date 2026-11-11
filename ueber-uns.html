@@ -6,6 +6,7 @@
   <title>Über Uns – AD-Handwerk</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/ueber-uns.css" />
+  <script src="js/seitenuebergang.js"></script>
 </head>
 <body>
 
@@ -14,9 +15,13 @@
     <img src="media/ad_grafik_ueber-uns_background-grafik.svg" alt="" class="ueber-bg-grafik" />
   </div>
 
-  <a href="index.html" class="page-back-btn">
-    <img src="media/ad_button_back_pfeil.svg" alt="Zurück" />
-  </a>
+  <div class="page-back-wrap">
+    <a href="index.html" class="page-back-btn">
+      <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" />
+      <img src="media/ad_button_back_pfeil.svg" alt="Zurück" />
+    </a>
+    <span class="page-back-label">Zurück</span>
+  </div>
   <span class="page-nav-label">(Über Uns)</span>
 
   <!-- ── Burger Menu Button ── -->
@@ -30,15 +35,16 @@
   <div id="ueber-nav-overlay">
     <div class="ueber-nav-btns" data-dot-x="0.4">
       <a href="index.html" class="person-close ueber-nav-home">
+        <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" />
         <img src="media/ad_button_home.svg" alt="Home" />
       </a>
       <button class="person-close" id="ueberNavClose">
-        <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+        <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
       </button>
     </div>
     <img src="media/ad_grafik_burger-menu_portrait.svg" alt="" class="ueber-nav-grafik" />
     <a href="ueber-uns.html" class="ueber-nav-item menu-item-page" data-dot-x="0.498" style="top:8vh"><img class="menu-hover-circle" style="width:8.5vw!important;height:8.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Über Uns</span></a>
-    <a href="404.html" class="ueber-nav-item" data-dot-x="0.474" style="top:17.8vh"><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Werke</span></a>
+    <a href="werke.html" class="ueber-nav-item menu-item-page" data-dot-x="0.474" style="top:17.8vh"><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Werke</span></a>
     <a href="404.html" class="ueber-nav-item" data-dot-x="0.56" style="top:31.3vh"><span class="menu-text">Raku<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
     <a href="404.html" class="ueber-nav-item" data-dot-x="0.51" style="top:69.3vh"><span class="menu-text">Märkte<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:7.5vw!important;height:7.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
     <a href="workshops.html" class="ueber-nav-item menu-item-page" data-dot-x="0.43" style="top:85vh"><img class="menu-hover-circle" style="width:9.5vw!important;height:9.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Workshops</span></a>
@@ -68,9 +74,12 @@
 
   <!-- ── Übergang ── -->
   <div class="ueber-mehr-zone">
-    <a href="#ueber-content" class="ueber-mehr-scroll">
-      <img src="media/ad_burger-menu-feil-grafik.svg" alt="" class="ueber-mehr-pfeil" />
-      <span class="ueber-mehr-sub">Du willst mehr über uns lesen?</span>
+    <a href="#ueber-content" class="ueber-mehr-scroll scroll-prompt">
+      <span class="scroll-prompt-text">Du willst mehr über uns lesen?</span>
+      <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;">
+        <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" />
+        <img src="media/ad_burger-menu-feil-grafik.svg" alt="" class="scroll-prompt-arrow" style="position:relative;z-index:1;margin-left:18px;" />
+      </span>
     </a>
   </div>
 
@@ -101,7 +110,7 @@
           <span class="panel-nav-label">(Fred)</span>
           <div class="person-close-wrap person-close-wrap-left">
             <button class="person-close person-close-left" data-close>
-              <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+              <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
             </button>
             <span class="person-close-label">Schließen</span>
           </div>
@@ -123,7 +132,7 @@
           <span class="panel-nav-label panel-nav-right">(Doris)</span>
           <div class="person-close-wrap person-close-wrap-right">
             <button class="person-close person-close-right" data-close>
-              <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+              <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
             </button>
             <span class="person-close-label">Schließen</span>
           </div>
@@ -142,13 +151,17 @@
   <!-- ── Impressum ── -->
   <div id="impressum">
     <div class="impressum-content">
-      <img class="impressum-bg" src="media/ad_impressum-menu-background.svg" alt="" />
+      <picture>
+        <source media="(max-width: 768px)" srcset="media/ad_impressum-menu-background_beige.svg" />
+        <img class="impressum-bg" src="media/ad_impressum-menu-background_ohne-filter.svg" alt="" />
+      </picture>
       <button class="impressum-toggle" id="impressumToggle">
         <img src="media/ad_button_more_punkte.svg" alt="Mehr" />
       </button>
 
+      <!-- Stufe 1: Nav-Links -->
       <div class="impressum-inner impressum-nav-view">
-        <button class="impressum-close" id="impressumClose"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        <button class="impressum-close" id="impressumClose"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         <nav class="impressum-nav">
           <a href="#" id="openKontakt">Kontakt</a>
           <span class="impressum-sep">|</span>
@@ -158,26 +171,28 @@
         </nav>
       </div>
 
+      <!-- Stufe 2: Vollständiges Impressum -->
       <div class="impressum-inner impressum-full-view" id="impressumFull">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack2"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose2"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack2"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose2"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Impressum</h3>
         <div class="impressum-body">
           <p>AD-Handwerk</p>
-          <p>Doris Holzleitner &amp; Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe – Keramikerzeugung)</p>
+          <p>Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe – Keramikerzeugung)</p>
           <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: [+43 664 590 432]<br>E-Mail: [info@ad-handwerk.at]<br>Website: [www.ad-handwerk.at]</p>
-          <p>Mitglied der Wirtschaftskammer [Oberösterreich]<br>Gewerbebehörde: [Bezirkshauptmannschaft oder Magistrat Gmunden]<br>Verantwortlich für den Inhalt: Doris Holzleitner &amp; Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
+          <p>Mitglied der Wirtschaftskammer [Oberösterreich]<br>Gewerbebehörde: [Bezirkshauptmannschaft oder Magistrat Gmunden]<br>Verantwortlich für den Inhalt: Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
           <p>Grafik &amp; Design: Moritz Holzleitner<br>Umsetzung &amp; Web-Interface: Moritz Holzleitner<br>Schrift: AD-Unghia von Moritz Holzleitner</p>
           <p>© AD-Handwerk. Alle Rechte vorbehalten. Download, Weitergabe und Vervielfältigung der Inhalte, Grafiken und Schriften nur mit ausdrücklicher schriftlicher Genehmigung.</p>
         </div>
       </div>
 
+      <!-- Stufe 4: Kontakt -->
       <div class="impressum-inner impressum-kontakt-view">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack4"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose4"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack4"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose4"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Kontakt</h3>
         <div class="impressum-body">
@@ -190,10 +205,11 @@
         </div>
       </div>
 
+      <!-- Stufe 3: Rechtliches -->
       <div class="impressum-inner impressum-rechtliches-view" id="impressumRechtliches">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack3"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose3"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack3"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose3"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Rechtliches</h3>
         <div class="impressum-body">

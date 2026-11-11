@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/ueber-uns.css" />
   <link rel="stylesheet" href="css/workshops.css" />
+  <script src="js/seitenuebergang.js"></script>
 </head>
 <body>
 
@@ -21,15 +22,16 @@
   <div id="ueber-nav-overlay">
     <div class="ueber-nav-btns" data-dot-x="0.4">
       <a href="index.html" class="person-close ueber-nav-home">
+        <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" />
         <img src="media/ad_button_home.svg" alt="Home" />
       </a>
       <button class="person-close" id="ueberNavClose">
-        <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+        <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
       </button>
     </div>
     <img src="media/ad_grafik_burger-menu_portrait.svg" alt="" class="ueber-nav-grafik" />
     <a href="ueber-uns.html" class="ueber-nav-item menu-item-page" data-dot-x="0.498" style="top:8vh"><img class="menu-hover-circle" style="width:8.5vw!important;height:8.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Über Uns</span></a>
-    <a href="404.html" class="ueber-nav-item" data-dot-x="0.474" style="top:17.8vh"><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Werke</span></a>
+    <a href="werke.html" class="ueber-nav-item menu-item-page" data-dot-x="0.474" style="top:17.8vh"><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Werke</span></a>
     <a href="404.html" class="ueber-nav-item" data-dot-x="0.56" style="top:31.3vh"><span class="menu-text">Raku<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
     <a href="404.html" class="ueber-nav-item" data-dot-x="0.51" style="top:69.3vh"><span class="menu-text">Märkte<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:7.5vw!important;height:7.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
     <a href="workshops.html" class="ueber-nav-item menu-item-page" data-dot-x="0.43" style="top:85vh"><img class="menu-hover-circle" style="width:9.5vw!important;height:9.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Workshops</span></a>
@@ -59,9 +61,13 @@
     </div>
 
     <header class="kalender-header">
-      <button class="kalender-back" onclick="history.back()">
-        <img src="media/ad_button_back_pfeil.svg" alt="Zurück" />
-      </button>
+      <div class="kalender-back-wrap">
+        <button class="kalender-back" onclick="history.back()">
+          <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" />
+          <img src="media/ad_button_back_pfeil.svg" alt="Zurück" />
+        </button>
+        <span class="kalender-back-label">Zurück</span>
+      </div>
       <div class="kalender-year-wrap" id="kalenderYearWrap">
         <div class="kalender-year-panel" id="kalenderYearPanel">
           <div class="kalender-year-top">
@@ -70,7 +76,7 @@
             <img src="media/ad_burger-menu-feil-grafik.svg" alt="" class="kalender-year-arrow" id="kalenderYearArrow" />
           </div>
           <button class="kalender-year-close" id="kalenderYearClose">
-            <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+            <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
           </button>
           <div class="kalender-year-list" id="kalenderYearList">
             <span class="kalender-year-item" data-year="2025">2025</span>
@@ -103,7 +109,7 @@
   <div class="monat-overlay-backdrop" id="monatBackdrop"></div>
   <div class="monat-overlay" id="monatOverlay">
     <button class="monat-overlay-close" id="monatClose">
-      <img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
+      <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" />
     </button>
 
     <!-- Step 1: Workshops des Monats -->
@@ -153,9 +159,12 @@
       <span class="kalender-label">(Workshops)</span>
     </header>
     <div class="kalender-scroll-zone">
-      <a href="#kalender" class="kalender-scroll-label">Hier alle Workshops im Überblick!</a>
-      <a href="#workshopsList" class="kalender-scroll-arrow">
-        <img src="media/ad_burger-menu-feil-grafik.svg" alt="" />
+      <a href="#workshopsList" class="kalender-scroll-arrow scroll-prompt">
+        <span class="scroll-prompt-text">Hier alle Workshops im Überblick!</span>
+        <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;">
+          <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" />
+          <img src="media/ad_burger-menu-feil-grafik.svg" alt="" class="scroll-prompt-arrow" style="position:relative;z-index:1;margin-left:18px;" />
+        </span>
       </a>
     </div>
 
@@ -275,21 +284,28 @@
 
   <!-- Pattern Footer -->
   <div class="workshops-pattern">
-    <img src="media/ad_grafik_pattern_terracotta.svg" alt="" />
+    <div class="workshops-pattern-inner">
+      <img src="media/ad_grafik_pattern_terracotta.svg" alt="" />
     <div class="workshops-bubble-text">
       Juhu ... gemeinsam<br>Ton erleben!
+    </div>
     </div>
   </div>
 
   <!-- Impressum -->
   <div id="impressum">
     <div class="impressum-content">
-      <img class="impressum-bg" src="media/ad_impressum-menu-background.svg" alt="" />
+      <picture>
+        <source media="(max-width: 768px)" srcset="media/ad_impressum-menu-background_beige.svg" />
+        <img class="impressum-bg" src="media/ad_impressum-menu-background_ohne-filter.svg" alt="" />
+      </picture>
       <button class="impressum-toggle" id="impressumToggle">
         <img src="media/ad_button_more_punkte.svg" alt="Mehr" />
       </button>
+
+      <!-- Stufe 1: Nav-Links -->
       <div class="impressum-inner impressum-nav-view">
-        <button class="impressum-close" id="impressumClose"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        <button class="impressum-close" id="impressumClose"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         <nav class="impressum-nav">
           <a href="#" id="openKontakt">Kontakt</a>
           <span class="impressum-sep">|</span>
@@ -298,42 +314,54 @@
           <a href="#" id="openRechtliches">Rechtliches</a>
         </nav>
       </div>
+
+      <!-- Stufe 2: Vollständiges Impressum -->
       <div class="impressum-inner impressum-full-view" id="impressumFull">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack2"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose2"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack2"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose2"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Impressum</h3>
         <div class="impressum-body">
           <p>AD-Handwerk</p>
-          <p>Doris Holzleitner &amp; Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe – Keramikerzeugung)</p>
-          <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: [+43 664 590 432]<br>E-Mail: [info@ad-handwerk.at]</p>
-          <p>Grafik &amp; Design: Moritz Holzleitner<br>Umsetzung &amp; Web-Interface: Moritz Holzleitner</p>
-          <p>© AD-Handwerk. Alle Rechte vorbehalten.</p>
+          <p>Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe – Keramikerzeugung)</p>
+          <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: [+43 664 590 432]<br>E-Mail: [info@ad-handwerk.at]<br>Website: [www.ad-handwerk.at]</p>
+          <p>Mitglied der Wirtschaftskammer [Oberösterreich]<br>Gewerbebehörde: [Bezirkshauptmannschaft oder Magistrat Gmunden]<br>Verantwortlich für den Inhalt: Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
+          <p>Grafik &amp; Design: Moritz Holzleitner<br>Umsetzung &amp; Web-Interface: Moritz Holzleitner<br>Schrift: AD-Unghia von Moritz Holzleitner</p>
+          <p>© AD-Handwerk. Alle Rechte vorbehalten. Download, Weitergabe und Vervielfältigung der Inhalte, Grafiken und Schriften nur mit ausdrücklicher schriftlicher Genehmigung.</p>
         </div>
       </div>
+
+      <!-- Stufe 4: Kontakt -->
       <div class="impressum-inner impressum-kontakt-view">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack4"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose4"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack4"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose4"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Kontakt</h3>
         <div class="impressum-body">
-          <p>Du hast ein Auge auf unsere Objekte geworfen?</p>
+          <p>Du hast ein Auge auf unsere Objekte geworfen, möchtest etwas kaufen oder ein persönliches Unikat in Auftrag geben?</p>
+          <p>Melde dich gerne per E-Mail oder Telefon bei uns. Wenn du persönlich vorbeikommen möchtest, vereinbare bitte vorab einen Termin mit uns. Alle nötigen Kontakt- und Standortinfos findest du direkt hier drunter.</p>
           <a href="mailto:info@ad-handwerk.at" class="kontakt-btn">info@ad-handwerk.at</a>
           <a href="tel:+436645904320" class="kontakt-btn">+43 664 590 432</a>
           <a href="https://maps.google.com/?q=Baumgarten+6,+4644+Scharnstein" target="_blank" class="kontakt-btn">Baumgarten 6, 4644 Scharnstein</a>
+          <p>Wir freuen uns von dir zu hören.</p>
         </div>
       </div>
+
+      <!-- Stufe 3: Rechtliches -->
       <div class="impressum-inner impressum-rechtliches-view" id="impressumRechtliches">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack3"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose3"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack3"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose3"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Rechtliches</h3>
         <div class="impressum-body">
-          <p><strong>1. Allgemeines</strong><br>Der Schutz deiner persönlichen Daten ist uns ein Anliegen.</p>
-          <p><strong>2. Kontakt mit uns</strong><br>Wenn du per E-Mail Kontakt mit uns aufnimmst, werden deine Daten zwecks Bearbeitung der Anfrage gespeichert, aber nicht weitergegeben.</p>
+          <p><strong>1. Allgemeines</strong><br>Der Schutz deiner persönlichen Daten ist uns ein Anliegen. Wir verarbeiten deine Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TKG 2003).</p>
+          <p><strong>2. Kontakt mit uns</strong><br>Wenn du per E-Mail Kontakt mit uns aufnimmst, werden deine Daten zwecks Bearbeitung der Anfrage bei uns gespeichert, aber nicht weitergegeben.</p>
+          <p><strong>3. Zugriffsdaten / Hosting</strong><br>Beim Besuch dieser Website werden automatisch Informationen wie IP-Adresse, Uhrzeit oder Browsertyp vom Hostinganbieter gespeichert. Diese Daten dienen der technischen Sicherheit.</p>
+          <p><strong>4. Keine Cookies, kein Tracking</strong><br>Unsere Website verwendet derzeit keine Cookies und keine externen Analyse-Tools.</p>
+          <p><strong>5. Deine Rechte</strong><br>Dir stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu. Bei Anliegen wende dich bitte an: info@ad-handwerk.at</p>
         </div>
       </div>
     </div>

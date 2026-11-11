@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AD-Handwerk</title>
   <link rel="stylesheet" href="css/style.css" />
+  <script src="js/seitenuebergang.js"></script>
 </head>
 <body>
 
@@ -37,7 +38,7 @@
 
     <!-- ── Popup Blase ── -->
     <div class="home-popup" id="homePopup">
-      <button class="home-popup-close" id="homePopupClose"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+      <button class="home-popup-close" id="homePopupClose"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
       <a href="404.html" class="home-popup-link">
         <img src="media/ad_popup_blase_beige.svg" alt="" class="home-popup-blase" />
         <span class="home-popup-text">Juhu … nächster Markt!<br><span class="home-popup-date">Dezember 2026</span></span>
@@ -66,12 +67,15 @@
 
     <!-- Burger Menu Grafik auf Terracotta -->
     <div class="start-menu-grafik">
-      <img src="media/ad_burger-menu-grafik.svg" alt="" />
-      <a href="#" class="menu-item" style="left:12.7%;top:22.5%"><img class="menu-hover-circle" style="width:7vw!important;height:7vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Raku</a>
-      <a href="#" class="menu-item" style="left:20.9%;top:58.5%"><img class="menu-hover-circle" style="width:9vw!important;height:9vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Märkte</a>
-      <a href="ueber-uns.html" class="menu-item menu-item-page" style="left:8.2%;top:97.3%"><img class="menu-hover-circle" style="width:10vw!important;height:10vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Über Uns</a>
-      <a href="#" class="menu-item" style="left:84.7%;top:39.1%"><img class="menu-hover-circle" style="width:8.5vw!important;height:8.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Archiv</a>
-      <a href="workshops.html" class="menu-item menu-item-page" style="left:72.8%;top:97.3%"><img class="menu-hover-circle" style="width:11vw!important;height:11vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Workshops</a>
+      <picture>
+        <source media="(max-width: 768px)" srcset="media/ad_mobile_burger-menu-grafik.svg" />
+        <img src="media/ad_burger-menu-grafik.svg" alt="" />
+      </picture>
+      <a href="#" class="menu-item mi-raku" style="left:12.7%;top:22.5%"><img class="menu-hover-circle" style="width:7vw!important;height:7vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Raku</a>
+      <a href="#" class="menu-item mi-maerkte" style="left:20.9%;top:58.5%"><img class="menu-hover-circle" style="width:9vw!important;height:9vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Märkte</a>
+      <a href="ueber-uns.html" class="menu-item menu-item-page mi-ueber" style="left:8.2%;top:97.3%"><img class="menu-hover-circle" style="width:10vw!important;height:10vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Über Uns</a>
+      <a href="werke.html" class="menu-item menu-item-page mi-werke" style="left:84.7%;top:39.1%"><img class="menu-hover-circle" style="width:8.5vw!important;height:8.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Werke</a>
+      <a href="workshops.html" class="menu-item menu-item-page mi-workshops" style="left:72.8%;top:97.3%"><img class="menu-hover-circle" style="width:11vw!important;height:11vw!important" src="media/ad_burger-menu-hover-circle.svg" alt=""/><span class="menu-dot"></span>Workshops</a>
     </div>
 
     <!-- Logo + Text unter Grafik -->
@@ -91,7 +95,7 @@
 
     <!-- Storyboard Inhalt -->
     <div class="start-storyboard">
-      <h2 class="storyboard-title">Eine Geschichte Über AD-Handwerk</h2>
+      <h2 class="storyboard-title">Eine Geschichte<br class="mobile-br"> Über AD-Handwerk</h2>
       <div class="storyboard-columns">
         <div class="storyboard-col">
           <p>Eines Morgens, als die Sonne gerade so die Werkstatt durch die Fenster küsste (und der Kaffee schon längst kalt geworden war), stand Alfred mit einem unförmigen Klumpen Ton vor einem riesigen Holzblock. „Na, was wird das wohl?“, fragte er sich und starrte nachdenklich auf das Tonstück, das eher an eine missglückte Tasse erinnerte als an etwas, das man als Kunst bezeichnen könnte.</p>
@@ -104,6 +108,7 @@
         </div>
       </div>
       <p class="storyboard-signature">Doris &amp; Fred</p>
+      <p class="storyboard-fussnote"><span class="fussnote-stern">*</span> Wusstest du, dass das A für Alfred und das D für Doris steht? Haha, jetzt weißt du’s – danke, dass du so weit nach unten gescrollt hast. AD-Handwerk ist ein gemeinsames Handwerk aus uns zwei. Wenn du dir das Logo genauer ansiehst, erkennst du das große A und das große D, unsere Initialen, aber auch zwei Gesichter, die zu einer Marke vereint sind.</p>
     </div>
 
     <!-- Beige Fläche -->
@@ -116,14 +121,17 @@
 
   <div id="impressum">
     <div class="impressum-content">
-      <img class="impressum-bg" src="media/ad_impressum-menu-background.svg" alt="" />
+      <picture>
+        <source media="(max-width: 768px)" srcset="media/ad_impressum-menu-background_beige.svg" />
+        <img class="impressum-bg" src="media/ad_impressum-menu-background_ohne-filter.svg" alt="" />
+      </picture>
       <button class="impressum-toggle" id="impressumToggle">
         <img src="media/ad_button_more_punkte.svg" alt="Mehr" />
       </button>
 
       <!-- Stufe 1: Nav-Links -->
       <div class="impressum-inner impressum-nav-view">
-        <button class="impressum-close" id="impressumClose"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+        <button class="impressum-close" id="impressumClose"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         <nav class="impressum-nav">
           <a href="#" id="openKontakt">Kontakt</a>
           <span class="impressum-sep">|</span>
@@ -136,15 +144,15 @@
       <!-- Stufe 2: Vollständiges Impressum -->
       <div class="impressum-inner impressum-full-view" id="impressumFull">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack2"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose2"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack2"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose2"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Impressum</h3>
         <div class="impressum-body">
           <p>AD-Handwerk</p>
-          <p>Doris Holzleitner &amp; Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe – Keramikerzeugung)</p>
+          <p>Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe – Keramikerzeugung)</p>
           <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: [+43 664 590 432]<br>E-Mail: [info@ad-handwerk.at]<br>Website: [www.ad-handwerk.at]</p>
-          <p>Mitglied der Wirtschaftskammer [Oberösterreich]<br>Gewerbebehörde: [Bezirkshauptmannschaft oder Magistrat Gmunden]<br>Verantwortlich für den Inhalt: Doris Holzleitner &amp; Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
+          <p>Mitglied der Wirtschaftskammer [Oberösterreich]<br>Gewerbebehörde: [Bezirkshauptmannschaft oder Magistrat Gmunden]<br>Verantwortlich für den Inhalt: Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
           <p>Grafik &amp; Design: Moritz Holzleitner<br>Umsetzung &amp; Web-Interface: Moritz Holzleitner<br>Schrift: AD-Unghia von Moritz Holzleitner</p>
           <p>© AD-Handwerk. Alle Rechte vorbehalten. Download, Weitergabe und Vervielfältigung der Inhalte, Grafiken und Schriften nur mit ausdrücklicher schriftlicher Genehmigung.</p>
         </div>
@@ -153,8 +161,8 @@
       <!-- Stufe 4: Kontakt -->
       <div class="impressum-inner impressum-kontakt-view">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack4"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose4"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack4"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose4"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Kontakt</h3>
         <div class="impressum-body">
@@ -170,8 +178,8 @@
       <!-- Stufe 3: Rechtliches -->
       <div class="impressum-inner impressum-rechtliches-view" id="impressumRechtliches">
         <div class="impressum-header">
-          <button class="impressum-back" id="impressumBack3"><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
-          <button class="impressum-close" id="impressumClose3"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+          <button class="impressum-back" id="impressumBack3"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="Zurück" /></button>
+          <button class="impressum-close" id="impressumClose3"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
         </div>
         <h3 class="impressum-heading">Rechtliches</h3>
         <div class="impressum-body">
@@ -188,7 +196,7 @@
   <!-- ── 404 Overlay ── -->
   <div id="not-found-overlay">
     <div class="not-found-close-wrap">
-      <button id="notFoundClose"><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+      <button id="notFoundClose"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
       <span class="not-found-close-label">Schließen</span>
     </div>
     <span class="not-found-nav-label">(404)</span>
