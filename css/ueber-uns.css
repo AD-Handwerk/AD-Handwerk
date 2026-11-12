@@ -606,7 +606,7 @@ body.lights-out .lampen-schein {
 .panel-nav-label {
   position: absolute;
   top: 2vw;
-  left: 2vw;
+  right: 2vw;   /* Fred und Doris beide oben rechts, wie (Über Uns) und (Werke) */
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.4vw;
   color: #F7F5F2;
@@ -683,7 +683,7 @@ body.lights-out .lampen-schein {
 }
 
 .person-close:hover {
-  background: var(--beige);
+  background: none;   /* nur der Kreis mit Bounce, keine zweite Fläche darunter */
   animation: pop-close 0.3s ease;
 }
 
@@ -709,14 +709,14 @@ body.lights-out .lampen-schein {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-55%, -50%);
+  transform: translate(-50%, -50%);   /* mittig (vorher -55 %) */
   text-align: center;
   width: 38vw;
   z-index: 5;
 }
 
 .panel-content-right {
-  transform: translate(-45%, -50%);
+  transform: translate(-50%, -50%);   /* mittig (vorher -45 %) */
 }
 
 .panel-heading {
@@ -772,3 +772,119 @@ body.lights-out .lampen-schein {
   width: 100%;
   height: auto;
 }
+
+/* ── Person-Overlay: ein Schließen-Button unten mittig (statt je einer links und rechts) ── */
+.person-close-wrap-bottom {
+  top: auto;
+  bottom: 3vw;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+/* ── Pfeil neben dem X: bei Fred nach rechts (zu Doris), bei Doris nach links (zu Fred) ── */
+.person-close-wrap-bottom { gap: 0.2vw; }   /* X und Pfeil näher zusammen (vorher 1.2vw) */
+.person-pfeil img:not(.back-hover-circle) {
+  width: auto;
+  height: clamp(10px, 0.8vw, 16px);   /* gleiche Höhe wie das X */
+}
+.person-pfeil-weiter img:not(.back-hover-circle) { transform: rotate(180deg); }
+/* der nicht benötigte Pfeil fällt ganz weg: die sichtbare Gruppe (X + Pfeil) steht mittig unter dem Text */
+#person-overlay[data-panel="fred"]  .person-pfeil-zurueck,
+#person-overlay[data-panel="doris"] .person-pfeil-weiter {
+  display: none;
+}
+
+/* Hover-Kreis soll um den jeweiligen Button liegen (X bzw. Pfeil), nicht in der Mitte des Bereichs */
+.person-close-wrap-bottom .person-close { position: relative; }
+
+/* ── Beschriftungen neben den Buttons (bei Hover) ──
+   Fred:  [Schließen] X  >  [Zu Doris]      Doris: [Zu Fred]  <  X [Schließen] */
+.person-btn-label {
+  position: absolute;
+  top: 50%;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: 1vw;
+  color: #F7F5F2;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.person-close:hover .person-btn-label { opacity: 1; }
+
+/* Schließen: bei Fred links vom X, bei Doris rechts vom X */
+#person-overlay[data-panel="fred"] .person-close-x .person-btn-label {
+  right: calc(100% + 1vw);
+  transform: translate(8px, -50%);
+}
+#person-overlay[data-panel="doris"] .person-close-x .person-btn-label {
+  left: calc(100% + 1vw);
+  transform: translate(-8px, -50%);
+}
+/* Zu Doris: rechts neben dem Pfeil; Zu Fred: links neben dem Pfeil */
+.person-pfeil-weiter .person-btn-label {
+  left: calc(100% + 1vw);
+  transform: translate(-8px, -50%);
+}
+.person-pfeil-zurueck .person-btn-label {
+  right: calc(100% + 1vw);
+  transform: translate(8px, -50%);
+}
+.person-close:hover .person-btn-label { transform: translate(0, -50%); }
+
+/* ── Hinweis auf dem Handy (nur bis die Seite für mobile Geräte angepasst ist) ── */
+.mobil-hinweis {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(30, 20, 15, 0.55);
+}
+.mobil-hinweis[hidden] { display: none; }
+.mobil-hinweis-karte {
+  width: 100%;
+  max-width: 340px;
+  padding: 28px 24px 24px;
+  border-radius: 24px;
+  background: #F7F5F2;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+.mobil-hinweis-karte h2 {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #BF5E3B;
+  margin-bottom: 12px;
+}
+.mobil-hinweis-karte p {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  color: #77716B;
+  margin-bottom: 22px;
+}
+.mobil-hinweis-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 10px;
+  border: 1.5px solid #BF5E3B;
+  border-radius: 999px;
+  background: #BF5E3B;
+  color: #F7F5F2;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: 17px;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobil-hinweis-btn-hell { background: transparent; color: #BF5E3B; }
+@media (min-width: 769px) { .mobil-hinweis { display: none !important; } }

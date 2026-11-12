@@ -769,7 +769,7 @@ body {
 }
 
 .impressum-back:hover {
-  background: var(--beige);
+  background: none;   /* nur der Kreis mit Bounce, keine zweite Fläche darunter */
   animation: pop 0.3s ease;
 }
 
@@ -1744,4 +1744,97 @@ button:active { opacity: 0.65; }
 @keyframes vt-blob-open {
   from { --vt-s: 0px; }
   to   { --vt-s: max(260vw, 260vh); }
+}
+
+/* ── Noch nicht verfügbare Menüpunkte: ausgegraut, nicht klickbar ── */
+.menu-item.menu-item-aus,
+.ueber-nav-item.menu-item-aus {
+  opacity: 0.35 !important;
+  pointer-events: none !important;
+  cursor: default;
+}
+
+/* Handy: Das Impressum-Hintergrundbild ist höher als der Fußbereich. Der Überstand wurde nur
+   optisch abgeschnitten, machte die Seite aber ca. 270 px zu lang (leerer Bereich unten). */
+@media (max-width: 768px) {
+  .impressum-bg {
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+}
+
+/* Überschriften in den Ecken öffnen das Burger-Menü */
+.label-menue {
+  pointer-events: auto !important;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.label-menue:hover { opacity: 0.65; }
+.label-menue:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 4px; }
+
+/* ── Impressum & Rechtliches: linksbündig, größer, klar gegliedert (langer Text liest sich zentriert schlecht) ── */
+#impressum.full .impressum-body,
+#impressum.rechtliches .impressum-body {
+  align-items: stretch;
+  text-align: left;
+}
+#impressum.full .impressum-body p,
+#impressum.rechtliches .impressum-body p {
+  text-align: left;
+  margin: 0;
+  opacity: 1;
+}
+#impressum.full .impressum-body p strong,
+#impressum.rechtliches .impressum-body p strong {
+  display: block;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.25em;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+@media (min-width: 769px) {
+  #impressum.full .impressum-body,
+  #impressum.rechtliches .impressum-body {
+    width: 46vw;
+    gap: 1.1vw;
+    padding-right: 1vw;
+  }
+  #impressum.full .impressum-body p,
+  #impressum.rechtliches .impressum-body p {
+    font-size: 1.1vw;
+    line-height: 1.6;
+  }
+}
+@media (max-width: 768px) {
+  #impressum.full .impressum-body,
+  #impressum.rechtliches .impressum-body { gap: 16px; }
+  #impressum.full .impressum-body p,
+  #impressum.rechtliches .impressum-body p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+/* ── Handy im Querformat: Hinweis zum Drehen (die Seite ist nur im Hochformat gestaltet) ──
+   Gilt nur für Touch-Geräte mit niedriger Bildschirmhöhe, also nicht für Tablets und Computer. */
+@media (orientation: landscape) and (max-height: 500px) and (hover: none) and (pointer: coarse) {
+  body::after {
+    content: "Bitte dreh dein Handy ins Hochformat, um den Inhalt anzuzeigen.";
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12vw;
+    text-align: center;
+    font-family: 'AD-Unghia', sans-serif;
+    font-size: clamp(18px, 6vh, 28px);
+    line-height: 1.4;
+    color: #F7F5F2;
+    background: #BF5E3B;
+  }
 }
