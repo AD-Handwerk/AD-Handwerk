@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <meta name="format-detection" content="telephone=no, email=no, address=no" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Über Uns – AD-Handwerk</title>
@@ -27,8 +28,16 @@
   <!-- ── Burger Menu Button ── -->
   <button class="ueber-burger-btn" id="ueberBurgerBtn">
     <span class="ueber-burger-label">Suchst du was?</span>
-    <img src="media/ad_logo-ohne-schrift.png" alt="Menü" />
+    <img src="media/ad_logo-ohne-schrift.svg" alt="Menü" />
   </button>
+
+  <!-- Nur Handy: feste Welle am unteren Rand, auf der der Burger-Button sitzt (schwebt sonst frei) -->
+  <div class="ueber-boden-welle" aria-hidden="true">
+    <div class="ueber-boden-welle-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+    <div class="ueber-boden-welle-fuell"></div>
+  </div>
 
   <!-- ── Nav Overlay ── -->
   <div class="ueber-nav-backdrop" id="ueberNavBackdrop"></div>
@@ -74,6 +83,7 @@
 
   <!-- ── Übergang ── -->
   <div class="ueber-mehr-zone">
+    <button type="button" class="ueber-wisch-hinweis scroll-prompt-text" id="ueberWischHinweis">&lt; Zu Fred scrollen!</button>
     <a href="#ueber-content" class="ueber-mehr-scroll scroll-prompt">
       <span class="scroll-prompt-text">Du willst mehr über uns lesen?</span>
       <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;">
@@ -86,6 +96,21 @@
   <!-- ── Hauptinhalt ── -->
   <section id="ueber-content">
     <div class="ueber-content-row">
+      <!-- Nur Handy: zweite Illustration (Zoom auf Alfred) zwischen Text und Foto -->
+      <div class="ueber-hero-fred">
+        <div class="ueber-welle ueber-welle-oben"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+        <img src="media/ad_grafik_ueber-uns.svg" alt="" class="ueber-grafik-fred" />
+        <a href="#" class="person-link person-fred-m" id="openAlfredMobil">
+          <img class="menu-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" />
+          Fred &gt;
+        </a>
+        <div class="ueber-welle ueber-welle-unten"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+      </div>
+
       <div class="ueber-rahmen-wrap">
         <img src="media/ad_grafik_ueber-uns_gemeinschaftsfoto.png" alt="Doris und Alfred" class="ueber-foto" />
         <img src="media/ad_grafik_ueber-uns_bilderrahmen.svg" alt="" class="ueber-rahmen" />
@@ -111,7 +136,7 @@
           <div class="panel-content">
             <h2 class="panel-heading">Über mich</h2>
             <p class="panel-body">Alfred liebt das Experimentieren – ob mit Ton, Raku-Brand oder einer Kombination aus Holz und Metall. Seine Stücke sind klar, manchmal eigenwillig und immer handgemacht. Wenn er nicht gerade töpfert, tüftelt er an neuen Ideen für Märkte oder Werkstatt.</p>
-            <a href="mailto:office@ad-handwerk.at" class="panel-btn">office@ad-handwerk.at</a>
+            <a href="mailto:hello@ad-handwerk.at" class="panel-btn">hello@ad-handwerk.at</a>
           </div>
           <img src="media/ad_grafik_ueber-uns_fred-logo.svg" alt="" class="panel-figure panel-figure-right" />
         </div>
@@ -128,7 +153,7 @@
           <div class="panel-content panel-content-right">
             <h2 class="panel-heading">DORIS</h2>
             <p class="panel-body">Doris bringt Farbe, Formgefühl und ganz viel Herz in jedes Stück. Sie liebt verspielte Details, Glasuren mit Charakter und kleine Figuren mit Persönlichkeit. Ob Huhn, Rabe oder Fisch – bei Doris wird Ton lebendig.</p>
-            <a href="mailto:office@ad-handwerk.at" class="panel-btn">office@ad-handwerk.at</a>
+            <a href="mailto:hello@ad-handwerk.at" class="panel-btn">hello@ad-handwerk.at</a>
           </div>
         </div>
 
@@ -184,7 +209,7 @@
         <div class="impressum-body">
           <p>AD-Handwerk</p>
           <p>Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe)<br>Gewerbe: Handelsgewerbe mit Ausnahme der reglementierten Handelsgewerbe und Handelsagent</p>
-          <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: +43 664 6112570<br>E-Mail: office@ad-handwerk.at<br>Website: www.ad-handwerk.at</p>
+          <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: +43 664 6112570<br>E-Mail: hello@ad-handwerk.at<br>Website: www.ad-handwerk.at</p>
           <p>Mitglied der Wirtschaftskammer Oberösterreich<br>Gewerbebehörde: Bezirkshauptmannschaft Vöcklabruck<br>Anwendbare Rechtsvorschriften: Gewerbeordnung, einsehbar unter www.ris.bka.gv.at<br>Verantwortlich für den Inhalt: Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
           <p><strong>Offenlegung nach § 25 Mediengesetz</strong><br>Medieninhaber und Herausgeber: Alfred Holzleitner, Baumgarten 6, 4644 Scharnstein<br>Unternehmensgegenstand: Handelsgewerbe mit Ausnahme der reglementierten Handelsgewerbe und Handelsagent<br>Grundlegende Richtung: Information über das Angebot von AD-Handwerk (Objekte, Märkte und Termine)</p>
           <p><strong>Haftung für Links</strong><br>Diese Website enthält Links zu externen Seiten (zum Beispiel Google Maps oder Veranstalter von Märkten). Auf deren Inhalte haben wir keinen Einfluss und übernehmen dafür keine Verantwortung. Bei Bekanntwerden von Rechtsverletzungen entfernen wir solche Links umgehend.</p>
@@ -203,7 +228,7 @@
         <div class="impressum-body">
           <p>Du hast ein Auge auf unsere Objekte geworfen, möchtest etwas kaufen oder ein persönliches Unikat in Auftrag geben?</p>
           <p>Melde dich gerne per E-Mail oder Telefon bei uns. Wenn du persönlich vorbeikommen möchtest, vereinbare bitte vorab einen Termin mit uns. Alle nötigen Kontakt- und Standortinfos findest du direkt hier drunter.</p>
-          <a href="mailto:office@ad-handwerk.at" class="kontakt-btn">office@ad-handwerk.at</a>
+          <a href="mailto:hello@ad-handwerk.at" class="kontakt-btn">hello@ad-handwerk.at</a>
           <a href="tel:+436646112570" class="kontakt-btn">+43 664 6112570</a>
           <a href="https://maps.google.com/?q=Baumgarten+6,+4644+Scharnstein" target="_blank" class="kontakt-btn">Baumgarten 6, 4644 Scharnstein</a>
           <p>Wir freuen uns von dir zu hören.</p>
@@ -218,13 +243,13 @@
         </div>
         <h3 class="impressum-heading">Rechtliches</h3>
         <div class="impressum-body">
-          <p><strong>1. Verantwortlicher</strong><br>Verantwortlich für die Verarbeitung deiner Daten auf dieser Website ist Alfred Holzleitner (AD-Handwerk), Baumgarten 6, 4644 Scharnstein, Österreich, E-Mail: office@ad-handwerk.at, Telefon: +43 664 6112570.</p>
+          <p><strong>1. Verantwortlicher</strong><br>Verantwortlich für die Verarbeitung deiner Daten auf dieser Website ist Alfred Holzleitner (AD-Handwerk), Baumgarten 6, 4644 Scharnstein, Österreich, E-Mail: hello@ad-handwerk.at, Telefon: +43 664 6112570.</p>
           <p><strong>2. Allgemeines</strong><br>Der Schutz deiner persönlichen Daten ist uns ein Anliegen. Wir verarbeiten deine Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, Datenschutzgesetz, Telekommunikationsgesetz 2021).</p>
           <p><strong>3. Kontakt mit uns</strong><br>Wenn du per E-Mail oder Telefon Kontakt mit uns aufnimmst, verarbeiten wir deine Angaben (zum Beispiel Name, Kontaktdaten und den Inhalt deiner Nachricht), um deine Anfrage zu beantworten und für mögliche Anschlussfragen. Rechtsgrundlage sind die Anbahnung und Erfüllung eines Vertrags (Art. 6 Abs. 1 lit. b DSGVO) sowie unser berechtigtes Interesse an einer Beantwortung (Art. 6 Abs. 1 lit. f DSGVO). Wir speichern die Daten, solange es zur Bearbeitung nötig ist, und darüber hinaus nur, soweit gesetzliche Aufbewahrungsfristen es verlangen. Wir geben deine Daten nicht weiter. Das E-Mail-Postfach betreibt die helloly GmbH, Rainerstraße 25, 4020 Linz, Österreich, als unser technischer Dienstleister.</p>
           <p><strong>4. Zugriffsdaten und Hosting</strong><br>Diese Website wird über GitHub Pages bereitgestellt (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA). Beim Aufruf der Website werden technisch bedingt Zugriffsdaten wie IP-Adresse, Datum und Uhrzeit, aufgerufene Seite und Browsertyp verarbeitet. Das dient dem sicheren und stabilen Betrieb der Website (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO). Dabei können Daten in die USA übermittelt werden. Grundlage dafür sind die Datenschutzvereinbarungen von GitHub (Angemessenheitsbeschluss der EU-Kommission zum EU-US Data Privacy Framework beziehungsweise Standardvertragsklauseln). Domain und DNS-Dienst stellt die helloly GmbH, Linz, bereit.</p>
           <p><strong>5. Keine Cookies, kein Tracking</strong><br>Unsere Website verwendet keine Cookies und keine externen Analyse-, Werbe- oder Schriftdienste. Für den Seitenübergang wird kurzzeitig ein technisch notwendiger Wert im Browser (sessionStorage) abgelegt. Er enthält keine personenbezogenen Daten und wird beim Schließen des Tabs gelöscht.</p>
           <p><strong>6. Externe Links</strong><br>Wenn du auf einen Link zu einer externen Seite klickst (zum Beispiel Google Maps), verlässt du unsere Website. Für die Datenverarbeitung dort ist der jeweilige Anbieter verantwortlich.</p>
-          <p><strong>7. Deine Rechte</strong><br>Dir stehen die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch und, falls du eine Einwilligung erteilt hast, Widerruf zu. Bei Anliegen wende dich bitte an office@ad-handwerk.at. Außerdem hast du das Recht, dich bei der Datenschutzbehörde zu beschweren: Österreichische Datenschutzbehörde, Barichgasse 40–42, 1030 Wien, dsb@dsb.gv.at, www.dsb.gv.at.</p>
+          <p><strong>7. Deine Rechte</strong><br>Dir stehen die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch und, falls du eine Einwilligung erteilt hast, Widerruf zu. Bei Anliegen wende dich bitte an hello@ad-handwerk.at. Außerdem hast du das Recht, dich bei der Datenschutzbehörde zu beschweren: Österreichische Datenschutzbehörde, Barichgasse 40–42, 1030 Wien, dsb@dsb.gv.at, www.dsb.gv.at.</p>
           <p>Stand: November 2026</p>
         </div>
       </div>

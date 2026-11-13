@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <meta name="format-detection" content="telephone=no, email=no, address=no" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AD-Handwerk</title>
@@ -14,7 +15,7 @@
   <!-- ── Intro Animation ── -->
   <div id="intro" style="display:none">
     <div class="intro-wrap">
-      <img class="intro-logo" src="media/ad_logo-ohne-schrift.png" alt="AD Logo" />
+      <img class="intro-logo" src="media/ad_logo-ohne-schrift.svg" alt="AD Logo" />
       <span class="intro-text">handwerk</span>
     </div>
   </div>
@@ -23,6 +24,15 @@
   <img src="media/ad_logo-animation-home.svg" alt="" class="home-logo-gimmick" />
 
   <!-- ── Startseite ── -->
+  <!-- Blob-Form für das Markt-Pop-up (wie bei Werke und Workshops) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <clipPath id="blobClip" clipPathUnits="objectBoundingBox">
+        <path d="M0 0.50218 C0 0.13974 0.24873 0 0.44162 0 C0.84772 0 1 0.20960 1 0.50218 C0.99531 0.88028 0.70558 1 0.44162 1 C0.27411 1 0 0.91703 0 0.50218 Z"/>
+      </clipPath>
+    </defs>
+  </svg>
+
   <div id="start" style="opacity:1;animation:none">
     <span class="start-nav-home">(Home)</span>
     <div class="start-title-wrap">
@@ -38,10 +48,11 @@
 
     <!-- ── Popup Blase ── -->
     <div class="home-popup" id="homePopup">
-      <button class="home-popup-close" id="homePopupClose"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" /></button>
+      <button class="home-popup-close" id="homePopupClose"><img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="Schließen" class="popup-kreuz" /><img src="media/ad_button_back_pfeil.svg" alt="" class="popup-pfeil" /></button>
       <a href="media/Frankenmarkter_Adventmarkt_2026_Flyer.pdf" class="home-popup-link" target="_blank" rel="noopener" title="Einladungs-Flyer öffnen (PDF, 3,5 MB, neuer Tab)" aria-label="Nächster Markt, 27. bis 29. November 2026: Einladungs-Flyer als PDF in neuem Tab öffnen">
-        <img src="media/ad_popup_blase_beige.svg" alt="" class="home-popup-blase" />
-        <span class="home-popup-text">Juhu … nächster Markt!<br><span class="home-popup-date">27.–29. November 2026</span></span>
+        <picture><source media="(max-width: 768px)" srcset="media/ad_popup_blase_voll.svg" /><img src="media/ad_popup_blase_beige.svg" alt="" class="home-popup-blase" /></picture>
+        <span class="home-popup-text"><span class="t-desk">Juhu … nächster Markt!</span><span class="t-mob">Juhu, Adventmarkt!<br>Sehen wir uns<br>in Frankenmarkt?</span><br><span class="home-popup-date"><span class="datum-lang">27.–29. November 2026</span><span class="datum-kurz">27.–29.11.2026</span></span></span>
+        <span class="home-popup-cta">Flyer ansehen</span>
       </a>
     </div>
 
@@ -80,7 +91,7 @@
 
     <!-- Logo + Text unter Grafik -->
     <div class="start-terra-text">
-      <img class="start-terra-logo" src="media/ad_logo-ohne-schrift.png" alt="" />
+      <img class="start-terra-logo" src="media/ad_logo-ohne-schrift.svg" alt="" />
       <p class="start-terra-sub">Manchmal gehen sogar uns die Hände aus!</p>
       <p class="start-terra-main">Die Ideen aber nicht, keine sorge.</p>
     </div>
@@ -98,17 +109,20 @@
       <h2 class="storyboard-title">Eine Geschichte<br class="mobile-br"> Über AD-Handwerk</h2>
       <div class="storyboard-columns">
         <div class="storyboard-col">
-          <p>Eines Morgens, als die Sonne gerade so die Werkstatt durch die Fenster küsste (und der Kaffee schon längst kalt geworden war), stand Alfred mit einem unförmigen Klumpen Ton vor einem riesigen Holzblock. „Na, was wird das wohl?“, fragte er sich und starrte nachdenklich auf das Tonstück, das eher an eine missglückte Tasse erinnerte als an etwas, das man als Kunst bezeichnen könnte.</p>
-          <p>„Weißt du, Alfred“, sagte Doris, die gerade das Metall von einem harten Stück Eisen befreite, das zu einem Schmuckstück werden sollte, „Ton ist wie ein rohes Ei. Du kannst es in alle Richtungen werfen, aber es wird nie wirklich etwas Besonderes, wenn du nicht weißt, was du damit anstellst.“ Alfred nickte, als hätte er gerade die Weisheit des Universums vernommen.</p>
+          <p>Eines Morgens, als die Sonne gerade so die Werkstatt durch die Fenster küsste (und der Kaffee schon längst kalt geworden war), stand Alfred mit einem unförmigen Klumpen Ton vor einem riesigen Holzblock.</p>
+          <p>„Na, was wird das wohl?“, fragte er sich und starrte nachdenklich auf das Tonstück, das eher an eine missglückte Tasse erinnerte als an etwas, das man als Kunst bezeichnen könnte.</p>
+          <p>„Weißt du, Alfred“, sagte Doris, die gerade das Metall von einem harten Stück Eisen befreite, das zu einem Schmuckstück werden sollte, „Ton ist wie ein rohes Ei. Du kannst es in alle Richtungen werfen, aber es wird nie wirklich etwas Besonderes, wenn du nicht weißt, was du damit anstellst.“</p>
         </div>
         <div class="storyboard-col">
+          <p>Alfred nickte, als hätte er gerade die Weisheit des Universums vernommen.</p>
           <p>„Genau! Und genau deshalb brauchen wir Holz, um die Sache zu retten“, antwortete er, während er mit einem verschmitzten Lächeln das Holzstück anstarrte, das halb aus der Werkstattwand herausragte.</p>
           <p>„Holz?“, fragte Doris, ohne ihren Kopf zu heben. „Das ist wie der Felsen in der Brandung. Zuverlässig, aber auch ein bisschen langweilig, wenn du ihn alleine lässt.“</p>
-          <p>„Da kommt das Metall ins Spiel!“ Alfred hatte den Dreh raus. „Metall ist der Held in dieser Geschichte! Er glänzt, er strahlt, er gibt dem Ganzen den coolen Touch, den wir alle brauchen. Ohne ihn wäre der Rest der Truppe nichts – ein Haufen dicker, nutzloser Klumpen!“</p>
+          <p class="ruf">„Da kommt das Metall ins Spiel!“ Alfred hatte den Dreh raus.</p>
+          <p>„Metall ist der Held in dieser Geschichte! Er glänzt, er strahlt, er gibt dem Ganzen den coolen Touch, den wir alle brauchen. Ohne ihn wäre der Rest der Truppe nichts – ein Haufen dicker, nutzloser Klumpen!“</p>
         </div>
       </div>
       <p class="storyboard-signature">Doris &amp; Fred</p>
-      <p class="storyboard-fussnote"><span class="fussnote-stern">*</span> Wusstest du, dass das A für Alfred und das D für Doris steht? Haha, jetzt weißt du’s – danke, dass du so weit nach unten gescrollt hast. AD-Handwerk ist ein gemeinsames Handwerk aus uns zwei. Wenn du dir das Logo genauer ansiehst, erkennst du das große A und das große D, unsere Initialen, aber auch zwei Gesichter, die zu einer Marke vereint sind.</p>
+      <p class="storyboard-fussnote"><span class="fussnote-stern">*</span> Wusstest du, dass das A für Alfred<br class="mobile-br"> und das D für Doris steht?<br class="mobile-br"> Haha, jetzt weißt du’s – danke,<br class="mobile-br"> dass du bis hier unten gescrollt hast.<span class="fussnote-absatz">AD-Handwerk ist ein gemeinsames<br class="mobile-br"> Handwerk aus uns zwei.<br class="mobile-br"> Schau dir das Logo genauer an:<br class="mobile-br"> Du siehst das große A und das große D,<br class="mobile-br"> unsere Initialen – und zwei Gesichter,<br class="mobile-br"> die zu einer Marke vereint sind.</span></p>
     </div>
 
     <!-- Beige Fläche -->
@@ -151,7 +165,7 @@
         <div class="impressum-body">
           <p>AD-Handwerk</p>
           <p>Alfred Holzleitner<br>Kleingewerbe (freies Gewerbe)<br>Gewerbe: Handelsgewerbe mit Ausnahme der reglementierten Handelsgewerbe und Handelsagent</p>
-          <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: +43 664 6112570<br>E-Mail: office@ad-handwerk.at<br>Website: www.ad-handwerk.at</p>
+          <p>Baumgarten 6, 4644 Scharnstein, Österreich<br>Telefon: +43 664 6112570<br>E-Mail: hello@ad-handwerk.at<br>Website: www.ad-handwerk.at</p>
           <p>Mitglied der Wirtschaftskammer Oberösterreich<br>Gewerbebehörde: Bezirkshauptmannschaft Vöcklabruck<br>Anwendbare Rechtsvorschriften: Gewerbeordnung, einsehbar unter www.ris.bka.gv.at<br>Verantwortlich für den Inhalt: Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
           <p><strong>Offenlegung nach § 25 Mediengesetz</strong><br>Medieninhaber und Herausgeber: Alfred Holzleitner, Baumgarten 6, 4644 Scharnstein<br>Unternehmensgegenstand: Handelsgewerbe mit Ausnahme der reglementierten Handelsgewerbe und Handelsagent<br>Grundlegende Richtung: Information über das Angebot von AD-Handwerk (Objekte, Märkte und Termine)</p>
           <p><strong>Haftung für Links</strong><br>Diese Website enthält Links zu externen Seiten (zum Beispiel Google Maps oder Veranstalter von Märkten). Auf deren Inhalte haben wir keinen Einfluss und übernehmen dafür keine Verantwortung. Bei Bekanntwerden von Rechtsverletzungen entfernen wir solche Links umgehend.</p>
@@ -170,7 +184,7 @@
         <div class="impressum-body">
           <p>Du hast ein Auge auf unsere Objekte geworfen, möchtest etwas kaufen oder ein persönliches Unikat in Auftrag geben?</p>
           <p>Melde dich gerne per E-Mail oder Telefon bei uns. Wenn du persönlich vorbeikommen möchtest, vereinbare bitte vorab einen Termin mit uns. Alle nötigen Kontakt- und Standortinfos findest du direkt hier drunter.</p>
-          <a href="mailto:office@ad-handwerk.at" class="kontakt-btn">office@ad-handwerk.at</a>
+          <a href="mailto:hello@ad-handwerk.at" class="kontakt-btn">hello@ad-handwerk.at</a>
           <a href="tel:+436646112570" class="kontakt-btn">+43 664 6112570</a>
           <a href="https://maps.google.com/?q=Baumgarten+6,+4644+Scharnstein" target="_blank" class="kontakt-btn">Baumgarten 6, 4644 Scharnstein</a>
           <p>Wir freuen uns von dir zu hören.</p>
@@ -185,13 +199,13 @@
         </div>
         <h3 class="impressum-heading">Rechtliches</h3>
         <div class="impressum-body">
-          <p><strong>1. Verantwortlicher</strong><br>Verantwortlich für die Verarbeitung deiner Daten auf dieser Website ist Alfred Holzleitner (AD-Handwerk), Baumgarten 6, 4644 Scharnstein, Österreich, E-Mail: office@ad-handwerk.at, Telefon: +43 664 6112570.</p>
+          <p><strong>1. Verantwortlicher</strong><br>Verantwortlich für die Verarbeitung deiner Daten auf dieser Website ist Alfred Holzleitner (AD-Handwerk), Baumgarten 6, 4644 Scharnstein, Österreich, E-Mail: hello@ad-handwerk.at, Telefon: +43 664 6112570.</p>
           <p><strong>2. Allgemeines</strong><br>Der Schutz deiner persönlichen Daten ist uns ein Anliegen. Wir verarbeiten deine Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, Datenschutzgesetz, Telekommunikationsgesetz 2021).</p>
           <p><strong>3. Kontakt mit uns</strong><br>Wenn du per E-Mail oder Telefon Kontakt mit uns aufnimmst, verarbeiten wir deine Angaben (zum Beispiel Name, Kontaktdaten und den Inhalt deiner Nachricht), um deine Anfrage zu beantworten und für mögliche Anschlussfragen. Rechtsgrundlage sind die Anbahnung und Erfüllung eines Vertrags (Art. 6 Abs. 1 lit. b DSGVO) sowie unser berechtigtes Interesse an einer Beantwortung (Art. 6 Abs. 1 lit. f DSGVO). Wir speichern die Daten, solange es zur Bearbeitung nötig ist, und darüber hinaus nur, soweit gesetzliche Aufbewahrungsfristen es verlangen. Wir geben deine Daten nicht weiter. Das E-Mail-Postfach betreibt die helloly GmbH, Rainerstraße 25, 4020 Linz, Österreich, als unser technischer Dienstleister.</p>
           <p><strong>4. Zugriffsdaten und Hosting</strong><br>Diese Website wird über GitHub Pages bereitgestellt (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA). Beim Aufruf der Website werden technisch bedingt Zugriffsdaten wie IP-Adresse, Datum und Uhrzeit, aufgerufene Seite und Browsertyp verarbeitet. Das dient dem sicheren und stabilen Betrieb der Website (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO). Dabei können Daten in die USA übermittelt werden. Grundlage dafür sind die Datenschutzvereinbarungen von GitHub (Angemessenheitsbeschluss der EU-Kommission zum EU-US Data Privacy Framework beziehungsweise Standardvertragsklauseln). Domain und DNS-Dienst stellt die helloly GmbH, Linz, bereit.</p>
           <p><strong>5. Keine Cookies, kein Tracking</strong><br>Unsere Website verwendet keine Cookies und keine externen Analyse-, Werbe- oder Schriftdienste. Für den Seitenübergang wird kurzzeitig ein technisch notwendiger Wert im Browser (sessionStorage) abgelegt. Er enthält keine personenbezogenen Daten und wird beim Schließen des Tabs gelöscht.</p>
           <p><strong>6. Externe Links</strong><br>Wenn du auf einen Link zu einer externen Seite klickst (zum Beispiel Google Maps), verlässt du unsere Website. Für die Datenverarbeitung dort ist der jeweilige Anbieter verantwortlich.</p>
-          <p><strong>7. Deine Rechte</strong><br>Dir stehen die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch und, falls du eine Einwilligung erteilt hast, Widerruf zu. Bei Anliegen wende dich bitte an office@ad-handwerk.at. Außerdem hast du das Recht, dich bei der Datenschutzbehörde zu beschweren: Österreichische Datenschutzbehörde, Barichgasse 40–42, 1030 Wien, dsb@dsb.gv.at, www.dsb.gv.at.</p>
+          <p><strong>7. Deine Rechte</strong><br>Dir stehen die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch und, falls du eine Einwilligung erteilt hast, Widerruf zu. Bei Anliegen wende dich bitte an hello@ad-handwerk.at. Außerdem hast du das Recht, dich bei der Datenschutzbehörde zu beschweren: Österreichische Datenschutzbehörde, Barichgasse 40–42, 1030 Wien, dsb@dsb.gv.at, www.dsb.gv.at.</p>
           <p>Stand: November 2026</p>
         </div>
       </div>
@@ -206,7 +220,7 @@
     </div>
     <span class="not-found-nav-label">(404)</span>
     <div class="not-found-graphic-wrap">
-      <img src="media/ad_logo-ohne-schrift.png" alt="AD Logo" class="not-found-graphic" />
+      <img src="media/ad_logo-ohne-schrift.svg" alt="AD Logo" class="not-found-graphic" />
       <span class="not-found-wordswap" id="notFoundWord">handwerk</span>
     </div>
     <p class="not-found-label">Diese Seite ist noch in Arbeit.</p>
