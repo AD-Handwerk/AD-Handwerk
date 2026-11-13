@@ -16,8 +16,13 @@ function updateLayout() {
     terraTop = vh * 0.89;
     titleTop = vh * 0.29;
     const menuTop = terraTop + vh * 0.12;
-    beigeTop = menuTop + vh * 1.11;
-    textTop  = menuTop + Math.min(vw * 1.432, vh * 0.74) + vh * 0.07;
+    // Die Menü-Grafik skaliert mit der Breite. Auf kurzen Bildschirmen (z. B. iPhone 8/SE) darf das Logo
+    // deshalb nicht allein nach der Höhe positioniert werden, sonst rutscht es in "Workshops":
+    // mindestens 20 px unter die Unterkante des letzten Menüpunkts.
+    const textTopMin = menuTop + vw * 1.1635 + 55;
+    textTop  = Math.max(menuTop + Math.min(vw * 1.432, vh * 0.74) + vh * 0.07, textTopMin);
+    // Die Welle rückt bei Bedarf nach unten, damit der Text (ca. 175 px) noch auf dem Terracotta Platz hat
+    beigeTop = Math.max(menuTop + vh * 1.11, textTop + 175);
     const storyTop = beigeTop + vh * 0.21;
     const sb = document.querySelector('.start-storyboard');
     pageHeight = storyTop + (sb ? sb.offsetHeight : 0) + vh * 0.10;
@@ -33,6 +38,9 @@ function updateLayout() {
     beigeTop = terraTop + vw * 0.65 - 20;
     textTop  = terraTop + vw * 0.48;
     pageHeight = beigeTop + vw * 0.58;
+    // Geschichte (inkl. Sternchen-Text) muss ganz auf die Seite passen: top = beige-top + 16vw
+    const sbd = document.querySelector('.start-storyboard');
+    if (sbd) pageHeight = Math.max(pageHeight, beigeTop + vw * 0.16 + sbd.offsetHeight + vw * 0.12);
   }
 
   layout.mobile = mobile;
@@ -55,6 +63,12 @@ window.addEventListener('resize', () => {
 });
 updateLayout();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateLayout);
+window.addEventListener('load', updateLayout);
+// Seitenhöhe nachrechnen, sobald sich die Höhe der Geschichte ändert (Schrift lädt nach, Zeilenumbrüche, Drehen)
+(function () {
+  const sb = document.querySelector('.start-storyboard');
+  if (sb && window.ResizeObserver) new ResizeObserver(() => updateLayout()).observe(sb);
+})();
 
 // ── Intro entfernen nach Animation ──
 const intro = document.getElementById('intro');
@@ -67,18 +81,71 @@ if (intro && intro.style.display !== 'none') {
   const popup = document.getElementById('homePopup');
   const closeBtn = document.getElementById('homePopupClose');
   if (!popup) return;
-  setTimeout(() => popup.classList.add('visible'), 3000);
-  closeBtn.addEventListener('click', () => popup.classList.remove('visible'));
+  // Am Handy: beim Scrollen schrumpft das Pop-up zu einem kleinen Kreis rechts über der Menüleiste.
+  // Nur Tippen auf den kleinen Kreis öffnet es wieder (auch nicht beim Hochscrollen); das X legt es am Handy dort ab.
+  const handy = window.matchMedia('(max-width: 768px)');
+  let manuell = false, geoeffnetBei = 0, abgelegt = false;
+  let schonfristBis = 0;   // kurz nach dem Erscheinen/Aufklappen zählt Scrollen nicht (sonst klappt es sofort wieder zu)
+  function zeigen() {
+    popup.classList.add('visible');
+    manuell = true;
+    geoeffnetBei = window.scrollY;
+    schonfristBis = Date.now() + 2500;
+  }
+  // Maße: Skalierung des kleinen Kreises und Verschiebung vom Ziel-Platz (rechts unten) in die Bildschirmmitte.
+  // Der kleine Kreis selbst hängt nur an right/bottom (CSS) und springt deshalb beim Scrollen nicht.
+  let maßBreite = 0;
+  function setzeMasse() {
+    if (window.innerWidth === maßBreite) return;   // Höhenänderung durch die Safari-Leiste ignorieren
+    maßBreite = window.innerWidth;
+    const w = popup.offsetWidth || 340;
+    popup.style.setProperty('--klein', (74 / w).toFixed(4));
+    popup.style.setProperty('--odx', -(window.innerWidth / 2 - 52) + 'px');
+    popup.style.setProperty('--ody', -(window.innerHeight / 2 - 110) + 'px');
+  }
+  setzeMasse();
+  window.addEventListener('resize', setzeMasse);
+  setTimeout(zeigen, 3000);
+  function aufklappen() {
+    popup.classList.remove('docked');
+    abgelegt = false;
+    manuell = true;
+    geoeffnetBei = window.scrollY;
+    schonfristBis = Date.now() + 2500;
+  }
+  popup.addEventListener('click', () => { if (handy.matches && popup.classList.contains('docked')) aufklappen(); });
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();   // sonst klappt der Klick-Handler des Pop-ups es sofort wieder auf
+    if (handy.matches) { abgelegt = true; manuell = false; popup.classList.add('docked'); }   // am Handy: ablegen statt schließen
+    else popup.classList.remove('visible', 'docked');
+  });
+  window.addEventListener('scroll', () => {
+    if (!handy.matches || !popup.classList.contains('visible') || abgelegt) return;
+    const y = window.scrollY;
+    if (Date.now() < schonfristBis) { geoeffnetBei = y; return; }   // Schonfrist: Position mitführen, nicht ablegen
+    if (manuell) {
+      if (Math.abs(y - geoeffnetBei) > 16) { manuell = false; popup.classList.add('docked'); }
+      return;
+    }
+    if (y > 12) popup.classList.add('docked');   // nur ablegen, nie von selbst wieder aufklappen
+  }, { passive: true });
 
   function checkTerra() {
-    const closeRect = closeBtn.getBoundingClientRect();
-    const closeCenterY = closeRect.top + closeRect.height / 2;
+    let closeCenterY;
+    if (handy.matches) {
+      // Handy: Mitte des Pop-ups an seiner Zielposition (abgelegt: ca. 110 px über dem unteren Rand, offen: Bildschirmmitte)
+      closeCenterY = popup.classList.contains('docked') ? window.innerHeight - 110 : window.innerHeight / 2;
+    } else {
+      const closeRect = closeBtn.getBoundingClientRect();
+      closeCenterY = closeRect.top + closeRect.height / 2;
+    }
     const terraTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--terra-top')) || 99999;
     const beigeTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--beige-top')) || 99999;
     const scrollY = window.scrollY;
     const onTerra = (scrollY + closeCenterY) >= terraTop && (scrollY + closeCenterY) <= beigeTop;
     popup.classList.toggle('on-terra', onTerra);
   }
+  new MutationObserver(checkTerra).observe(popup, { attributes: true, attributeFilter: ['class'] });
   window.addEventListener('scroll', checkTerra, { passive: true });
   window.addEventListener('resize', checkTerra, { passive: true });
   setTimeout(checkTerra, 200);
@@ -176,7 +243,7 @@ function startWordSwap() {
   }, 3000);
 }
 
-document.querySelectorAll('.menu-item:not(.menu-item-page)').forEach(item => {
+document.querySelectorAll('.menu-item:not(.menu-item-page):not(.menu-item-aus)').forEach(item => {
   item.addEventListener('click', (e) => {
     e.preventDefault();
     wordIndex = 0;
