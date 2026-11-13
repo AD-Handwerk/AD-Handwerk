@@ -1685,7 +1685,7 @@ body {
     pointer-events: none;
   }
   /* Offenes kleines Blatt: die untere Wellenkante des Blatts samt Schatten (auf kurzen Handys wie dem SE sichtbar) abdecken */
-  #impressum.open::after { bottom: -60px; height: 50px; z-index: 1; }   /* reicht bis unter die Leiste, kein grauer Spalt */
+  #impressum.open::after { bottom: -300px; height: 305px; z-index: 1; }   /* reicht bis unter die Leiste, kein grauer Spalt */
   /* Offen blendet Safari die Leiste unten voll ein, das Seitenende liegt dann direkt darüber: kein Extra-Freiraum nötig */
   #impressum.open { --leiste: -12px; }
   /* Im Vollbild (Kontakt / Impressum / Rechtliches) würde diese Fläche die untere Kante des Overlays verdecken */
@@ -2132,3 +2132,89 @@ html, body { overflow-x: hidden; }                       /* ältere iOS-Versione
     --fs-small: 15px;
   }
 }
+
+/* Links im Fließtext des Impressums (z. B. Bildnachweis): wie der Text, nur unterstrichen. Nur in Absätzen, damit die Buttons (Kontakt) unberührt bleiben */
+.impressum-body p a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.impressum-body p a:hover { opacity: 0.75; }
+
+/* Handy: Der Impressum-Fuß liegt hinter der festen Bodenwelle und dem Burger-Button (Über uns), geöffnet liegt er
+   über allem. Reihenfolge von hinten nach vorn: Impressum-Fuß 20 < Burger-Button 30 < Bodenwelle 40 < Impressum offen 500 */
+@media (max-width: 768px) {
+  #impressum { z-index: 20; }
+  #impressum.open,
+  #impressum.full,
+  #impressum.kontakt,
+  #impressum.rechtliches { z-index: 500; }
+}
+
+
+/* ══════════════════════════════════════════════
+   TIPP-RÜCKMELDUNG AM HANDY (gilt auf allen Seiten gleich)
+   Symbol allein  -> hellgrauer Kreis hinter dem Symbol
+   Symbol + Text / reiner Text -> hellgraue Pille hinter dem Element
+   Erscheint sofort beim Tippen und blendet nach dem Loslassen in knapp 0,5 s aus. Kein Hüpfen, keine Farbänderung.
+   Auf beigem Grund dunkleres Grau, auf Terracotta/Grün/Rosa helles Grau (siehe ueber-uns.css für die Fenster).
+   ══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Symbole allein (Kreis). Die Schließen-/Zurück-Symbole im Impressum haben schon ihren grauen unförmigen Kreis (back-hover-circle), dort ändert sich nichts. */
+  .page-back-btn,
+  .home-popup-close,
+  .ueber-nav-btns .person-close { border-radius: 50%; }
+
+  /* Symbol mit Text oder nur Text (Pille) */
+  .impressum-toggle,
+  .impressum-nav a,
+  .kontakt-btn,
+  .person-link,
+  .ueber-wisch-hinweis,
+  .page-nav-label.label-menue,
+  .ueber-nav-item,
+  .home-popup-link { border-radius: 999px; }
+
+  .page-back-btn,
+  .home-popup-close,
+  .ueber-nav-btns .person-close,
+  .impressum-toggle,
+  .impressum-nav a,
+  .person-link,
+  .ueber-wisch-hinweis,
+  .page-nav-label.label-menue {
+    background-color: rgba(119, 113, 107, 0);
+    transition: background-color 0.45s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .impressum-close:active,
+  .impressum-back:active,
+  .page-back-btn:active,
+  .home-popup-close:active,
+  .ueber-nav-btns .person-close:active,
+  .impressum-toggle:active,
+  .impressum-nav a:active,
+  .person-link:active,
+  .ueber-wisch-hinweis:active,
+  .page-nav-label.label-menue:active {
+    background-color: rgba(119, 113, 107, 0.18);
+    transition: background-color 0s;
+  }
+  /* Kontakt-Buttons haben schon eine Pillenform mit Rahmen: beim Tippen kurz hell füllen */
+  /* Der weiße Hover-Kreis hinter dem Zurück-Pfeil (Über uns) entfällt am Handy: es gibt nur den grauen Kreis von oben */
+  .page-back-btn .back-hover-circle,
+  .page-back-btn:hover .back-hover-circle { display: none; }
+  .kontakt-btn { transition: background-color 0.45s ease; -webkit-tap-highlight-color: transparent; }
+  .kontakt-btn:active { background-color: rgba(247, 245, 242, 0.25); transition: background-color 0s; }
+}
+
+
+/* Startseite am Handy: Tipp-Rückmeldung im Markt-Pop-up (terracotta -> helles Grau, über Terracotta-Flächen beige -> dunkles Grau) */
+@media (max-width: 768px) {
+  .home-popup-close,
+  .home-popup-cta { -webkit-tap-highlight-color: transparent; transition: background-color 0.45s ease; background-color: rgba(247, 245, 242, 0); }
+  .home-popup-cta { border-radius: 999px; }
+  .home-popup-close:active,
+  .home-popup-cta:active { background-color: rgba(247, 245, 242, 0.28); transition: background-color 0s; }
+  .home-popup.on-terra .home-popup-close:active,
+  .home-popup.on-terra .home-popup-cta:active { background-color: rgba(119, 113, 107, 0.18); }
+  .home-popup-close:hover,
+  .home-popup-cta:hover { animation: none; }
+}
+

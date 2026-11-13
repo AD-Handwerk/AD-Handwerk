@@ -5,9 +5,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Über Uns – AD-Handwerk</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/ueber-uns.css" />
-  <script src="js/seitenuebergang.js"></script>
+  <script>
+  /* Handy: Fenster wird mit ?p=fred|doris neu geladen. Die Seitenfarbe sofort setzen, damit Safari die Leiste beim Laden richtig liest */
+  (function () {
+    var m = /[?&]p=(fred|doris)/.exec(location.search);
+    if (m && matchMedia('(max-width: 768px)').matches) {
+      var c = m[1] === 'doris' ? '#BEA49C' : '#8C9E82';
+      document.documentElement.style.setProperty('background', c, 'important');
+      var mt = document.createElement('meta'); mt.name = 'theme-color'; mt.content = c; document.head.appendChild(mt);
+    }
+  })();
+</script>
+<link rel="stylesheet" href="css/style.css?v=202611131607" />
+  <link rel="stylesheet" href="css/ueber-uns.css?v=202611131607" />
+  <script src="js/seitenuebergang.js?v=202611131607"></script>
 </head>
 <body>
 
@@ -28,7 +39,7 @@
   <!-- ── Burger Menu Button ── -->
   <button class="ueber-burger-btn" id="ueberBurgerBtn">
     <span class="ueber-burger-label">Suchst du was?</span>
-    <img src="media/ad_logo-ohne-schrift.svg" alt="Menü" />
+    <img src="media/ad_logo-ohne-schrift-fuellung.svg" alt="Menü" />
   </button>
 
   <!-- Nur Handy: feste Welle am unteren Rand, auf der der Burger-Button sitzt (schwebt sonst frei) -->
@@ -37,6 +48,26 @@
       <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
     </svg></div>
     <div class="ueber-boden-welle-fuell"></div>
+  </div>
+
+  <!-- ── Handy-Menü: komplette Terracotta-Seite, schiebt sich von rechts herein ── -->
+  <div class="ueber-mobil-menue" id="ueberMobilMenue" aria-hidden="true">
+    <button class="mm-zu" id="mmZu" aria-label="Zurück, Menü schließen"><img src="media/ad_button_back_pfeil.svg" alt="" /></button>
+    <a href="index.html" class="mm-home" aria-label="Zur Startseite"><img src="media/ad_button_home.svg" alt="" /></a>
+    <div class="mm-grafik">
+      <img src="media/ad_mobile_burger-menu-grafik.svg" alt="" />
+      <a class="menu-item menu-item-aus mi-raku" aria-disabled="true"><span class="menu-dot"></span>Raku</a>
+      <a class="menu-item menu-item-aus mi-maerkte" aria-disabled="true"><span class="menu-dot"></span>Märkte</a>
+      <a href="ueber-uns.html" class="menu-item menu-item-page mi-ueber"><span class="menu-dot"></span>Über Uns</a>
+      <a class="menu-item menu-item-aus mi-werke" aria-disabled="true"><span class="menu-dot"></span>Werke</a>
+      <a class="menu-item menu-item-aus mi-workshops" aria-disabled="true"><span class="menu-dot"></span>Workshops</a>
+    </div>
+    <div class="foto-boden mm-boden" aria-hidden="true">
+      <div class="foto-boden-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+      <div class="foto-boden-fuell"></div>
+    </div>
   </div>
 
   <!-- ── Nav Overlay ── -->
@@ -83,7 +114,7 @@
 
   <!-- ── Übergang ── -->
   <div class="ueber-mehr-zone">
-    <button type="button" class="ueber-wisch-hinweis scroll-prompt-text" id="ueberWischHinweis">&lt; Zu Fred scrollen!</button>
+    <button type="button" class="ueber-wisch-hinweis scroll-prompt-text" id="ueberWischHinweis">Wischen, um zu Fred zu kommen</button>
     <a href="#ueber-content" class="ueber-mehr-scroll scroll-prompt">
       <span class="scroll-prompt-text">Du willst mehr über uns lesen?</span>
       <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;">
@@ -112,7 +143,7 @@
       </div>
 
       <div class="ueber-rahmen-wrap">
-        <img src="media/ad_grafik_ueber-uns_gemeinschaftsfoto.png" alt="Doris und Alfred" class="ueber-foto" />
+        <img src="media/ad_grafik_ueber-uns_gemeinschaftsfoto.png" alt="Doris und Alfred" class="ueber-foto" id="ueberFoto" tabindex="0" role="button" aria-label="Foto groß ansehen" />
         <img src="media/ad_grafik_ueber-uns_bilderrahmen.svg" alt="" class="ueber-rahmen" />
         <div class="lampen-schein"></div>
         <button class="lampen-btn" id="lampeToggle" aria-label="Licht an/aus"></button>
@@ -124,6 +155,33 @@
       </div>
     </div>
   </section>
+
+  <!-- Blob-Form fürs Foto-Pop-up (wie bei Werke) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <clipPath id="blobClip" clipPathUnits="objectBoundingBox">
+        <path d="M0 0.50218 C0 0.13974 0.24873 0 0.44162 0 C0.84772 0 1 0.20960 1 0.50218 C0.99531 0.88028 0.70558 1 0.44162 1 C0.27411 1 0 0.91703 0 0.50218 Z"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- ── Foto-Pop-up: Tipp auf das Foto im Bilderrahmen öffnet es groß ── -->
+  <div class="foto-overlay" id="fotoOverlay" role="dialog" aria-modal="true" aria-label="Foto von Doris und Alfred">
+    <div class="foto-flaeche">
+      <div class="foto-wrap">
+        <img class="foto-gross" src="media/ad_grafik_ueber-uns_gemeinschaftsfoto.png" alt="Doris und Alfred" draggable="false" />
+      </div>
+    </div>
+    <div class="foto-boden" aria-hidden="true">
+      <div class="foto-boden-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+      <div class="foto-boden-fuell"></div>
+    </div>
+    <button type="button" class="foto-close" id="fotoClose" aria-label="Schließen">
+      <img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img src="media/ad_button_close_kreuz.svg" alt="" />
+    </button>
+  </div>
 
   <!-- ── Person Overlay ── -->
   <div id="person-overlay">
@@ -138,7 +196,7 @@
             <p class="panel-body">Alfred liebt das Experimentieren – ob mit Ton, Raku-Brand oder einer Kombination aus Holz und Metall. Seine Stücke sind klar, manchmal eigenwillig und immer handgemacht. Wenn er nicht gerade töpfert, tüftelt er an neuen Ideen für Märkte oder Werkstatt.</p>
             <a href="mailto:hello@ad-handwerk.at" class="panel-btn">hello@ad-handwerk.at</a>
           </div>
-          <img src="media/ad_grafik_ueber-uns_fred-logo.svg" alt="" class="panel-figure panel-figure-right" />
+          <img src="media/ad_grafik_ueber-uns_logo-groß.svg" alt="" class="panel-figure panel-figure-right" />
         </div>
 
         <!-- Center Logo (between panels) -->
@@ -149,9 +207,9 @@
         <!-- Doris Panel -->
         <div class="person-panel panel-doris">
           <span class="panel-nav-label panel-nav-right">(Doris)</span>
-          <img src="media/ad_grafik_ueber-uns_doris-logo.svg" alt="" class="panel-figure panel-figure-left" />
+          <img src="media/ad_grafik_ueber-uns_logo-groß.svg" alt="" class="panel-figure panel-figure-left" />
           <div class="panel-content panel-content-right">
-            <h2 class="panel-heading">DORIS</h2>
+            <h2 class="panel-heading">Über mich</h2>
             <p class="panel-body">Doris bringt Farbe, Formgefühl und ganz viel Herz in jedes Stück. Sie liebt verspielte Details, Glasuren mit Charakter und kleine Figuren mit Persönlichkeit. Ob Huhn, Rabe oder Fisch – bei Doris wird Ton lebendig.</p>
             <a href="mailto:hello@ad-handwerk.at" class="panel-btn">hello@ad-handwerk.at</a>
           </div>
@@ -159,11 +217,20 @@
 
       </div>
     </div>
+    <!-- Nur Handy: feste beige Welle am unteren Rand (wie auf der Seite), die Safari-Leiste bleibt beige hinterlegt -->
+    <div class="foto-boden person-boden" aria-hidden="true">
+      <div class="foto-boden-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+      <div class="foto-boden-fuell"></div>
+    </div>
+    <!-- Nur Handy: Zurück-Pfeil oben links schließt das Overlay -->
+    <button class="person-back-oben" data-close aria-label="Schließen"><img src="media/ad_button_back_pfeil.svg" alt="" /></button>
     <!-- Ein Schließen-Button für beide Panels, immer unten mittig; Beschriftungen erscheinen bei Hover neben den Buttons -->
     <div class="person-close-wrap person-close-wrap-bottom">
       <button class="person-close person-pfeil person-pfeil-zurueck" id="personZuFred" aria-label="Zu Fred">
         <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="" />
-        <span class="person-btn-label" aria-hidden="true">Zu Fred</span>
+        <span class="person-btn-label" aria-hidden="true">Zu Fred wechseln</span>
       </button>
       <button class="person-close person-close-x" data-close aria-label="Schließen">
         <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_close_kreuz.svg" alt="" />
@@ -171,7 +238,7 @@
       </button>
       <button class="person-close person-pfeil person-pfeil-weiter" id="personZuDoris" aria-label="Zu Doris">
         <img src="media/ad_burger-menu-hover-circle.svg" alt="" class="back-hover-circle" /><img src="media/ad_button_back_pfeil.svg" alt="" />
-        <span class="person-btn-label" aria-hidden="true">Zu Doris</span>
+        <span class="person-btn-label" aria-hidden="true">Zu Doris wechseln</span>
       </button>
     </div>
   </div>
@@ -213,6 +280,7 @@
           <p>Mitglied der Wirtschaftskammer Oberösterreich<br>Gewerbebehörde: Bezirkshauptmannschaft Vöcklabruck<br>Anwendbare Rechtsvorschriften: Gewerbeordnung, einsehbar unter www.ris.bka.gv.at<br>Verantwortlich für den Inhalt: Alfred Holzleitner<br>Umsatzsteuerfrei aufgrund der Kleinunternehmerregelung (§ 6 Abs. 1 Z 27 UStG)</p>
           <p><strong>Offenlegung nach § 25 Mediengesetz</strong><br>Medieninhaber und Herausgeber: Alfred Holzleitner, Baumgarten 6, 4644 Scharnstein<br>Unternehmensgegenstand: Handelsgewerbe mit Ausnahme der reglementierten Handelsgewerbe und Handelsagent<br>Grundlegende Richtung: Information über das Angebot von AD-Handwerk (Objekte, Märkte und Termine)</p>
           <p><strong>Haftung für Links</strong><br>Diese Website enthält Links zu externen Seiten (zum Beispiel Google Maps oder Veranstalter von Märkten). Auf deren Inhalte haben wir keinen Einfluss und übernehmen dafür keine Verantwortung. Bei Bekanntwerden von Rechtsverletzungen entfernen wir solche Links umgehend.</p>
+          <p><strong>Bildnachweis</strong><br>Illustration „Menschen beim Töpfern“ (angepasst): <a href="https://www.magnific.com" target="_blank" rel="noopener">designed by pikisuperstar - Magnific.com</a></p>
           <p>Grafik &amp; Design: Moritz Holzleitner<br>Umsetzung &amp; Web-Interface: Moritz Holzleitner<br>Schrift: AD-Unghia von Moritz Holzleitner</p>
           <p>© AD-Handwerk. Alle Rechte vorbehalten. Download, Weitergabe und Vervielfältigung der Inhalte, Grafiken und Schriften nur mit ausdrücklicher schriftlicher Genehmigung.</p>
         </div>
@@ -256,7 +324,7 @@
     </div>
   </div>
 
-  <script src="js/ueber-uns.js" defer></script>
+  <script src="js/ueber-uns.js?v=202611131607" defer></script>
   <!-- ── Hinweis auf dem Handy: Seite ist noch nicht für mobile Geräte angepasst ── -->
   <div class="mobil-hinweis" id="mobilHinweis" role="dialog" aria-modal="true" aria-labelledby="mobilHinweisTitel" hidden>
     <div class="mobil-hinweis-karte">
@@ -267,6 +335,6 @@
     </div>
   </div>
 
-  <script src="js/ecken-label.js"></script>
+  <script src="js/ecken-label.js?v=202611131607"></script>
 </body>
 </html>

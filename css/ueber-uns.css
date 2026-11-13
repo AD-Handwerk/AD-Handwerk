@@ -39,13 +39,16 @@ body {
   background: rgba(0,0,0,0.45);
   z-index: 399;
   opacity: 0;
+  visibility: hidden;   /* iOS 26 Safari färbt seine Leisten sonst auch nach einem unsichtbaren fixen Element */
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
 }
 
 .ueber-nav-backdrop.open {
   opacity: 1;
+  visibility: visible;
   pointer-events: all;
+  transition: opacity 0.4s ease, visibility 0s;
 }
 
 #ueber-nav-overlay {
@@ -216,7 +219,7 @@ body {
   display: block;
   width: clamp(70px, 6vw, 130px);
   height: auto;
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  /* kein Filter: die SVG bringt Füllung (beige) und Linien (terracotta) selbst mit */
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -525,13 +528,16 @@ body.lights-out .lampen-schein {
   inset: 0;
   z-index: 300;
   opacity: 0;
+  visibility: hidden;   /* sonst färbt iOS 26 Safari seine Leisten nach dem Schließen weiter in Rosa/Terracotta */
   pointer-events: none;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
 }
 
 #person-overlay.visible {
   opacity: 1;
+  visibility: visible;
   pointer-events: all;
+  transition: opacity 0.5s ease, visibility 0s;
 }
 
 .person-slider-wrap {
@@ -553,11 +559,11 @@ body.lights-out .lampen-schein {
   width: 200vw;
   height: 100%;
   position: relative;
-  /* gradient background: sage green → dusty rose, transition at center */
+  /* zwei eigenständige Flächen: Fred Salbeigrün, Doris Altrosa, harte Kante in der Mitte (kein Verlauf) */
   background: linear-gradient(to right,
     #8C9E82 0%,
-    #8C9E82 47%,
-    #BEA49C 53%,
+    #8C9E82 50%,
+    #BEA49C 50%,
     #BEA49C 100%
   );
 }
@@ -571,6 +577,25 @@ body.lights-out .lampen-schein {
   overflow: hidden;
   background: transparent;
 }
+
+/* Jedes Fenster hat seine eigene Vollfläche (Fred Salbeigrün, Doris Altrosa) */
+.panel-fred { background: #8C9E82; }
+.panel-doris { background: #BEA49C; }
+
+/* Schmaler Streifen ganz oben in der Farbe des gerade sichtbaren Fensters. iOS 26 Safari färbt die obere Leiste nach festen
+   Elementen am Rand, liest sie aber nur beim Auftauchen eines Elements neu: ueber-uns.js erzeugt deshalb bei jedem Wechsel
+   zwischen Fred und Doris einen frischen Streifen und entfernt den alten. */
+.leisten-streifen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  z-index: 8;
+  pointer-events: none;
+}
+.leisten-streifen.fred { background: #8C9E82; }
+.leisten-streifen.doris { background: #BEA49C; }
 
 /* ── Scroll Hint ── */
 
@@ -702,6 +727,10 @@ body.lights-out .lampen-schein {
   filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
 }
 
+.person-back-oben { display: none; }
+
+.person-boden { display: none; }   /* nur am Handy (siehe Mobil-Block) */
+
 /* ── Panel Figure ── */
 
 .panel-figure {
@@ -748,7 +777,7 @@ body.lights-out .lampen-schein {
   font-size: 0.9vw;
   text-decoration: none;
   border: 1.2px solid #F7F5F2;
-  border-radius: 999px;
+  border-radius: 999px;   /* Pille mit komplett gerundeten Ecken */
   padding: 0.6vw 2.5vw;
   transition: all 0.2s ease;
 }
@@ -899,6 +928,9 @@ body.lights-out .lampen-schein {
 @media (max-width: 768px) {
 
   /* Die breiten Hintergrundflächen (Welle 140 %, Grafik 130 %) dürfen die Seite nicht seitlich verschiebbar machen */
+  /* Hinter und unter der Safari-Leiste liegt Beige statt Rosa: html (Leinwand außerhalb des Dokuments, Überscrollen, Leisten-Bereich)
+     ist beige, das Rosa kommt nur noch vom body, also von der Seite selbst */
+  html { background: #F7F5F2; }
   html, body { overflow-x: hidden; }
   @supports (overflow: clip) { html, body { overflow-x: clip; } }
 
@@ -949,10 +981,16 @@ body.lights-out .lampen-schein {
   .person-alfred { left: max(10px, calc(var(--hw) * 36.4% - 80px)); top: calc(64px + var(--hw) * 10.31vw - 14px + var(--hero-extra) + var(--versatz)); }
 
   /* Zurück-Pfeil oben links und (Über Uns) oben rechts: 44 px große Tippflächen */
-  .page-back-wrap { top: 6px; left: 4px; }
+  /* Zurück-Pfeil immer an derselben Stelle (oben links): Pfeil beginnt bei 8vw, gleich wie im Fred/Doris-Fenster */
+  .page-back-wrap { top: 6px; left: calc(8vw - 16px); }
   .page-back-btn { padding: 16px; }
   .page-back-btn img:not(.back-hover-circle) { width: 12px; }
-  .page-nav-label { top: 6px; right: 4px; font-size: var(--fs-label); padding: 14px 12px; }
+  .page-nav-label { top: 6px; right: calc(8vw - 12px); font-size: var(--fs-label); padding: 14px 12px; }   /* rechter Textrand ca. 24 px vom Rand, wie der Pfeil links */
+
+  /* Beim Runterscrollen blenden Zurück-Pfeil und "(Über Uns)" aus, beim Hochscrollen wieder ein */
+  .page-back-wrap, .page-nav-label { transition: opacity 0.3s ease; }
+  body.ecken-aus .page-back-wrap,
+  body.ecken-aus .page-nav-label { opacity: 0; pointer-events: none; }
 
   /* Alfred > und < Doris: größer und gut antippbar */
   .person-link { font-size: var(--fs-label); padding: 12px; margin: -12px; }
@@ -979,13 +1017,30 @@ body.lights-out .lampen-schein {
     z-index: 40;
     pointer-events: none;
   }
-  .ueber-boden-welle-kante { height: calc(11vw + 24px); padding-top: 24px; overflow: hidden; }   /* 24 px Platz oben für den Schatten */
+  .ueber-boden-welle-kante { height: calc(11vw + 10px); padding-top: 24px; overflow: hidden; }   /* 24 px Platz oben für den Schatten */
   .ueber-boden-welle-kante svg { display: block; width: 140%; max-width: none; margin-left: -20%; height: auto; }
   /* Beige wie die Wellen oben, mit Schlagschatten, damit sie sich auch auf den beigen Flächen abhebt */
   .ueber-boden-welle-kante svg { filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25)); }
-  .ueber-boden-welle-fuell { height: calc(26px + 120px + env(safe-area-inset-bottom, 0px)); margin-top: -1px; background: #F7F5F2; }
+  /* Beige wie die Wellen oben */
+  .ueber-boden-welle-kante svg path { fill: #F7F5F2; }
+  .ueber-boden-welle-fuell { height: calc(116px + env(safe-area-inset-bottom, 0px)); margin-top: -1px; background: #F7F5F2; }   /* 120 px davon liegen unter dem Bildschirmrand -> sichtbar nur die Welle */
 
-  .ueber-text { order: 1; }
+  /* Schmaler beiger Streifen exakt am unteren Bildschirmrand (volle Breite, 16 px hoch, fest): iOS 26 Safari färbt seine
+     untere Leiste nach festen Elementen, die am Rand anliegen, also hier beige. Er liegt hinter dem Inhalt, der Welle und dem Burger-Button und
+     schneidet keinen Text ab. */
+  html::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(16px + env(safe-area-inset-bottom, 0px));
+    background: #F7F5F2;
+    z-index: 2;   /* unter dem Inhalt (z-index 3): der Text läuft darüber, nichts wird abgedeckt */
+    pointer-events: none;
+  }
+
+  .ueber-text { order: 1; margin-bottom: 22vw; }   /* Weißraum zwischen Text und Bilderrahmen */
   .ueber-hero-fred {
     display: none;
     order: 2;
@@ -999,16 +1054,25 @@ body.lights-out .lampen-schein {
   .ueber-mehr-scroll { display: none; }   /* am Handy ersetzt der Wisch-Hinweis die Zeile "Du willst mehr über uns lesen?" */
   .ueber-wisch-hinweis {
     display: block;
-    margin: 0 auto;
-    padding: 20px 24px 8px;
+    margin: 0 0 0 calc(8vw - 12px);   /* linksbündig am Textrand, lässt rechts Platz für das Männchen */
+    max-width: calc(100vw - 8vw - 125px);
+    text-align: left;
+    white-space: normal;   /* darf umbrechen, damit es nicht ins Männchen läuft */
+    line-height: 1.3;
+    padding: 12px 12px 8px;
     background: none;
     border: 0;
     color: var(--terra);
     font-family: 'AD-Unghia', sans-serif;
     font-size: var(--fs-ui);
     cursor: pointer;
+    transform: translateY(10px);   /* 10 px nach unten (ohne das Layout zu verschieben) */
+    opacity: 0;            /* nur sichtbar, solange die Hinweis-Bewegung läuft (Klasse .zeigen, siehe ueber-uns.js) */
+    pointer-events: none;
+    transition: opacity 0.5s ease;
     -webkit-tap-highlight-color: transparent;
   }
+  .ueber-wisch-hinweis.zeigen { opacity: 1; pointer-events: auto; }
   .ueber-grafik-fred { position: absolute; top: 8vw; left: -59%; width: 250%; max-width: none; height: auto; }
   .person-fred-m { left: max(10px, calc(32% - 78px)); top: calc(8vw + 0.27 * 95.5vw - 14px); }
   .ueber-welle { position: absolute; left: 0; width: 100%; height: 11vw; overflow: hidden; pointer-events: none; }
@@ -1038,19 +1102,20 @@ body.lights-out .lampen-schein {
 
   /* Lampen-Schalter im Bild: größere Tippfläche an derselben Stelle */
   .lampen-btn { left: 13%; top: 83%; width: 18%; height: 20%; }
+  /* Lampe am Handy: aus, bis man zum Bilderrahmen scrollt (dann geht sie an), beim Hochscrollen wieder aus; Tippen schaltet um */
+  .lampen-schein { opacity: 0; transition: opacity 0.9s ease; }
+  .lampen-schein.an { opacity: 1; }
 
   /* ── Burger-Button (Logo) unten rechts ── */
   /* Logo-Button wie am Computer: schaut vom unteren Bildschirmrand herein (ein Stück ragt unten heraus) */
   /* Logo schaut hinter der festen Bodenwelle hervor (die Welle liegt davor, z-index 40 > 30) */
-  .ueber-burger-btn { right: 5vw; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 30; }
+  .ueber-burger-btn { right: 5vw; bottom: calc(1px + env(safe-area-inset-bottom, 0px)); z-index: 30; }
   .ueber-burger-btn img { width: 82px; }
   /* beim Runterscrollen abtauchen (stört sonst den Text), beim Hochscrollen wieder da */
   .ueber-burger-btn { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
-  /* Zuerst hinter der Bodenwelle versteckt, nach dem ersten Runterscrollen fährt es hervor */
-  .ueber-burger-btn { transform: translateY(110px); }
-  .ueber-burger-btn.sichtbar { transform: translateY(0); }
-  /* beige Füllung hinter den Umrissen, damit der Text darunter nicht durchscheint */
-  .ueber-burger-btn { background: url('../media/ad_logo-fuellung.png') center / 100% 100% no-repeat; }
+  /* Anfangs da; beim Runterscrollen taucht es unter dem Rand ab, beim Hochscrollen kommt es zurück */
+  .ueber-burger-btn.versteckt { transform: translateY(130px); }
+
   /* das Hochfahren beim Hover würde die Füllung stehen lassen -> auf dem Handy aus */
   .ueber-burger-btn:hover img { transform: none; }
 
@@ -1062,8 +1127,68 @@ body.lights-out .lampen-schein {
   .ueber-nav-item::after { content: ""; position: absolute; inset: -14px -8px; }
 
   /* ── Fred / Doris ── */
-  .panel-nav-label { top: 6px; right: 4px; left: auto; font-size: var(--fs-label); padding: 14px 12px; }
-  .panel-content { width: 84vw; }
+  .panel-nav-label { top: 6px; right: calc(8vw - 12px); left: auto; font-size: var(--fs-label); padding: 14px 12px; }   /* rechter Textrand genau bei 8vw, bündig mit dem Text */
+  /* Entwurf: Zurück-Pfeil oben links, "(Fred)" oben rechts, Überschrift/Text/Pille linksbündig, Figur rechts unten,
+     unten links ein kleiner Wechsel zum anderen Panel */
+  .person-back-oben {
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: calc(8vw - 16px);   /* Pfeil beginnt genau am Textrand (8vw), die Tippfläche ragt 16 px nach links */
+    z-index: 20;
+    padding: 16px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .person-back-oben img { display: block; width: 12px; height: auto; filter: brightness(0) invert(1); }
+  .panel-content,
+  .panel-content-right { left: 8vw; top: 13vh; width: 84vw; transform: none; text-align: left; }
+  /* Figur rechts unten, am rechten Rand angeschnitten (liegt hinter dem Text) */
+  .panel-figure { display: block; position: absolute; z-index: 1; bottom: +10vh; right:0vw; left: auto; width: auto; height: 44vh;   /* Höhe statt Breite: passt auch auf kurzen Handys unter den Text */ pointer-events: none; }
+  /* Doris spiegelverkehrt: Text und Wechsel-Link rechtsbündig am rechten Rand (8vw), Figur links unten angeschnitten */
+  .panel-content-right { left: auto; right: 8vw; text-align: right; }
+  /* ── Figuren einzeln verschieben (nur die Zahlen ändern) ── */
+  /* Fred: bottom = Höhe über dem Rand (negativ = tiefer), right = Abstand rechts (negativ = angeschnitten), height = Größe */
+  .person-panel .panel-figure-right { bottom: -4vh; right: calc(-14vh - 5px); left: auto; height: min(45vh, calc(100vh - 360px)); }   /* auf kurzen Handys etwas kleiner, damit sie nicht in den Text ragt */   /* right = minus halbe Figurbreite (0,32 x height): die Hälfte ragt über den Rand */
+  /* Doris: bottom, left (negativ = links angeschnitten), height */
+  .person-panel .panel-figure-left { bottom: -4vh; left: calc(-14vh - 5px); right: auto; height: min(45vh, calc(100vh - 360px)); }   /* spiegelverkehrt zu Fred: gleiche Höhe, Größe und Abstand, links zur Hälfte angeschnitten */
+  #person-overlay[data-panel="doris"] .person-close-wrap-bottom { left: auto; right: 8vw; justify-content: flex-end; }
+  /* Tippen/Hover im Fred/Doris-Fenster: nie Terracotta (passt nicht zu Grün/Rosa), Symbole und Texte bleiben weiß */
+  .person-close:hover img:not(.back-hover-circle),
+  .person-back-oben:hover img { filter: brightness(0) invert(1); }
+  .person-close-wrap-bottom .person-pfeil:hover .person-btn-label { color: #F7F5F2; }
+  /* Tipp-Rückmeldung am Handy: kein Hüpfen, Symbole/Texte bleiben weiß. Stattdessen leuchtet beim Tippen kurz ein hellgrauer
+     Kreis (Symbol allein: Zurück-Pfeil oben) bzw. eine hellgraue Pille (Symbol mit Text: Zu Doris/Fred wechseln) auf und blendet aus. */
+  .person-close:hover,
+  .person-close-wrap .person-close:hover,
+  .person-back-oben:hover,
+  .person-close-wrap-bottom .person-pfeil:hover { animation: none !important; transform: none; }
+  .person-close-wrap-bottom .person-pfeil:hover .person-btn-label { transform: none !important; opacity: 1 !important; }
+
+  .person-back-oben,
+  .person-close-wrap-bottom .person-pfeil {
+    background: rgba(247, 245, 242, 0);
+    transition: background 0.45s ease;
+  }
+  .person-back-oben { border-radius: 50%; }   /* 44 x 44 px: ergibt einen Kreis */
+  .person-close-wrap-bottom .person-pfeil { border-radius: 999px; padding: 12px 16px !important; margin: 0 -16px; }
+  .person-back-oben:active,
+  .person-close-wrap-bottom .person-pfeil:active { background: rgba(247, 245, 242, 0.28); transition: background 0s; }
+  .panel-btn:hover { background: rgba(247, 245, 242, 0.22); color: #F7F5F2; animation: none; }
+  /* Am Handy kein Wischen zwischen Fred und Doris: der Wechsel lädt die Seite neu (so liest Safari die Leistenfarbe neu) */
+  .person-slider-wrap { overflow-x: hidden; scroll-snap-type: none; touch-action: pan-y; }
+  .person-close-wrap-bottom .person-close-x { display: none; }
+  .person-close-wrap-bottom { left: 8vw; right: auto; transform: none; justify-content: flex-start; bottom: 78px; z-index: 6; }
+  .person-boden { display: block; z-index: 5; }
+  .person-close-wrap-bottom .person-pfeil .back-hover-circle { display: none; }
+  .person-close-wrap-bottom .person-pfeil .person-btn-label { display: inline !important; opacity: 1 !important; position: static !important; color: #F7F5F2; font-family: 'AD-Unghia', sans-serif; font-size: var(--fs-ui); transform: none !important; margin: 0 0 0 10px; }
+  .person-close-wrap-bottom .person-pfeil-zurueck { flex-direction: row; }
+  /* Fred: Text "Zu Doris wechseln" links, der Pfeil > steht rechts davon (in Richtung Doris); Doris: Pfeil < links vor dem Text */
+  .person-close-wrap-bottom .person-pfeil-weiter { flex-direction: row-reverse; }
+  .person-close-wrap-bottom .person-pfeil-weiter .person-btn-label { margin: 0 10px 0 0; }
+
   .panel-heading { font-size: var(--fs-display); margin-bottom: 18px; }
   .panel-body { font-size: var(--fs-body); line-height: 1.5; margin-bottom: 26px; }
   .panel-btn {
@@ -1074,7 +1199,7 @@ body.lights-out .lampen-schein {
     padding: 0 28px;
     font-size: var(--fs-ui);
   }
-  .person-close-wrap-bottom { bottom: 22px; gap: 6px; }
+  .person-close-wrap-bottom { gap: 6px; }
   .person-close-wrap-bottom .person-close { padding: 15px; }
   .person-close-wrap-bottom .person-close img:not(.back-hover-circle) { width: 16px; height: 16px; }
   .person-close-wrap-bottom .person-pfeil img:not(.back-hover-circle) { width: auto; height: 16px; }
@@ -1093,4 +1218,200 @@ body.lights-out .lampen-schein {
   .page-back-label,
   .ueber-burger-label,
   .person-btn-label { display: none; }
+}
+
+
+/* ══════════ FOTO-POP-UP (Tipp auf das Foto im Bilderrahmen): Terracotta-Vollbild, in der Mitte das Foto im Blob mit hellem Blob-Rand ══════════ */
+.ueber-foto { cursor: zoom-in; -webkit-tap-highlight-color: transparent; }
+
+.foto-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 450;
+  opacity: 0;
+  visibility: hidden;   /* sonst färbt iOS 26 Safari die Leisten auch nach dem Schließen weiter */
+  pointer-events: none;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+}
+.foto-overlay.open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 0.4s ease, visibility 0s; }
+
+/* Terracotta-Fläche als Kind des festen Overlays (wie beim Fred/Doris-Overlay, dort färbt iOS 26 die Leisten mit) */
+.foto-flaeche {
+  width: 100%;
+  height: 100%;
+  background: var(--terra);
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* heller Blob als Rand, darin das Foto selbst als Blob */
+.foto-wrap {
+  --foto: min(88vw, 54vh, 640px);
+  position: relative;
+  width: var(--foto);
+  height: var(--foto);
+  margin-top: -14vh;
+  flex: none;
+  background: rgba(247, 245, 242, 0.14);
+  clip-path: url(#blobClip);
+  transform: scale(0.6);
+  transition: transform 0.4s ease;
+}
+.foto-overlay.open .foto-wrap { transform: scale(1); transition: transform 0.55s cubic-bezier(0.34, 1.35, 0.64, 1); }
+.foto-gross {
+  position: absolute;
+  inset: 5%;
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  clip-path: url(#blobClip);
+}
+
+/* Beige Welle am unteren Rand des Pop-ups (wie die Boden-Welle der Seite): die Safari-Leiste bleibt beige hinterlegt */
+.foto-boden {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -120px;
+  pointer-events: none;
+}
+.foto-boden-kante { height: calc(11vw + 10px); padding-top: 24px; overflow: hidden; }
+.foto-boden-kante svg { display: block; width: 140%; max-width: none; margin-left: -20%; height: auto; filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25)); }
+.foto-boden-kante svg path { fill: #F7F5F2; }
+.foto-boden-fuell { height: calc(150px + env(safe-area-inset-bottom, 0px)); margin-top: -1px; background: #F7F5F2; }
+@media (min-width: 769px) { .foto-boden { display: none; } }
+
+.foto-close {
+  position: absolute;
+  bottom: calc(135px + env(safe-area-inset-bottom, 0px));
+  left: calc(50% - 24px);
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+}
+.foto-close img:not(.back-hover-circle) { position: relative; z-index: 1; height: 16px; width: auto; filter: brightness(0) invert(1); }
+.foto-close:hover .back-hover-circle { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.foto-close:hover img:not(.back-hover-circle) {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+}
+@media (hover: none) { .foto-close .back-hover-circle { display: none; } }
+
+
+/* ══════════ HANDY-MENÜ (Burger): komplette Terracotta-Seite, schiebt sich von rechts herein ══════════ */
+.ueber-mobil-menue { display: none; }
+@media (max-width: 768px) {
+  /* das Computer-Menü gibt es am Handy nicht */
+  #ueber-nav-overlay, .ueber-nav-backdrop { display: none !important; }
+
+  .ueber-mobil-menue {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    background: var(--terra);
+    overflow: hidden;
+    touch-action: none;           /* kein Scrollen und kein Wischen im Menü */
+    overscroll-behavior: none;
+    transform: translateY(100%);   /* schiebt sich von unten herauf */
+    visibility: hidden;   /* geschlossen ganz weg, damit iOS 26 Safari die Leisten nicht weiter terracotta färbt */
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.5s;
+  }
+  .ueber-mobil-menue.open { transform: translateY(0); visibility: visible; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s; }
+
+  /* Schließen links oben (gleiche Stelle wie die Zurück-Pfeile), Start-Symbol rechts oben */
+  .mm-zu, .mm-home {
+    position: absolute;
+    top: 6px;
+    z-index: 5;
+    padding: 16px;
+    background: rgba(247, 245, 242, 0);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.45s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mm-zu { left: calc(8vw - 16px); }
+  /* Start-Symbol: Terracotta, mittig in der weißen Welle unten (über der Welle, z-index 7) */
+  .mm-home { top: 6px; bottom: auto; left: auto; right: calc(8vw - 16px); z-index: 5; }   /* Start-Symbol wieder oben rechts in der Ecke */
+  /* Schließen (X) in der Welle, links neben dem Start-Symbol */
+  .mm-x { position: absolute; top: auto; bottom: calc(2px + env(safe-area-inset-bottom, 0px)); left: calc(50% - 22px); z-index: 7; padding: 16px; background: rgba(119, 113, 107, 0); border: 0; border-radius: 50%; cursor: pointer; transition: background 0.45s ease; -webkit-tap-highlight-color: transparent; }
+  .mm-x img { display: block; width: 14px; height: 14px; filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%); }
+  .mm-x:active { background: rgba(119, 113, 107, 0.18); transition: background 0s; }
+  .mm-zu img, .mm-home img { display: block; width: 12px; height: auto; filter: brightness(0) invert(1); }
+  .mm-zu img { width: auto; height: 16px; }   /* Pfeil und Haus gleich hoch (16 px), Breite folgt von selbst */
+  .mm-home img { width: auto; height: 21px; }   /* das Haus hat im SVG mehr Rand: optisch gleich groß wie der Pfeil */
+  .mm-zu:active, .mm-home:active { background: rgba(247, 245, 242, 0.28); transition: background 0s; }
+
+
+  /* Grafik und Menüpunkte wie auf der Startseite (gleiche Prozentwerte), vertikal in der Mitte */
+  .mm-grafik {
+    position: absolute;
+    left: -28.88vw;
+    width: 140.54vw;
+    aspect-ratio: 1799.54 / 1741.87;
+    top: 10px;   /* Grafik samt Menüpunkten: größer = weiter unten (Linien laufen oben nicht mehr über den Rand hinaus */: Linien laufen oben über den Rand hinaus */
+  }
+  .mm-grafik > img { display: block; width: 100%; height: auto; }
+  .mm-grafik .menu-item { color: #F7F5F2; text-decoration: none; }   /* Schrift wie auf der Startseite (--fs-menu, 18 px) */
+  .mm-spruch {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+    margin: 0;
+    padding: 0 8vw;
+    text-align: center;
+    color: #F7F5F2;
+    font-family: 'AD-Unghia', sans-serif;
+    font-size: var(--fs-ui);
+    line-height: 1.35;
+    z-index: 4;
+  }
+  @media (max-height: 640px) { .mm-spruch { display: none; } }   /* auf kurzen Handys ist kein Platz zwischen Menüpunkten und Welle */
+  /* Kleines Logo wie auf der Startseite: weiße Linien, wächst hinter der Welle hervor (liegt hinter ihr, z-index 5 < 6) */
+  /* Das Logo liegt hinter der Welle (z-index 5); darüber liegt ein unsichtbarer Link nur über dem sichtbaren Teil (Tippen -> Startseite) */
+  .mm-logo {
+    position: absolute;
+    left: calc(50% - 8.5vw);
+    bottom: calc(54px + env(safe-area-inset-bottom, 0px));   /* größer = Logo höher */
+    width: 17vw;
+    height: auto;
+    z-index: 5;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  .mm-logo-link {
+    position: absolute;
+    left: calc(50% - 8.5vw - 14px);
+    bottom: calc(54px + env(safe-area-inset-bottom, 0px) + 40px);
+    width: calc(17vw + 28px);
+    height: calc(17vw * 1.28 - 40px);
+    z-index: 7;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Grafik senkrecht gespiegelt: die Linien wachsen aus der Welle nach oben. Nur das Bild wird gespiegelt, die Menüpunkte (Text)
+     bleiben aufrecht und sitzen an den gespiegelten Linienenden (top = 100 % minus bisheriger Wert). */
+  .mm-grafik { top: auto; bottom: 40px; }
+  .mm-grafik > img { transform: scaleY(-1); }
+  .mm-grafik .menu-item.mi-ueber     { top: 65.71% !important; }
+  .mm-grafik .menu-item.mi-werke     { top: 52.14% !important; }
+  .mm-grafik .menu-item.mi-raku      { top: 38.63% !important; }
+  .mm-grafik .menu-item.mi-maerkte   { top: 25.05% !important; }
+  .mm-grafik .menu-item.mi-workshops { top: 11.42% !important; }
+  .mm-boden { z-index: 6; }
+  .mm-boden .foto-boden-fuell { background: #F7F5F2; height: calc(160px + env(safe-area-inset-bottom, 0px)); }   /* Lage der Welle im Menü: größer heißt höher (auf Terracotta braucht sie etwas mehr Höhe, damit man sie sieht) */
+  .mm-boden .foto-boden-kante svg path { fill: #F7F5F2; }
 }
