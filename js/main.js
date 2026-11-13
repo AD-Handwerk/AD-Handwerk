@@ -262,3 +262,7 @@ document.getElementById('notFoundClose').addEventListener('click', () => {
 // ── Figuren-Animation (TODO: durch GIF ersetzen) ──
 
 
+
+
+// iOS-Safari zeigt :active (Tipp-Rückmeldung) nur, wenn irgendwo ein touchstart-Handler hängt
+document.addEventListener('touchstart', function () {}, { passive: true });

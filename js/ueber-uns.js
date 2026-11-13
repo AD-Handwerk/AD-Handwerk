@@ -16,11 +16,20 @@ function openOverlay(panel) {
   const x = panel === 'doris' ? window.innerWidth : 0;
   sliderWrap.scrollLeft = x;
   overlay.dataset.panel = panel === 'doris' ? 'doris' : 'fred';
+  setzeStreifen(overlay.dataset.panel);
+}
+
+// iOS 26 Safari übernimmt die Leistenfarbe erst bei einer Scroll-Bewegung neu: nach dem Schließen 1 px anstupsen
+function leistenNeuBerechnen() {
+  setTimeout(() => { window.scrollBy(0, 1); window.scrollBy(0, -1); }, 650);
 }
 
 function closeOverlay() {
+  if (/[?&]p=/.test(window.location.search) && window.history && history.replaceState) history.replaceState(null, '', 'ueber-uns.html');
+  setzeSeitenfarbe(null);
   overlay.classList.remove('visible');
   document.body.style.overflow = '';
+  leistenNeuBerechnen();
 }
 
 document.getElementById('openAlfred').addEventListener('click', (e) => {
@@ -57,10 +66,60 @@ function zeigePanel(panel) {
   sliderWrap.scrollTo({ left: panel === 'doris' ? window.innerWidth : 0, behavior: 'smooth' });
 }
 // Pfeil neben dem X zeigt immer zum anderen Panel (Fred: rechts, Doris: links)
-function aktualisierePfeile() { overlay.dataset.panel = aktuellesPanel(); }
+// Streifen ganz oben im Overlay in der Farbe des sichtbaren Fensters. Bei jedem Wechsel wird ein neues Element eingesetzt und das
+// alte entfernt, dazu 1 px Scroll-Stups: so liest iOS 26 Safari die Farbe der oberen Leiste jedes Mal neu.
+let leistenTimer = null;
+const LEISTEN_FARBE = { fred: '#8C9E82', doris: '#BEA49C' };
+const handyFarben = () => window.matchMedia('(max-width: 768px)').matches;
+function setzeSeitenfarbe(farbe) {
+  // zusätzlich zum Streifen: Seitenhintergrund und theme-color in der Farbe des Fensters (oder wieder zurück auf den Normalzustand)
+  const html = document.documentElement;
+  if (farbe) { html.style.setProperty('background', farbe, 'important'); document.body.style.setProperty('background', farbe, 'important'); }
+  else { html.style.removeProperty('background'); document.body.style.removeProperty('background'); }
+  let m = document.querySelector('meta[name="theme-color"]');
+  if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); }
+  m.content = farbe || '#F3D9D4';
+}
+function setzeStreifen(wer) {
+  setzeSeitenfarbe(LEISTEN_FARBE[wer]);
+  overlay.querySelectorAll('.leisten-streifen').forEach((e) => e.remove());
+  const s = document.createElement('div');
+  s.className = 'leisten-streifen ' + wer;
+  s.setAttribute('aria-hidden', 'true');
+  overlay.appendChild(s);
+  clearTimeout(leistenTimer);
+  leistenTimer = setTimeout(() => {
+    const alt = document.body.style.overflow;
+    document.body.style.overflow = '';
+    window.scrollBy(0, 1);
+    window.scrollBy(0, -1);
+    document.body.style.overflow = alt;
+  }, 150);
+}
+function aktualisierePfeile() {
+  const neu = aktuellesPanel();
+  if (overlay.dataset.panel === neu) return;
+  overlay.dataset.panel = neu;
+  setzeStreifen(neu);
+}
 sliderWrap.addEventListener('scroll', aktualisierePfeile, { passive: true });
-document.getElementById('personZuDoris').addEventListener('click', () => zeigePanel('doris'));
-document.getElementById('personZuFred').addEventListener('click', () => zeigePanel('fred'));
+// Handy: der Wechsel lädt die Seite neu und öffnet gleich das andere Fenster (Safari liest dabei die Leistenfarbe neu).
+// Computer: weiches Wischen wie bisher.
+function wechsleZu(wer) {
+  if (handyFarben()) { window.location.href = 'ueber-uns.html?p=' + wer; }
+  else zeigePanel(wer);
+}
+document.getElementById('personZuDoris').addEventListener('click', () => wechsleZu('doris'));
+document.getElementById('personZuFred').addEventListener('click', () => wechsleZu('fred'));
+
+// Beim Laden mit ?p=fred|doris (nur Handy): das Fenster sofort ohne Einblenden öffnen
+(function () {
+  const m = /[?&]p=(fred|doris)/.exec(window.location.search);
+  if (!m || !handyFarben()) return;
+  overlay.style.transition = 'none';
+  openOverlay(m[1]);
+  requestAnimationFrame(() => { overlay.style.transition = ''; });
+})();
 document.addEventListener('wheel', (e) => {
   if (!overlay.classList.contains('visible')) return;
   e.preventDefault();
@@ -105,20 +164,54 @@ window.addEventListener('load', positionNavItems);
 const navOverlay  = document.getElementById('ueber-nav-overlay');
 const navBackdrop = document.getElementById('ueberNavBackdrop');
 
+const mobilMenue = document.getElementById('ueberMobilMenue');
+let menueScrollY = 0;
+if (mobilMenue) mobilMenue.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+if (mobilMenue) mobilMenue.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
+const handyMenue = () => window.matchMedia('(max-width: 768px)').matches && mobilMenue;
+
 function openNav() {
+  if (handyMenue()) {
+    mobilMenue.classList.add('open');
+    mobilMenue.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('menue-offen');
+    // Scrollen komplett sperren (iOS ignoriert overflow:hidden): Seite festsetzen und Wischen im Menü abfangen
+    menueScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + menueScrollY + 'px';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    return;
+  }
   navOverlay.classList.add('open');
   navBackdrop.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeNav() {
+  if (mobilMenue && mobilMenue.classList.contains('open')) {
+    mobilMenue.classList.remove('open');
+    mobilMenue.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menue-offen');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    window.scrollTo(0, menueScrollY);
+    leistenNeuBerechnen();
+    return;
+  }
   navOverlay.classList.remove('open');
   navBackdrop.classList.remove('open');
   document.body.style.overflow = '';
+  leistenNeuBerechnen();
 }
 
 document.getElementById('ueberBurgerBtn').addEventListener('click', openNav);
 document.getElementById('ueberNavClose').addEventListener('click', closeNav);
+if (document.getElementById('mmZu')) document.getElementById('mmZu').addEventListener('click', closeNav);
+if (document.getElementById('mmX')) document.getElementById('mmX').addEventListener('click', closeNav);
+if (mobilMenue) mobilMenue.querySelector('.mi-ueber').addEventListener('click', (e) => { e.preventDefault(); closeNav(); });
 navBackdrop.addEventListener('click', closeNav);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
 
@@ -203,17 +296,20 @@ document.getElementById('lampeToggle').addEventListener('mouseleave', () => {
   weiter.focus({ preventScroll: true });
 })();
 
-// ── Logo-Button (Burger-Menü) auf dem Handy: erscheint erst beim ersten Runterscrollen hinter der Bodenwelle ──
+// ── Logo-Button (Burger-Menü) auf dem Handy: anfangs da, beim Runterscrollen verschwindet er, beim Hochscrollen kommt er wieder ──
 (function () {
   const btn = document.getElementById('ueberBurgerBtn');
   if (!btn) return;
   const mobil = window.matchMedia('(max-width: 768px)');
-  function pruefe() {
-    if (!mobil.matches) { btn.classList.remove('sichtbar'); return; }
-    if (window.scrollY > 8) btn.classList.add('sichtbar');   // einmal erschienen, bleibt es
-  }
-  window.addEventListener('scroll', pruefe, { passive: true });
-  pruefe();
+  let letzte = window.scrollY;
+  window.addEventListener('scroll', () => {
+    if (!mobil.matches) { btn.classList.remove('versteckt'); letzte = window.scrollY; return; }
+    const y = window.scrollY, d = y - letzte;
+    if (Math.abs(d) < 6) return;                       // kleine Wackler ignorieren
+    if (d > 0 && y > 160) btn.classList.add('versteckt');   // nach unten, nicht ganz oben
+    else btn.classList.remove('versteckt');                 // nach oben oder am Seitenanfang
+    letzte = y;
+  }, { passive: true });
 })();
 
 // ── Handy: Hero zum seitlichen Wischen (Doris <-> Fred) ──
@@ -227,7 +323,7 @@ document.getElementById('lampeToggle').addEventListener('mouseleave', () => {
   const fredX = () => top.clientWidth * (hw() * 0.425 - 0.5);
   const naeher = () => (top.scrollLeft > (dorisX() + fredX()) / 2 ? 'doris' : 'fred');
   function zeigeHinweis() {
-    hinweis.textContent = naeher() === 'doris' ? '< Zu Fred scrollen!' : 'Zu Doris scrollen! >';
+    hinweis.textContent = naeher() === 'doris' ? 'Wischen, um zu Fred zu kommen' : 'Wischen, um zu Doris zu kommen';
   }
   function start() {
     if (!mobil.matches) return;
@@ -253,13 +349,14 @@ document.getElementById('lampeToggle').addEventListener('mouseleave', () => {
     if (beruehrt || animiert || !mobil.matches || window.scrollY > 4) return;
     if (naeher() !== 'doris') return;
     animiert = true;
+    hinweis.classList.add('zeigen');   // Text blendet zusammen mit der Bewegung ein
     const von = dorisX();
     const weite = (dorisX() - fredX()) * 0.28;   // ein Stück Richtung Fred
     const dauer = 1400;
     const t0 = performance.now();
     top.style.scrollSnapType = 'none';
     function schritt(jetzt) {
-      if (beruehrt) { top.style.scrollSnapType = ''; animiert = false; return; }
+      if (beruehrt) { top.style.scrollSnapType = ''; animiert = false; hinweis.classList.remove('zeigen'); return; }
       const p = Math.min(1, (jetzt - t0) / dauer);
       // hin (0 -> 0.45) mit sanftem Ausklang, zurück (0.45 -> 1) mit kleinem Nachfedern
       let v;
@@ -267,7 +364,7 @@ document.getElementById('lampeToggle').addEventListener('mouseleave', () => {
       else { const q = (p - 0.45) / 0.55; v = 1 - (1 - Math.pow(1 - q, 3)) + Math.sin(q * Math.PI * 2) * 0.04 * (1 - q); }
       top.scrollLeft = von - weite * v;
       if (p < 1) requestAnimationFrame(schritt);
-      else { top.scrollLeft = von; top.style.scrollSnapType = ''; animiert = false; }
+      else { top.scrollLeft = von; top.style.scrollSnapType = ''; animiert = false; setTimeout(() => hinweis.classList.remove('zeigen'), 400); }
     }
     requestAnimationFrame(schritt);
   }
@@ -313,3 +410,81 @@ document.getElementById('lampeToggle').addEventListener('mouseleave', () => {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => anpassen(true));
   window.addEventListener('resize', () => anpassen(false));
 })();
+
+// ── Handy: Lampe geht an, sobald der Bilderrahmen im Bild ist, und wieder aus, wenn man wegscrollt ──
+(function () {
+  const schein = document.querySelector('.lampen-schein');
+  const rahmen = document.querySelector('.ueber-rahmen-wrap');
+  const knopf = document.getElementById('lampeToggle');
+  if (!schein || !rahmen) return;
+  const mobil = window.matchMedia('(max-width: 768px)');
+  let an = false;
+  function setze(wert) {
+    an = wert;
+    schein.classList.toggle('an', an);
+  }
+  // an, wenn die Mitte des Bilderrahmens im mittleren Teil des Bildschirms liegt (zwischen 20 % und 85 % der Höhe)
+  let geplant = false;
+  function pruefe() {
+    geplant = false;
+    if (!mobil.matches) return;
+    const r = rahmen.getBoundingClientRect();
+    const mitte = r.top + r.height / 2;
+    setze(mitte > window.innerHeight * 0.2 && mitte < window.innerHeight * 0.85);
+  }
+  function plane() { if (!geplant) { geplant = true; requestAnimationFrame(pruefe); } }
+  window.addEventListener('scroll', plane, { passive: true });
+  window.addEventListener('resize', plane, { passive: true });
+  window.addEventListener('load', plane);
+  plane();
+  // Tippen auf die Lampe schaltet um (Hover gibt es am Handy nicht)
+  if (knopf) knopf.addEventListener('click', () => { if (mobil.matches) setze(!an); });
+})();
+
+// ── Foto-Pop-up: Tipp auf das Foto im Bilderrahmen öffnet einen Terracotta-Vollbild mit dem Foto im Blob; X / Escape schließt ──
+(function () {
+  const foto = document.getElementById('ueberFoto');
+  const overlay = document.getElementById('fotoOverlay');
+  const zu = document.getElementById('fotoClose');
+  if (!foto || !overlay || !zu) return;
+  let offen = false;
+  function oeffne() {
+    if (offen) return;
+    offen = true;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';   // wie beim Fred/Doris-Overlay
+    zu.focus({ preventScroll: true });
+    // iOS 26 Safari übernimmt die Leistenfarbe erst bei einer Scroll-Bewegung: einmal 1 px anstupsen
+    setTimeout(() => { window.scrollBy(0, 1); window.scrollBy(0, -1); }, 120);
+  }
+  function schliesse() {
+    if (!offen) return;
+    offen = false;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    foto.focus({ preventScroll: true });
+    if (typeof leistenNeuBerechnen === 'function') leistenNeuBerechnen();
+  }
+  foto.addEventListener('click', oeffne);
+  foto.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); oeffne(); } });
+  zu.addEventListener('click', schliesse);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') schliesse(); });
+})();
+
+// ── Handy: Zurück-Pfeil und "(Über Uns)" oben blenden beim Runterscrollen aus, beim Hochscrollen und ganz oben wieder ein ──
+(function () {
+  const mobil = window.matchMedia('(max-width: 768px)');
+  let letzte = window.scrollY;
+  window.addEventListener('scroll', () => {
+    if (!mobil.matches) { document.body.classList.remove('ecken-aus'); letzte = window.scrollY; return; }
+    const y = window.scrollY, d = y - letzte;
+    if (y < 40) { document.body.classList.remove('ecken-aus'); letzte = y; return; }
+    if (Math.abs(d) < 6) return;                       // kleine Wackler ignorieren
+    document.body.classList.toggle('ecken-aus', d > 0); // nach unten aus, nach oben ein
+    letzte = y;
+  }, { passive: true });
+})();
+
+
+// iOS-Safari zeigt :active (Tipp-Rückmeldung) nur, wenn irgendwo ein touchstart-Handler hängt
+document.addEventListener('touchstart', function () {}, { passive: true });
