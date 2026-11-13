@@ -101,7 +101,7 @@ if (intro && intro.style.display !== 'none') {
     const w = popup.offsetWidth || 340;
     popup.style.setProperty('--klein', (74 / w).toFixed(4));
     popup.style.setProperty('--odx', -(window.innerWidth / 2 - 52) + 'px');
-    popup.style.setProperty('--ody', -(window.innerHeight / 2 - 110) + 'px');
+    popup.style.setProperty('--ody', -(window.innerHeight / 2 - 67) + 'px');
   }
   setzeMasse();
   window.addEventListener('resize', setzeMasse);
@@ -133,8 +133,8 @@ if (intro && intro.style.display !== 'none') {
   function checkTerra() {
     let closeCenterY;
     if (handy.matches) {
-      // Handy: Mitte des Pop-ups an seiner Zielposition (abgelegt: ca. 110 px über dem unteren Rand, offen: Bildschirmmitte)
-      closeCenterY = popup.classList.contains('docked') ? window.innerHeight - 110 : window.innerHeight / 2;
+      // Handy: Mitte des Pop-ups an seiner Zielposition (abgelegt: ca. 67 px über dem unteren Rand, offen: Bildschirmmitte)
+      closeCenterY = popup.classList.contains('docked') ? window.innerHeight - 67 : window.innerHeight / 2;
     } else {
       const closeRect = closeBtn.getBoundingClientRect();
       closeCenterY = closeRect.top + closeRect.height / 2;

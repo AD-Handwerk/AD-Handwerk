@@ -10,9 +10,27 @@ document.querySelector('.ueber-mehr-scroll').addEventListener('click', (e) => {
 const overlay = document.getElementById('person-overlay');
 const sliderWrap = document.getElementById('personSliderWrap');
 const scrollHint = document.getElementById('personScrollHint');
+// Scrollen im Fred/Doris-Fenster komplett sperren (iOS ignoriert overflow:hidden): Seite festsetzen, Wischen und Mausrad abfangen
+let personScrollY = 0;
+function sperreScrollen() {
+  personScrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + personScrollY + 'px';
+  document.body.style.width = '100%';
+  document.body.style.overflow = 'hidden';
+}
+function gibScrollenFrei() {
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+  document.body.style.overflow = '';
+  window.scrollTo(0, personScrollY);
+}
+overlay.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+
 function openOverlay(panel) {
   overlay.classList.add('visible');
-  document.body.style.overflow = 'hidden';
+  if (document.body.style.position !== 'fixed') sperreScrollen();
   const x = panel === 'doris' ? window.innerWidth : 0;
   sliderWrap.scrollLeft = x;
   overlay.dataset.panel = panel === 'doris' ? 'doris' : 'fred';
@@ -28,7 +46,7 @@ function closeOverlay() {
   if (/[?&]p=/.test(window.location.search) && window.history && history.replaceState) history.replaceState(null, '', 'ueber-uns.html');
   setzeSeitenfarbe(null);
   overlay.classList.remove('visible');
-  document.body.style.overflow = '';
+  gibScrollenFrei();
   leistenNeuBerechnen();
 }
 
