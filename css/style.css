@@ -260,6 +260,14 @@ body {
   pointer-events: all;
 }
 
+.datum-kurz { display: none; }
+.t-mob { display: none; }
+
+.popup-pfeil { display: none; }
+.home-hinweis { display: none; }
+
+.home-popup-cta { display: none; }
+
 .home-popup-link {
   display: block;
   text-decoration: none;
@@ -711,7 +719,8 @@ body {
 
 .impressum-header {
   position: absolute;
-  top: 4.5vw;
+  top: auto;
+  bottom: 2.6vw;   /* Zurück und Schließen unten mittig, wie am Handy */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -731,6 +740,7 @@ body {
   justify-content: center;
   gap: 1.5vw;
   padding-top: 3vw;
+  padding-bottom: 5.5vw;   /* Platz für Zurück/Schließen unten */
 }
 
 .impressum-close {
@@ -962,38 +972,69 @@ body {
 
 .storyboard-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;   /* gleich breit: die Naht liegt genau in der Mitte, auf der Achse von Titel und Signatur */
   gap: 2vw;
 }
+/* Spalten gleich hoch: Absätze verteilen sich, erste und letzte Zeile schließen oben und unten bündig ab */
+.storyboard-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.storyboard-col p:last-child { margin-bottom: 0; }
 
 .storyboard-col p {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 0.9vw;
   color: var(--taupe);
-  line-height: 1.7;
-  margin-bottom: 1.5vw;
+  line-height: 1.75;
+  margin-bottom: 2.1vw;   /* ca. 1,8 Zeilen Luft zwischen den Absätzen */
 }
 
+/* Ausruf und seine Fortsetzung gehören zusammen: am Computer nur kleiner Abstand */
+.storyboard-col p.ruf { margin-bottom: 0.3vw; }
 .storyboard-col:first-child p { text-align: right; }
 .storyboard-col:last-child p  { text-align: left; }
 
 .storyboard-signature {
   font-family: 'AD-Unghia', sans-serif;
+  /* Signatur ist keine Überschrift: Fließtextgröße, in Terracotta, mit kurzem Strich davor */
   font-size: 0.9vw;
-  color: var(--taupe);
+  color: var(--terra);
   text-align: center;
-  margin-top: 2vw;
+  margin-top: 3.5vw;
+}
+.storyboard-signature::before {
+  content: '';
+  display: block;
+  width: 2.4vw;
+  height: 1px;
+  background: var(--terra);
+  opacity: 0.6;
+  margin: 0 auto 1.2vw;
 }
 
 /* Fußnote zum Sternchen: Easter Egg ganz unten in der Geschichte */
 .storyboard-fussnote {
   font-family: 'AD-Unghia', sans-serif;
-  font-size: 0.8vw;
-  line-height: 1.5;
+  font-size: max(13px, 0.95vw);
+  line-height: 1.6;
   color: var(--taupe);
   text-align: center;
-  max-width: 30vw;
-  margin: 1.6vw auto 0;
+  max-width: 42vw;      /* am Computer breiter, Umbruch automatisch und ausgewogen */
+  text-wrap: balance;
+  margin: 3.2vw auto 0;      /* deutlich abgesetzt: eigenes Kleingedrucktes */
+  padding-top: 2.4vw;
+  opacity: 0.85;
+}
+.fussnote-absatz { display: block; margin-top: 1.2em; }
+/* dünne gerade Linie als Trenner */
+.storyboard-fussnote::before {
+  content: '';
+  display: block;
+  height: 1px;
+  margin-bottom: 2.2vw;
+  background: rgba(119, 113, 107, 0.3);
 }
 .fussnote-stern { color: var(--terra); font-weight: bold; }
 
@@ -1212,13 +1253,136 @@ body {
 
   /* ── Nicht im Mobile-Entwurf ── */
   .home-logo-gimmick,
-  .home-popup,
   .start-nav-home,
   .start-nav-menu,
   .start-nav-storyboard,
   .scroll-arrow-beige { display: none; }
 
   .mobile-br { display: inline; }
+
+  /* ── Markt-Hinweis als Pop-up im Blob (wie bei Werke und Workshops): poppt mittig auf, X unten schließt.
+        Bewusst ohne dunklen Hintergrund, der färbt die Safari-Leisten um. ── */
+  .home-popup {
+    /* Am Ziel-Platz (rechts unten) verankert: right/bottom statt top/left, damit der kleine Kreis beim Scrollen
+       (Safari-Leiste ein-/ausgeblendet) nicht herumspringt. Die Mitte kommt per transform (--odx/--ody aus main.js). */
+    --w: min(88vw, 370px);
+    position: fixed;
+    top: auto;
+    left: auto;
+    right: calc(52px - var(--w) / 2);
+    bottom: calc(110px - var(--w) / 2);
+    width: var(--w);
+    height: var(--w);
+    /* Blob liegt als ::before darunter, damit der Schatten (filter) nicht vom clip-path abgeschnitten wird */
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(var(--odx, 0px), var(--ody, 0px)) scale(0);
+    transform-origin: 50% 50%;
+    opacity: 1;
+    transition: transform 0.5s cubic-bezier(0.34, 1.35, 0.64, 1);
+  }
+  .home-popup.visible { transform: translate(var(--odx, 0px), var(--ody, 0px)) scale(1); }
+  .home-popup-link { display: block; width: 66%; text-align: center; margin-top: -6%; }
+  .home-popup-link picture, .home-popup-blase { display: none; }
+  .datum-lang { display: none; }
+  .datum-kurz { display: inline; }
+  .t-desk { display: none; }
+  .t-mob { display: inline; }
+  .home-popup-text {
+    position: static;
+    display: block;
+    width: auto;
+    color: #F7F5F2;
+    font-size: clamp(19px, 5.8vw, 24px);
+    line-height: 1.25;
+    white-space: normal;
+  }
+  .home-popup-date {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: #F7F5F2;
+    opacity: 0.9;
+  }
+  .home-popup-cta {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 9px 24px;
+    border: 1.5px solid #F7F5F2;
+    border-radius: 999px;
+    color: #F7F5F2;
+    font-family: 'AD-Unghia', sans-serif;
+    font-size: clamp(14px, 4.2vw, 17px);
+  }
+  .home-popup-close {
+    top: auto;
+    bottom: 6%;
+    left: calc(50% - 24px);     /* ohne transform: die Hover-Animation 'pop' würde den Button sonst versetzen */
+    right: auto;
+    transform: none;
+    -webkit-tap-highlight-color: transparent;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    z-index: 3;
+  }
+  .home-popup-close img { width: 16px; }
+  /* Am Handy kein Hover (bleibt nach dem Tippen sonst hängen): keine Scheibe, keine Animation, keine Farbänderung */
+  .home-popup-close:hover { background: none; animation: none; }
+  .home-popup-close .back-hover-circle { display: none; }
+  .home-popup-close img:not(.back-hover-circle) { filter: brightness(0) invert(1); }
+  .home-hinweis { display: none; }
+
+  /* Beim Scrollen: das Pop-up schrumpft zu einem kleinen Kreis, der rechts über der Menüleiste schwebt (Tippen öffnet es wieder).
+     Nur transform wird animiert (Größe bleibt gleich, nur skaliert): dadurch bleibt der Text beim Öffnen/Schließen ruhig,
+     --klein / --dx / --dy setzt main.js passend zur Bildschirmgröße. */
+  .home-popup {
+    --klein: 0.2;
+    transition: background 0.3s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .home-popup.visible.docked {
+    transform: scale(var(--klein));
+    cursor: pointer;
+  }
+  .home-popup .home-popup-link, .home-popup .home-popup-close { transition: opacity 0.25s ease; }
+  .home-popup.docked .home-popup-link,
+  .home-popup.docked .home-popup-close { opacity: 0; pointer-events: none; }
+  .home-popup::after {
+    content: '27.11.';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F7F5F2;
+    font-family: 'AD-Unghia', sans-serif;
+    font-size: calc(18px / var(--klein));   /* gegen das Verkleinern ausgleichen: im kleinen Kreis 18 px */
+    line-height: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, color 0.3s ease;
+  }
+  .home-popup.docked::after { opacity: 1; transition-delay: 0.25s; }
+
+  /* Über Terracotta-Flächen: Farben tauschen (beiger Kreis, Terracotta-Schrift), sonst verschwindet das Pop-up */
+  .home-popup::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    clip-path: url(#blobClip);
+    background: var(--terra);
+    transition: background 0.3s ease;
+  }
+  .home-popup.on-terra::before { background: #F7F5F2; }
+  .home-popup.on-terra::after,
+  .home-popup.on-terra .home-popup-text,
+  .home-popup.on-terra .home-popup-date { color: var(--terra); }
+  .home-popup.on-terra .home-popup-cta { color: var(--terra); border-color: var(--terra); }
+  .home-popup.on-terra .home-popup-close img:not(.back-hover-circle) { filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%); }   /* gleicher Terracotta-Ton wie das X bei Werke */
 
   /* ── Hero ── */
   .dots { background-size: 90%; }
@@ -1267,7 +1431,7 @@ body {
     right: calc(100% + 4px);
     top: 6vw;
     margin: 0;
-    font-size: 14px;
+    font-size: var(--fs-small);
     padding: 4px 9px;
     opacity: 0;
     transform: translateX(10px);
@@ -1360,12 +1524,13 @@ body {
   .start-menu-grafik picture { display: block; }
 
   .menu-item {
-    font-size: clamp(16px, 4.7vw, 22px);
+    font-size: var(--fs-menu);
     padding: 14px 0;
     gap: 8px;
   }
 
-  .menu-item .menu-hover-circle { display: none; }
+  /* Hover-Kreis wie am Computer (auch beim Tippen). Die festen Größen aus dem Computer-Layout sind hier klein, deshalb vergrößert. */
+  .menu-item:hover .menu-hover-circle { transform: translate(-50%, -50%) scale(2.6); }
 
   /* Punkt links vom Text */
   .menu-item.mi-ueber,
@@ -1396,7 +1561,7 @@ body {
 
   .start-terra-sub,
   .start-terra-main {
-    font-size: 16px;
+    font-size: var(--fs-ui);
     line-height: 1.35;
   }
 
@@ -1419,7 +1584,7 @@ body {
   }
 
   .storyboard-title {
-    font-size: 26px;
+    font-size: var(--fs-headline);
     line-height: 1.15;
     margin-bottom: 44px;
   }
@@ -1427,26 +1592,33 @@ body {
   .storyboard-columns {
     display: block;
   }
+  .storyboard-col { display: block; }
+  .storyboard-col p:last-child { margin-bottom: 1.8em; }
 
   .storyboard-col p,
   .storyboard-col:first-child p,
   .storyboard-col:last-child p {
-    font-size: 17px;
-    line-height: 1.35;
+    font-size: var(--fs-body);
+    line-height: 1.5;
     text-align: center;
-    margin-bottom: 1.2em;
+    margin-bottom: 1.8em;
   }
+  .storyboard-col p.ruf { margin-bottom: 1.8em; }
 
   .storyboard-signature {
-    font-size: 24px;
-    margin-top: 30px;
+    font-size: var(--fs-body);
+    margin-top: 48px;
   }
+  .storyboard-signature::before { width: 28px; margin-bottom: 14px; }
 
   .storyboard-fussnote {
-    font-size: 14px;
-    max-width: 300px;
-    margin-top: 24px;
+    font-size: var(--fs-small);
+    line-height: 1.5;
+    max-width: 320px;
+    margin-top: 72px;
+    padding-top: 0;
   }
+  .storyboard-fussnote::before { margin-bottom: 26px; }
 
   /* ── Impressum (alle Seiten) ── */
   /* Am Handy ist das Impressum ein normaler Fußbereich am Seitenende: nicht
@@ -1460,7 +1632,7 @@ body {
     bottom: auto;
     transform: none;
     width: 100%;
-    height: 15vh;
+    height: 70px;   /* fest statt 15vh: auf langen Handys würde der Fuß sonst höher und die Punkte zu weit oben */
     opacity: 1;
     visibility: visible;
     pointer-events: all;
@@ -1477,7 +1649,7 @@ body {
     bottom: 0;
     left: -30vw;
     width: 160vw;
-    height: 15vh;
+    height: 70px;   /* fest statt 15vh: auf langen Handys würde der Fuß sonst höher und die Punkte zu weit oben */
     max-height: none;
     transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     background-image: linear-gradient(#F7F5F2, #F7F5F2);
@@ -1494,7 +1666,32 @@ body {
   }
 
   /* Drei Punkte: kleines Blatt (Kontakt | Impressum | Rechtliches) wächst nach oben */
-  #impressum.open .impressum-content { height: 26vh; }
+  #impressum.open .impressum-content { height: 150px; }   /* fest: X und die drei Links, unabhängig von der Bildschirmhöhe */
+  /* Ein Wert für alle Geräte, in festen Pixeln (nicht in vh, sonst wächst der Fuß auf langen Handys mit):
+     Fuß 70 px hoch, 75 px Freiraum darunter -> die drei Punkte liegen ca. 110 px über dem Seitenende.
+     iPhone 8 (feste Leiste ca. 98 px): Punkte knapp über der Leiste. iPhone 15 Pro (schwebende Leiste, ca. 82 px): ebenso. */
+  #impressum { --leiste: 75px; }
+  #impressum,
+  #impressum.open { height: calc(70px + var(--leiste)); }
+  .impressum-content { bottom: var(--leiste); }
+  #impressum::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--leiste);
+    background: #F7F5F2;
+    pointer-events: none;
+  }
+  /* Offenes kleines Blatt: die untere Wellenkante des Blatts samt Schatten (auf kurzen Handys wie dem SE sichtbar) abdecken */
+  #impressum.open::after { bottom: -60px; height: 50px; z-index: 1; }   /* reicht bis unter die Leiste, kein grauer Spalt */
+  /* Offen blendet Safari die Leiste unten voll ein, das Seitenende liegt dann direkt darüber: kein Extra-Freiraum nötig */
+  #impressum.open { --leiste: -12px; }
+  /* Im Vollbild (Kontakt / Impressum / Rechtliches) würde diese Fläche die untere Kante des Overlays verdecken */
+  #impressum.full::after,
+  #impressum.rechtliches::after,
+  #impressum.kontakt::after { display: none; }
 
   /* Seite abdunkeln, solange das Impressum-Menü offen ist (Tippen daneben schließt) */
   #impressum.open::before {
@@ -1530,12 +1727,58 @@ body {
     max-height: none;
     background: #F7F5F2;
     transition: none;
-    animation: impressum-overlay-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: impressum-overlay-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
 
   #impressum.full .impressum-bg,
   #impressum.rechtliches .impressum-bg,
   #impressum.kontakt .impressum-bg { display: none; }
+
+  /* Auf kleinen Handys ist der Inhalt höher als der Bildschirm (z. B. iPhone 8 mit Leiste: 553 px):
+     die Vollbild-Ansichten müssen scrollbar sein. Unten Freiraum für die Safari-Leiste. */
+  #impressum.full .impressum-content,
+  #impressum.rechtliches .impressum-content,
+  #impressum.kontakt .impressum-content {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Die Ansicht wächst mit dem Inhalt (statt fester Höhe mit zentriertem Überstand, der oben abgeschnitten wäre) */
+  #impressum.kontakt .impressum-kontakt-view,
+  #impressum.full .impressum-full-view,
+  #impressum.rechtliches .impressum-rechtliches-view {
+    position: relative;
+    inset: auto;
+    min-height: 100%;
+    height: auto;
+  }
+  /* Zurück-Pfeil und Schließen unten, in Daumenreichweite und über der Safari-Leiste (ca. 100 px).
+     Der Text läuft darunter durch und blendet in der Leiste aus. */
+  #impressum.kontakt .impressum-header,
+  #impressum.full .impressum-header,
+  #impressum.rechtliches .impressum-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    transform: none;   /* die Grundregel zentriert per translateX(-50%), hier nicht gewollt */
+    z-index: 6;
+    justify-content: center;
+    gap: 8px;
+    padding: 40px 0 calc(14px + env(safe-area-inset-bottom, 0px));   /* iOS 16: fester Rand liegt direkt über der Safari-Leiste */
+    background: linear-gradient(to top, #F7F5F2 0, #F7F5F2 70%, rgba(247, 245, 242, 0) 100%);
+    pointer-events: none;
+  }
+  #impressum.kontakt .impressum-header button,
+  #impressum.full .impressum-header button,
+  #impressum.rechtliches .impressum-header button { pointer-events: auto; }
+  #impressum.kontakt .impressum-kontakt-view::after,
+  #impressum.full .impressum-full-view::after,
+  #impressum.rechtliches .impressum-rechtliches-view::after {
+    content: '';
+    flex: 0 0 140px;   /* Platzhalter am Ende (Platz für das Schaltflächen-Band) */
+  }
 
   @keyframes impressum-overlay-in {
     from { transform: translateY(100%); }
@@ -1589,7 +1832,7 @@ body {
 
   .impressum-nav { gap: 14px; }
   .impressum-nav a {
-    font-size: 17px;
+    font-size: var(--fs-body);
     min-height: 44px;
     padding: 0 6px;
     display: flex;
@@ -1606,7 +1849,7 @@ body {
   }
 
   .impressum-heading {
-    font-size: 28px;
+    font-size: var(--fs-headline);
     margin-top: 0;
     margin-bottom: 8px;
   }
@@ -1619,12 +1862,13 @@ body {
     gap: 8px;
   }
 
+  /* ein einziger Scrollbereich: die ganze Ansicht scrollt, nicht zusätzlich der Textblock darin */
   #impressum.full .impressum-body,
-  #impressum.rechtliches .impressum-body { max-height: 62vh; }
+  #impressum.rechtliches .impressum-body { max-height: none; overflow: visible; }
 
   .impressum-body p,
   #impressum.kontakt .impressum-body p:last-of-type {
-    font-size: 17px;
+    font-size: var(--fs-body);
     line-height: 1.45;
   }
 
@@ -1635,7 +1879,7 @@ body {
   .impressum-kontakt-view .impressum-body p:nth-of-type(2) { margin-bottom: 36px; }
 
   .kontakt-btn {
-    font-size: 16px;
+    font-size: var(--fs-ui);
     width: 80vw;
     min-height: 44px;
     padding: 0 20px;
@@ -1709,7 +1953,10 @@ button:active { opacity: 0.65; }
     Browser ohne Unterstützung öffnen die Seite wie bisher sofort.)
    ══════════════════════════════════════════════ */
 
-@view-transition { navigation: auto; }
+/* Seitenübergang nur am Computer: auf dem Handy wechselt die Seite sofort ("weniger ist mehr") */
+@media (min-width: 769px) {
+  @view-transition { navigation: auto; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
@@ -1813,7 +2060,7 @@ button:active { opacity: 0.65; }
   #impressum.rechtliches .impressum-body { gap: 16px; }
   #impressum.full .impressum-body p,
   #impressum.rechtliches .impressum-body p {
-    font-size: 16px;
+    font-size: var(--fs-small);
     line-height: 1.5;
   }
 }
@@ -1836,5 +2083,52 @@ button:active { opacity: 0.65; }
     line-height: 1.4;
     color: #F7F5F2;
     background: #BF5E3B;
+  }
+}
+
+/* Handy: Das Impressum (Blatt, Kontakt, Impressum, Rechtliches) ist beige. Der weiße Hover-/Tippkreis wäre dort unsichtbar,
+   deshalb hellgrau (Weiß mit 88 % Helligkeit = #E0E0E0). Am Computer ist das Impressum terracotta, dort bleibt er weiß. */
+@media (max-width: 768px) {
+  #impressum .back-hover-circle { filter: brightness(0.88); }
+}
+
+/* Handy: Die breiten Hintergrundflächen der Startseite (Welle, Menü-Grafik, Animation, Punkte) ragen über den Rand.
+   iOS-Safari ignoriert overflow-x auf html/body und zeigt dann einen waagrechten Balken. Deshalb direkt an den
+   Containern abschneiden, dann zählt der Überstand gar nicht erst zur scrollbaren Breite. */
+@media (max-width: 768px) {
+  #start { overflow-x: hidden; }                       /* iOS 14 kennt clip nicht */
+  @supports (overflow: clip) { #start { overflow-x: clip; } }
+  /* Punktemuster: links 60 px über den Rand (wie bisher), rechts bündig, damit nichts übersteht */
+  .dots { right: auto; width: calc(100% + 60px); }
+}
+
+/* iOS macht Telefonnummern/Adressen im Text sonst automatisch zu blauen, unterstrichenen Links */
+a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font: inherit !important; }
+
+/* Das Impressum-Blatt ist breiter als der Bildschirm (115vw, Wellenränder). Außerhalb von #start zählte das bei
+   manchen iPhones (SE) zur scrollbaren Breite -> waagrechter Balken. Seitlich abschneiden, oben bleibt der Schatten. */
+html, body { overflow-x: hidden; }                       /* ältere iOS-Versionen kennen clip nicht */
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
+
+
+/* ══════════════════════════════════════════════
+   SCHRIFTSTUFEN AM HANDY (gelten auf allen Seiten gleich)
+   display  – große Überschrift im Overlay (Fred/Doris)
+   headline – Überschriften jeder Seite
+   label    – Navigations-Beschriftungen (Ecken, Alfred/Doris)
+   menu     – Menüpunkte
+   body     – Fließtext
+   ui       – Buttons, Hinweise, Links
+   small    – Kleingedrucktes, Fußnoten, Rechtliches
+   ══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  :root {
+    --fs-display: 34px;
+    --fs-headline: 26px;
+    --fs-label: 20px;
+    --fs-menu: 18px;
+    --fs-body: 17px;
+    --fs-ui: 16px;
+    --fs-small: 15px;
   }
 }

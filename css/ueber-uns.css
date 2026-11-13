@@ -299,6 +299,11 @@ body {
 }
 
 
+/* Nur Handy: zweite Illustration (siehe Mobil-Block) */
+.ueber-hero-fred { display: none; }
+.ueber-boden-welle { display: none; }
+.ueber-wisch-hinweis { display: none; }
+
 /* ── Oberer Bereich ── */
 
 #ueber-top {
@@ -888,3 +893,204 @@ body.lights-out .lampen-schein {
 }
 .mobil-hinweis-btn-hell { background: transparent; color: #BF5E3B; }
 @media (min-width: 769px) { .mobil-hinweis { display: none !important; } }
+
+/* ══════════ HANDY-ANSICHT (bis 768 px) ══════════
+   Desktop bleibt unverändert: die Box um die Menüpunkte hat dort keine eigene Fläche. */
+@media (max-width: 768px) {
+
+  /* Die breiten Hintergrundflächen (Welle 140 %, Grafik 130 %) dürfen die Seite nicht seitlich verschiebbar machen */
+  html, body { overflow-x: hidden; }
+  @supports (overflow: clip) { html, body { overflow-x: clip; } }
+
+  /* Hintergrundgrafik und Welle: Box nur so breit wie der Bildschirm, das Bild darin ist breiter und wird abgeschnitten */
+  .ueber-bg-wrap { left: 0; width: 100%; transform: none; }
+  .ueber-bg-grafik { width: 130%; max-width: none; margin-left: -15%; }
+  .ueber-surface-beige { left: 0; width: 100%; transform: none; }
+  .ueber-surface-beige svg { width: 140%; max-width: none; margin-left: -20%; }
+  /* Schlagschatten der Welle bleibt; die Box hat oben Luft für ihn (vorher war er oben hart abgeschnitten) */
+  .ueber-surface-beige { padding-top: 60px; height: calc(65vw + 60px); }   /* 60 px Platz über der Welle für den Schatten */
+
+  /* ── Hero ── */
+  /* Gemeinsamer Verschiebe-Wert: schiebt Illustration, Alfred, Doris und Welle nach unten (mehr rosa Fläche oben) */
+  :root { --hero-extra: 40vw; }
+  /* --versatz: Illustration (und ihre Beschriftungen) zusätzlich nach unten, die Welle bleibt */
+  :root { --versatz: 7vw; }
+  #ueber-top { padding-top: calc(64px + var(--hero-extra) + var(--versatz)); margin-bottom: calc(-1 * var(--versatz)); }   /* Hinweis darunter bleibt an seinem Platz */
+  /* Alfred: Schriftzug links von seinem ausgestreckten Arm (Armspitze bei ca. 23.7 % der Breite) */
+  /* Illustration 20 % größer und nach links verschoben: die Pflanze links fällt aus dem Bild,
+     rechts schließt sie bündig ab. Höhe der Illustration: ca. 45.8vw. */
+  /* Hero oben: auf Doris gezoomt (Alfred kommt in der zweiten Illustration weiter unten) */
+  /* Hero zum seitlichen Wischen: Illustration 290 % breit, Start bei Doris, ein Wisch führt zu Alfred (und zurück) */
+  /* --hw = Breite der Illustration in Bildschirmbreiten (setzt ueber-uns.js passend zur Bildschirmhöhe, 2,3 bis 3) */
+  :root { --hw: 2.9; }
+  .ueber-grafik { width: calc(var(--hw) * 100%); max-width: none; margin: 0; }
+  #ueber-top {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+    scrollbar-width: none;
+  }
+  #ueber-top::-webkit-scrollbar { display: none; }
+  /* Einrast-Punkte: Alfred-Ansicht (73 %) und Doris-Ansicht (166 %) */
+  #ueber-top::before, #ueber-top::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    scroll-snap-align: start;
+    pointer-events: none;
+  }
+  #ueber-top::before { left: calc(var(--hw) * 42.5% - 50%); }
+  #ueber-top::after { left: max(calc(var(--hw) * 76% - 54.4%), calc(var(--hw) * 56% + 3%)); }
+  .person-alfred { left: max(10px, calc(var(--hw) * 36.4% - 80px)); top: calc(64px + var(--hw) * 10.31vw - 14px + var(--hero-extra) + var(--versatz)); }
+
+  /* Zurück-Pfeil oben links und (Über Uns) oben rechts: 44 px große Tippflächen */
+  .page-back-wrap { top: 6px; left: 4px; }
+  .page-back-btn { padding: 16px; }
+  .page-back-btn img:not(.back-hover-circle) { width: 12px; }
+  .page-nav-label { top: 6px; right: 4px; font-size: var(--fs-label); padding: 14px 12px; }
+
+  /* Alfred > und < Doris: größer und gut antippbar */
+  .person-link { font-size: var(--fs-label); padding: 12px; margin: -12px; }
+  /* Doris-Schriftzug über ihrer erhobenen Hand (die Hand liegt bei ca. 71 % der Bildbreite) */
+  .person-doris { left: calc(var(--hw) * 76% - 12px); top: calc(64px + var(--hw) * 12.62vw - 130px + var(--hero-extra) + var(--versatz)); }
+
+  /* Welle liegt kurz über dem Fuß der Illustration (Illustration: 100 % Breite, 38 vw hoch) */
+  .ueber-surface-beige { top: calc(64px + var(--hw) * 35.7vw + var(--hero-extra) - 60px); }
+
+  .scroll-prompt-text { font-size: var(--fs-ui); }
+
+  /* ── Zweite Illustration (Zoom auf Alfred) zwischen Text und Foto ── */
+  /* Die schwache helle Hintergrundform (Desktop-Deko) liegt mit ihrer Wellenkante sonst quer durch den gezoomten Hero
+     (sichtbar als Kante) und färbt die Fläche oben heller als die Statusleiste -> am Handy aus */
+  .ueber-bg-wrap { display: none; }
+
+  /* Feste Welle am unteren Rand: der Burger-Button sitzt darauf statt zu schweben */
+  .ueber-boden-welle {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -120px;   /* reicht weit unter den Bildschirmrand: hinter der Safari-Leiste liegt immer Beige, auch beim Überscrollen */
+    z-index: 40;
+    pointer-events: none;
+  }
+  .ueber-boden-welle-kante { height: calc(11vw + 24px); padding-top: 24px; overflow: hidden; }   /* 24 px Platz oben für den Schatten */
+  .ueber-boden-welle-kante svg { display: block; width: 140%; max-width: none; margin-left: -20%; height: auto; }
+  /* Beige wie die Wellen oben, mit Schlagschatten, damit sie sich auch auf den beigen Flächen abhebt */
+  .ueber-boden-welle-kante svg { filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25)); }
+  .ueber-boden-welle-fuell { height: calc(26px + 120px + env(safe-area-inset-bottom, 0px)); margin-top: -1px; background: #F7F5F2; }
+
+  .ueber-text { order: 1; }
+  .ueber-hero-fred {
+    display: none;
+    order: 2;
+    position: relative;
+    overflow: hidden;
+    height: 104vw;
+    margin: 14vw -7vw 10vw;
+    background: #F3D9D4;
+  }
+  .ueber-rahmen-wrap { order: 3; }
+  .ueber-mehr-scroll { display: none; }   /* am Handy ersetzt der Wisch-Hinweis die Zeile "Du willst mehr über uns lesen?" */
+  .ueber-wisch-hinweis {
+    display: block;
+    margin: 0 auto;
+    padding: 20px 24px 8px;
+    background: none;
+    border: 0;
+    color: var(--terra);
+    font-family: 'AD-Unghia', sans-serif;
+    font-size: var(--fs-ui);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ueber-grafik-fred { position: absolute; top: 8vw; left: -59%; width: 250%; max-width: none; height: auto; }
+  .person-fred-m { left: max(10px, calc(32% - 78px)); top: calc(8vw + 0.27 * 95.5vw - 14px); }
+  .ueber-welle { position: absolute; left: 0; width: 100%; height: 11vw; overflow: hidden; pointer-events: none; }
+  .ueber-welle svg { display: block; width: 140%; max-width: none; margin-left: -20%; height: auto; }
+  .ueber-welle-oben { top: -1px; transform: scaleY(-1); }
+  .ueber-welle-unten { bottom: -1px; }
+
+  /* Impressum-Fuß: obere 30 px (Wellenbereich) liegen über dem beigen Inhalt, nicht über dem rosa Seitenhintergrund */
+  #impressum { margin-top: -30px; }
+  /* weiter von der Welle weg (am Computer ist es 20 px nach oben gezogen, hier 2 px nach unten) */
+  .ueber-mehr-scroll { padding: 14px 20px; transform: translateY(2px); }
+
+  /* ── Foto und Text untereinander ── */
+  /* viel Weißraum: großzügiger Abstand über dem Rahmen und am Ende */
+  #ueber-content { padding: 22vw 0 26vw; overflow-x: clip; }
+  .ueber-content-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 7vw;
+  }
+  /* Bilderrahmen läuft links bis an den Bildschirmrand (die Grafik ist links abgeschnitten, das soll man nicht sehen) */
+  .ueber-rahmen-wrap { width: calc(100% + 7vw); margin: 0 0 14vw -7vw; }
+  /* Text wie auf der Startseite (Geschichte): mittig, 17 px / Zeilenabstand 1,35 / 1,2 em Absatzabstand, Überschrift 26 px, 10 % Seitenrand */
+  .ueber-text { max-width: none; padding: 0 3vw; text-align: center; }
+  .ueber-heading { font-size: var(--fs-headline); line-height: 1.15; margin-bottom: 7vw; }
+  .ueber-body { font-size: var(--fs-body); line-height: 1.35; margin-bottom: 1.2em; }
+
+  /* Lampen-Schalter im Bild: größere Tippfläche an derselben Stelle */
+  .lampen-btn { left: 13%; top: 83%; width: 18%; height: 20%; }
+
+  /* ── Burger-Button (Logo) unten rechts ── */
+  /* Logo-Button wie am Computer: schaut vom unteren Bildschirmrand herein (ein Stück ragt unten heraus) */
+  /* Logo schaut hinter der festen Bodenwelle hervor (die Welle liegt davor, z-index 40 > 30) */
+  .ueber-burger-btn { right: 5vw; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 30; }
+  .ueber-burger-btn img { width: 82px; }
+  /* beim Runterscrollen abtauchen (stört sonst den Text), beim Hochscrollen wieder da */
+  .ueber-burger-btn { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+  /* Zuerst hinter der Bodenwelle versteckt, nach dem ersten Runterscrollen fährt es hervor */
+  .ueber-burger-btn { transform: translateY(110px); }
+  .ueber-burger-btn.sichtbar { transform: translateY(0); }
+  /* beige Füllung hinter den Umrissen, damit der Text darunter nicht durchscheint */
+  .ueber-burger-btn { background: url('../media/ad_logo-fuellung.png') center / 100% 100% no-repeat; }
+  /* das Hochfahren beim Hover würde die Füllung stehen lassen -> auf dem Handy aus */
+  .ueber-burger-btn:hover img { transform: none; }
+
+  /* ── Burger-Menü: Original (fährt von rechts herein), nur größere Tippflächen ── */
+  .ueber-nav-btns .person-close { padding: 14px; }
+  .ueber-nav-btns .person-close img:not(.back-hover-circle) { width: 18px; height: 18px; }
+  .ueber-nav-item { font-size: var(--fs-menu); }
+  /* unsichtbare Vergrößerung der Tippfläche, ohne dass der Punkt am Linienende verrutscht */
+  .ueber-nav-item::after { content: ""; position: absolute; inset: -14px -8px; }
+
+  /* ── Fred / Doris ── */
+  .panel-nav-label { top: 6px; right: 4px; left: auto; font-size: var(--fs-label); padding: 14px 12px; }
+  .panel-content { width: 84vw; }
+  .panel-heading { font-size: var(--fs-display); margin-bottom: 18px; }
+  .panel-body { font-size: var(--fs-body); line-height: 1.5; margin-bottom: 26px; }
+  .panel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 28px;
+    font-size: var(--fs-ui);
+  }
+  .person-close-wrap-bottom { bottom: 22px; gap: 6px; }
+  .person-close-wrap-bottom .person-close { padding: 15px; }
+  .person-close-wrap-bottom .person-close img:not(.back-hover-circle) { width: 16px; height: 16px; }
+  .person-close-wrap-bottom .person-pfeil img:not(.back-hover-circle) { width: auto; height: 16px; }
+  /* Das Logo zwischen den beiden Panels würde auf dem Handy den Text überdecken */
+  .panel-center-logo { display: none; }
+}
+
+/* Hover-Kreis wie am Computer, auch auf dem Handy (beim Tippen entsteht der Hover-Zustand von selbst). */
+@media (max-width: 768px) {
+  .person-link .menu-hover-circle { width: 90px !important; height: 90px !important; }
+  /* feste Größen aus dem Computer-Layout sind im Burger-Menü klein, deshalb vergrößert */
+  .ueber-nav-item:hover .menu-hover-circle { transform: translate(-50%, -50%) scale(2.4); }
+}
+@media (max-width: 768px) and (hover: none) {
+  /* Beschriftungen, die nur bei Hover erscheinen, würden nach dem Tippen stehen bleiben */
+  .page-back-label,
+  .ueber-burger-label,
+  .person-btn-label { display: none; }
+}
