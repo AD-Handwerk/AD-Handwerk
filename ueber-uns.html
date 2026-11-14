@@ -5,20 +5,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Über Uns – AD-Handwerk</title>
+  <link rel="icon" type="image/svg+xml" href="media/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="media/favicon-192.png" />
+  <link rel="apple-touch-icon" href="media/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
   <script>
   /* Handy: Fenster wird mit ?p=fred|doris neu geladen. Die Seitenfarbe sofort setzen, damit Safari die Leiste beim Laden richtig liest */
   (function () {
     var m = /[?&]p=(fred|doris)/.exec(location.search);
-    if (m && matchMedia('(max-width: 768px)').matches) {
-      var c = m[1] === 'doris' ? '#BEA49C' : '#8C9E82';
+    var menue = false;
+    if ((m || menue) && matchMedia('(max-width: 768px)').matches) {
+      var c = menue ? '#BF5E3B' : (m[1] === 'doris' ? '#BEA49C' : '#8C9E82');
       document.documentElement.style.setProperty('background', c, 'important');
       var mt = document.createElement('meta'); mt.name = 'theme-color'; mt.content = c; document.head.appendChild(mt);
     }
   })();
 </script>
-<link rel="stylesheet" href="css/style.css?v=20261113235242" />
-  <link rel="stylesheet" href="css/ueber-uns.css?v=20261113235242" />
-  <script src="js/seitenuebergang.js?v=20261113235242"></script>
+<link rel="stylesheet" href="css/style.css?v=20261114141604" />
+  <link rel="stylesheet" href="css/ueber-uns.css?v=20261114141604" />
+  <script src="js/seitenuebergang.js?v=20261114141604"></script>
 </head>
 <body>
 
@@ -62,6 +68,8 @@
       <a class="menu-item menu-item-aus mi-werke" aria-disabled="true"><span class="menu-dot"></span>Werke</a>
       <a class="menu-item menu-item-aus mi-workshops" aria-disabled="true"><span class="menu-dot"></span>Workshops</a>
     </div>
+    <img class="mm-logo" src="media/ad_logo-ohne-schrift.svg" alt="" aria-hidden="true" />
+    <a class="mm-logo-link" href="index.html" aria-label="Zur Startseite"></a>
     <div class="foto-boden mm-boden" aria-hidden="true">
       <div class="foto-boden-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
       <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
@@ -324,7 +332,7 @@
     </div>
   </div>
 
-  <script src="js/ueber-uns.js?v=20261113235242" defer></script>
+  <script src="js/ueber-uns.js?v=20261114141604" defer></script>
   <!-- ── Hinweis auf dem Handy: Seite ist noch nicht für mobile Geräte angepasst ── -->
   <div class="mobil-hinweis" id="mobilHinweis" role="dialog" aria-modal="true" aria-labelledby="mobilHinweisTitel" hidden>
     <div class="mobil-hinweis-karte">
@@ -335,6 +343,6 @@
     </div>
   </div>
 
-  <script src="js/ecken-label.js?v=20261113235242"></script>
+  <script src="js/ecken-label.js?v=20261114141604"></script>
 </body>
 </html>
