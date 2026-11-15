@@ -4,6 +4,7 @@
   <meta name="format-detection" content="telephone=no, email=no, address=no" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
   <title>Über Uns – AD-Handwerk</title>
   <link rel="icon" type="image/svg+xml" href="media/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-32.png" />
@@ -16,15 +17,17 @@
     var m = /[?&]p=(fred|doris)/.exec(location.search);
     var menue = false;
     if ((m || menue) && matchMedia('(max-width: 768px)').matches) {
-      var c = menue ? '#BF5E3B' : (m[1] === 'doris' ? '#BEA49C' : '#8C9E82');
+      var dk = matchMedia('(prefers-color-scheme: dark)').matches;
+      var c = menue ? (dk ? '#2C2321' : '#BF5E3B') : (m[1] === 'doris' ? (dk ? '#2C2321' : '#BEA49C') : (dk ? '#2C2321' : '#8C9E82'));
       document.documentElement.style.setProperty('background', c, 'important');
       var mt = document.createElement('meta'); mt.name = 'theme-color'; mt.content = c; document.head.appendChild(mt);
     }
   })();
 </script>
-<link rel="stylesheet" href="css/style.css?v=20261114141604" />
-  <link rel="stylesheet" href="css/ueber-uns.css?v=20261114141604" />
-  <script src="js/seitenuebergang.js?v=20261114141604"></script>
+<link rel="stylesheet" href="css/style.css?v=20261115200725" />
+  <link rel="stylesheet" href="css/ueber-uns.css?v=20261115200725" />
+  <link rel="stylesheet" href="css/dark.css?v=20261115200725" media="(prefers-color-scheme: dark)" />
+  <script src="js/seitenuebergang.js?v=20261115200725"></script>
 </head>
 <body>
 
@@ -332,7 +335,7 @@
     </div>
   </div>
 
-  <script src="js/ueber-uns.js?v=20261114141604" defer></script>
+  <script src="js/ueber-uns.js?v=20261115200725" defer></script>
   <!-- ── Hinweis auf dem Handy: Seite ist noch nicht für mobile Geräte angepasst ── -->
   <div class="mobil-hinweis" id="mobilHinweis" role="dialog" aria-modal="true" aria-labelledby="mobilHinweisTitel" hidden>
     <div class="mobil-hinweis-karte">
@@ -343,6 +346,6 @@
     </div>
   </div>
 
-  <script src="js/ecken-label.js?v=20261114141604"></script>
+  <script src="js/ecken-label.js?v=20261115200725"></script>
 </body>
 </html>

@@ -4,14 +4,28 @@
   font-weight: 400;
 }
 
+/* Abgeleitete, dickere Fassung der Schrift, nur für die Überschrift "AD-Handwerk*" (enthält nur diese Zeichen).
+   Ersetzt das vom Browser gefälschte Fett, das auf älteren iPhones/iPads doppelt versetzt aussah. */
+@font-face {
+  font-family: 'AD-Unghia-Headline';
+  src: url('../fonts/AD-Unghia-Headline.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
+  --weiss: #F7F5F2;
   --beige: #F7F5F2;
   --terra: #BF5E3B;
+  --terra-filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
   --braun: #34363a;
   --taupe: #77716b;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Die Schrift AD-Unghia gibt es nur als Regular. Überschriften nicht fett stellen: Safari fälscht sonst Fett, indem er den Text doppelt leicht versetzt zeichnet (auf älteren iPhones sichtbar). */
+h1, h2, h3, h4 { font-weight: 400; }
 
 html {
   overflow-x: clip;
@@ -42,7 +56,7 @@ body {
   left: -60px;
   right: -60px;
   height: calc(var(--terra-top) + 60px);
-  background-image: url('../media/ad_point-background_4K-transparent.png');
+  background-image: url('../media/ad_point-background_4K-transparent.png?v=2');
   background-size: 50%;
   background-repeat: repeat;
   opacity: 0.3;
@@ -106,7 +120,7 @@ body {
 .intro-logo {
   display: block;
   width: clamp(70px, 8vw, 110px);
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
   transform: translate(3px, -110vh);
   animation: logo-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
 }
@@ -162,7 +176,7 @@ body {
   right: 2vw;
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.4vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   letter-spacing: 0.01em;
   z-index: 5;
   cursor: pointer;
@@ -177,8 +191,10 @@ body {
 }
 
 .start-title-wrap h1 {
-  font-family: 'AD-Unghia', sans-serif;
+  font-family: 'AD-Unghia-Headline', 'AD-Unghia', sans-serif;
   font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-weight: 400;
+  font-synthesis: none;
   color: var(--terra);
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -450,7 +466,7 @@ body {
   display: block;
   width: auto;
   height: clamp(10px, 0.8vw, 16px);
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
   animation: arrow-bounce 1.8s ease-in-out infinite;
 }
 
@@ -480,7 +496,7 @@ body {
 
 .scroll-arrow-beige {
   top: calc(var(--beige-top) + 3.5vw);
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 /* ── Burger Menu Grafik ── */
@@ -508,7 +524,7 @@ body {
   pointer-events: all;
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.4vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   white-space: nowrap;
   cursor: pointer;
   text-decoration: none;
@@ -588,7 +604,7 @@ body {
 .start-terra-sub {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.3vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   opacity: 0.85;
   margin-bottom: 0;
   line-height: 1.1;
@@ -598,7 +614,7 @@ body {
 .start-terra-main {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.4vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   white-space: nowrap;
 }
 
@@ -666,7 +682,7 @@ body {
 }
 
 .impressum-toggle:hover img {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 .impressum-toggle img {
@@ -765,7 +781,7 @@ body {
 }
 
 .impressum-close:hover img:not(.back-hover-circle) {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 .impressum-back {
@@ -791,7 +807,7 @@ body {
 }
 
 .impressum-back:hover img:not(.back-hover-circle) {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 .impressum-nav {
@@ -803,7 +819,7 @@ body {
 .impressum-nav a {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 0.9vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   text-decoration: none;
   opacity: 0.9;
   transition: all 0.2s ease;
@@ -816,7 +832,7 @@ body {
 }
 
 .impressum-sep {
-  color: #F7F5F2;
+  color: var(--weiss);
   opacity: 0.6;
   font-size: 1.1vw;
 }
@@ -859,11 +875,11 @@ body {
 
 .kontakt-btn {
   display: inline-block;
-  color: #F7F5F2;
+  color: var(--weiss);
   font-family: 'AD-Unghia', sans-serif;
   font-size: 0.8vw;
   text-decoration: none;
-  border: 1.2px solid #F7F5F2;
+  border: 1.2px solid var(--weiss);
   border-radius: 999px;
   padding: 0.5vw 2vw;
   width: 16vw;
@@ -880,7 +896,7 @@ body {
 .impressum-heading {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.6vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   font-weight: 400;
   margin-top: 2vw;
   margin-bottom: 1vw;
@@ -913,7 +929,7 @@ body {
 .impressum-body p {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   line-height: 1.7;
   opacity: 0.9;
 }
@@ -1101,7 +1117,7 @@ body {
 }
 
 #notFoundClose:hover img {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 #notFoundClose img {
@@ -1114,7 +1130,7 @@ body {
 .not-found-label {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 2.5vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   margin-bottom: 1vw;
   text-align: center;
 }
@@ -1122,7 +1138,7 @@ body {
 .not-found-sub {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.1vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   opacity: 0.8;
   text-align: center;
   line-height: 1.8;
@@ -1166,7 +1182,7 @@ body {
 .not-found-logo-text {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.2vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   letter-spacing: 0.01em;
 }
 
@@ -1176,7 +1192,7 @@ body {
   right: 2vw;
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.4vw;
-  color: #F7F5F2;
+  color: var(--weiss);
 }
 
 .not-found-graphic-wrap {
@@ -1192,7 +1208,7 @@ body {
   transform: translateX(-50%);
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.1vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   white-space: nowrap;
   transition: opacity 0.5s ease;
 }
@@ -1206,7 +1222,7 @@ body {
 .not-found-close-label {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   opacity: 0;
   transform: translateX(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1270,7 +1286,7 @@ body {
     top: auto;
     left: auto;
     right: calc(52px - var(--w) / 2);
-    bottom: calc(110px - var(--w) / 2);
+    bottom: calc(67px - var(--w) / 2);   /* Mitte des kleinen Kreises 67 px über dem unteren Rand (größer = höher) */
     width: var(--w);
     height: var(--w);
     /* Blob liegt als ::before darunter, damit der Schatten (filter) nicht vom clip-path abgeschnitten wird */
@@ -1294,7 +1310,7 @@ body {
     position: static;
     display: block;
     width: auto;
-    color: #F7F5F2;
+    color: var(--weiss);
     font-size: clamp(19px, 5.8vw, 24px);
     line-height: 1.25;
     white-space: normal;
@@ -1303,16 +1319,16 @@ body {
     display: block;
     margin-top: 10px;
     font-size: 0.8em;
-    color: #F7F5F2;
+    color: var(--weiss);
     opacity: 0.9;
   }
   .home-popup-cta {
     display: inline-block;
     margin-top: 18px;
     padding: 9px 24px;
-    border: 1.5px solid #F7F5F2;
+    border: 1.5px solid var(--weiss);
     border-radius: 999px;
-    color: #F7F5F2;
+    color: var(--weiss);
     font-family: 'AD-Unghia', sans-serif;
     font-size: clamp(14px, 4.2vw, 17px);
   }
@@ -1357,7 +1373,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #F7F5F2;
+    color: var(--weiss);
     font-family: 'AD-Unghia', sans-serif;
     font-size: calc(18px / var(--klein));   /* gegen das Verkleinern ausgleichen: im kleinen Kreis 18 px */
     line-height: 1;
@@ -1382,7 +1398,7 @@ body {
   .home-popup.on-terra .home-popup-text,
   .home-popup.on-terra .home-popup-date { color: var(--terra); }
   .home-popup.on-terra .home-popup-cta { color: var(--terra); border-color: var(--terra); }
-  .home-popup.on-terra .home-popup-close img:not(.back-hover-circle) { filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%); }   /* gleicher Terracotta-Ton wie das X bei Werke */
+  .home-popup.on-terra .home-popup-close img:not(.back-hover-circle) { filter: var(--terra-filter); }   /* gleicher Terracotta-Ton wie das X bei Werke */
 
   /* ── Hero ── */
   .dots { background-size: 90%; }
@@ -1491,7 +1507,7 @@ body {
     height: 19px;
     margin-top: -9.5px;
     border-radius: 2px;
-    background: #F7F5F2;
+    background: var(--weiss);
   }
 
   .scroll-arrow::before { left: calc(50% - 11.5vw - 1.25px); }
@@ -1652,7 +1668,7 @@ body {
     height: 70px;   /* fest statt 15vh: auf langen Handys würde der Fuß sonst höher und die Punkte zu weit oben */
     max-height: none;
     transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    background-image: linear-gradient(#F7F5F2, #F7F5F2);
+    background-image: linear-gradient(var(--beige), var(--beige));
     background-repeat: no-repeat;
     background-position: 0 30px;
     background-size: 100% calc(100% - 30px);
@@ -1681,7 +1697,7 @@ body {
     right: 0;
     bottom: 0;
     height: var(--leiste);
-    background: #F7F5F2;
+    background: var(--beige);
     pointer-events: none;
   }
   /* Offenes kleines Blatt: die untere Wellenkante des Blatts samt Schatten (auf kurzen Handys wie dem SE sichtbar) abdecken */
@@ -1725,7 +1741,7 @@ body {
     width: auto;
     height: auto;
     max-height: none;
-    background: #F7F5F2;
+    background: var(--beige);
     transition: none;
     animation: impressum-overlay-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
@@ -1767,7 +1783,7 @@ body {
     justify-content: center;
     gap: 8px;
     padding: 40px 0 calc(14px + env(safe-area-inset-bottom, 0px));   /* iOS 16: fester Rand liegt direkt über der Safari-Leiste */
-    background: linear-gradient(to top, #F7F5F2 0, #F7F5F2 70%, rgba(247, 245, 242, 0) 100%);
+    background: linear-gradient(to top, var(--beige) 0, var(--beige) 70%, transparent 100%);
     pointer-events: none;
   }
   #impressum.kontakt .impressum-header button,
@@ -1903,7 +1919,7 @@ body {
   .impressum-toggle img,
   .impressum-close img:not(.back-hover-circle),
   .impressum-back img:not(.back-hover-circle) {
-    filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+    filter: var(--terra-filter);
   }
 }
 
@@ -2081,8 +2097,8 @@ button:active { opacity: 0.65; }
     font-family: 'AD-Unghia', sans-serif;
     font-size: clamp(18px, 6vh, 28px);
     line-height: 1.4;
-    color: #F7F5F2;
-    background: #BF5E3B;
+    color: var(--weiss);
+    background: var(--terra);
   }
 }
 

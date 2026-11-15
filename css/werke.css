@@ -18,7 +18,7 @@ body::before {
   left: 0;
   width: 100%;
   min-height: 100%;
-  background-image: url('../media/ad_point-background_4K-transparent.png');
+  background-image: url('../media/ad_point-background_4K-transparent.png?v=2');
   background-size: 50%;
   background-repeat: repeat;
   opacity: 0.3;
@@ -267,7 +267,7 @@ body::before {
   z-index: 1;
   height: 16px;
   width: auto;
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 .produkt-close:hover .back-hover-circle {
@@ -586,7 +586,7 @@ body::before {
 /* Hover auf dem Terracotta-Pop-up: heller Kreis dahinter, Symbol wird terracotta (wie im Impressum) */
 .produkt-overlay.terracotta .produkt-close:hover img:not(.back-hover-circle),
 .produkt-zurueck:hover img:not(.back-hover-circle) {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 /* Foto-Schritt: Pfeile/Punkte und Titel weiter unten (mehr Luft unter dem Foto, weniger Leere über dem X) */
@@ -670,7 +670,7 @@ body::before {
 }
 
 .produkt-pfeil:hover img:not(.back-hover-circle) {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 /* Foto kann jetzt größer werden (keine Pfeilzeile mehr darunter); Breite inkl. Pfeile bleibt im Blob */
@@ -712,7 +712,7 @@ body::before {
 
 /* Hover: heller Kreis dahinter, Symbol terracotta (Schatten dann nicht mehr nötig) */
 .produkt-pfeil:hover img:not(.back-hover-circle) {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 /* Foto darf breiter werden, die Pfeile brauchen keinen eigenen Platz mehr daneben */

@@ -139,7 +139,7 @@ body {
   position: absolute;
   font-family: 'AD-Unghia', sans-serif;
   font-size: clamp(12px, 1.8vh, 22px);
-  color: #F7F5F2;
+  color: var(--weiss);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -260,7 +260,7 @@ body {
   height: auto;
   position: relative;
   z-index: 1;
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 .page-back-label {
@@ -427,7 +427,7 @@ body {
   top: 35%;
   width: 80%;
   height: 75%;
-  background: radial-gradient(ellipse at center, rgba(255, 220, 80, 0.65) 0%, rgba(255, 200, 40, 0.25) 45%, transparent 70%);
+  background: radial-gradient(circle closest-side at 50% 50%, rgba(255, 220, 90, 0.6) 0%, rgba(255, 212, 70, 0.42) 15%, rgba(255, 205, 55, 0.26) 33%, rgba(255, 200, 45, 0.14) 52%, rgba(255, 200, 40, 0.06) 70%, rgba(255, 200, 40, 0.02) 85%, rgba(255, 200, 40, 0) 100%);   /* rund, weich auslaufend, endet innerhalb der Fläche (keine harte Kante) */
   pointer-events: none;
   z-index: 3;
   transition: opacity 0.5s ease;
@@ -533,6 +533,8 @@ body.lights-out .lampen-schein {
   transition: opacity 0.5s ease, visibility 0s linear 0.5s;
 }
 
+#person-overlay { touch-action: none; overscroll-behavior: none; }   /* kein Scrollen und Wischen im Fenster */
+
 #person-overlay.visible {
   opacity: 1;
   visibility: visible;
@@ -609,7 +611,7 @@ body.lights-out .lampen-schein {
   gap: 0.8vw;
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.1vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   opacity: 0;
   pointer-events: none;
   z-index: 20;
@@ -639,7 +641,7 @@ body.lights-out .lampen-schein {
   right: 2vw;   /* Fred und Doris beide oben rechts, wie (Über Uns) und (Werke) */
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1.4vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   pointer-events: none;
   z-index: 5;
 }
@@ -692,7 +694,7 @@ body.lights-out .lampen-schein {
 .person-close-label {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   opacity: 0;
   pointer-events: none;
   white-space: nowrap;
@@ -724,7 +726,7 @@ body.lights-out .lampen-schein {
 }
 
 .person-close:hover img:not(.back-hover-circle) {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 
 .person-back-oben { display: none; }
@@ -756,7 +758,7 @@ body.lights-out .lampen-schein {
 .panel-heading {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 3vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   font-weight: 400;
   margin-bottom: 2vw;
 }
@@ -764,7 +766,7 @@ body.lights-out .lampen-schein {
 .panel-body {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   line-height: 1.8;
   margin-bottom: 2.5vw;
   opacity: 0.95;
@@ -772,11 +774,11 @@ body.lights-out .lampen-schein {
 
 .panel-btn {
   display: inline-block;
-  color: #F7F5F2;
+  color: var(--weiss);
   font-family: 'AD-Unghia', sans-serif;
   font-size: 0.9vw;
   text-decoration: none;
-  border: 1.2px solid #F7F5F2;
+  border: 1.2px solid var(--weiss);
   border-radius: 999px;   /* Pille mit komplett gerundeten Ecken */
   padding: 0.6vw 2.5vw;
   transition: all 0.2s ease;
@@ -840,7 +842,7 @@ body.lights-out .lampen-schein {
   top: 50%;
   font-family: 'AD-Unghia', sans-serif;
   font-size: 1vw;
-  color: #F7F5F2;
+  color: var(--weiss);
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -893,7 +895,7 @@ body.lights-out .lampen-schein {
   font-family: 'AD-Unghia', sans-serif;
   font-size: 24px;
   font-weight: 400;
-  color: #BF5E3B;
+  color: var(--terra);
   margin-bottom: 12px;
 }
 .mobil-hinweis-karte p {
@@ -910,17 +912,17 @@ body.lights-out .lampen-schein {
   width: 100%;
   min-height: 46px;
   margin-top: 10px;
-  border: 1.5px solid #BF5E3B;
+  border: 1.5px solid var(--terra);
   border-radius: 999px;
-  background: #BF5E3B;
-  color: #F7F5F2;
+  background: var(--terra);
+  color: var(--weiss);
   font-family: 'AD-Unghia', sans-serif;
   font-size: 17px;
   text-decoration: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.mobil-hinweis-btn-hell { background: transparent; color: #BF5E3B; }
+.mobil-hinweis-btn-hell { background: transparent; color: var(--terra); }
 @media (min-width: 769px) { .mobil-hinweis { display: none !important; } }
 
 /* ══════════ HANDY-ANSICHT (bis 768 px) ══════════
@@ -1074,7 +1076,7 @@ body.lights-out .lampen-schein {
   }
   .ueber-wisch-hinweis.zeigen { opacity: 1; pointer-events: auto; }
   .ueber-grafik-fred { position: absolute; top: 8vw; left: -59%; width: 250%; max-width: none; height: auto; }
-  .person-fred-m { left: max(10px, calc(32% - 78px)); top: calc(8vw + 0.27 * 95.5vw - 14px); }
+  .person-fred-m { left: max(10px, calc(32% - 78px)); top: calc(8vw + 0.27 * 95.5vw + 6px); }
   .ueber-welle { position: absolute; left: 0; width: 100%; height: 11vw; overflow: hidden; pointer-events: none; }
   .ueber-welle svg { display: block; width: 140%; max-width: none; margin-left: -20%; height: auto; }
   .ueber-welle-oben { top: -1px; transform: scaleY(-1); }
@@ -1158,7 +1160,7 @@ body.lights-out .lampen-schein {
   /* Tippen/Hover im Fred/Doris-Fenster: nie Terracotta (passt nicht zu Grün/Rosa), Symbole und Texte bleiben weiß */
   .person-close:hover img:not(.back-hover-circle),
   .person-back-oben:hover img { filter: brightness(0) invert(1); }
-  .person-close-wrap-bottom .person-pfeil:hover .person-btn-label { color: #F7F5F2; }
+  .person-close-wrap-bottom .person-pfeil:hover .person-btn-label { color: var(--weiss); }
   /* Tipp-Rückmeldung am Handy: kein Hüpfen, Symbole/Texte bleiben weiß. Stattdessen leuchtet beim Tippen kurz ein hellgrauer
      Kreis (Symbol allein: Zurück-Pfeil oben) bzw. eine hellgraue Pille (Symbol mit Text: Zu Doris/Fred wechseln) auf und blendet aus. */
   .person-close:hover,
@@ -1176,14 +1178,14 @@ body.lights-out .lampen-schein {
   .person-close-wrap-bottom .person-pfeil { border-radius: 999px; padding: 12px 16px !important; margin: 0 -16px; }
   .person-back-oben:active,
   .person-close-wrap-bottom .person-pfeil:active { background: rgba(247, 245, 242, 0.28); transition: background 0s; }
-  .panel-btn:hover { background: rgba(247, 245, 242, 0.22); color: #F7F5F2; animation: none; }
+  .panel-btn:hover { background: rgba(247, 245, 242, 0.22); color: var(--weiss); animation: none; }
   /* Am Handy kein Wischen zwischen Fred und Doris: der Wechsel lädt die Seite neu (so liest Safari die Leistenfarbe neu) */
   .person-slider-wrap { overflow-x: hidden; scroll-snap-type: none; touch-action: pan-y; }
   .person-close-wrap-bottom .person-close-x { display: none; }
   .person-close-wrap-bottom { left: 8vw; right: auto; transform: none; justify-content: flex-start; bottom: 78px; z-index: 6; }
   .person-boden { display: block; z-index: 5; }
   .person-close-wrap-bottom .person-pfeil .back-hover-circle { display: none; }
-  .person-close-wrap-bottom .person-pfeil .person-btn-label { display: inline !important; opacity: 1 !important; position: static !important; color: #F7F5F2; font-family: 'AD-Unghia', sans-serif; font-size: var(--fs-ui); transform: none !important; margin: 0 0 0 10px; }
+  .person-close-wrap-bottom .person-pfeil .person-btn-label { display: inline !important; opacity: 1 !important; position: static !important; color: var(--weiss); font-family: 'AD-Unghia', sans-serif; font-size: var(--fs-ui); transform: none !important; margin: 0 0 0 10px; }
   .person-close-wrap-bottom .person-pfeil-zurueck { flex-direction: row; }
   /* Fred: Text "Zu Doris wechseln" links, der Pfeil > steht rechts davon (in Richtung Doris); Doris: Pfeil < links vor dem Text */
   .person-close-wrap-bottom .person-pfeil-weiter { flex-direction: row-reverse; }
@@ -1303,7 +1305,7 @@ body.lights-out .lampen-schein {
 .foto-close img:not(.back-hover-circle) { position: relative; z-index: 1; height: 16px; width: auto; filter: brightness(0) invert(1); }
 .foto-close:hover .back-hover-circle { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 .foto-close:hover img:not(.back-hover-circle) {
-  filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%);
+  filter: var(--terra-filter);
 }
 @media (hover: none) { .foto-close .back-hover-circle { display: none; } }
 
@@ -1347,7 +1349,7 @@ body.lights-out .lampen-schein {
   .mm-home { top: 6px; bottom: auto; left: auto; right: calc(8vw - 16px); z-index: 5; }   /* Start-Symbol wieder oben rechts in der Ecke */
   /* Schließen (X) in der Welle, links neben dem Start-Symbol */
   .mm-x { position: absolute; top: auto; bottom: calc(2px + env(safe-area-inset-bottom, 0px)); left: calc(50% - 22px); z-index: 7; padding: 16px; background: rgba(119, 113, 107, 0); border: 0; border-radius: 50%; cursor: pointer; transition: background 0.45s ease; -webkit-tap-highlight-color: transparent; }
-  .mm-x img { display: block; width: 14px; height: 14px; filter: brightness(0) saturate(100%) invert(40%) sepia(50%) saturate(700%) hue-rotate(338deg) brightness(95%); }
+  .mm-x img { display: block; width: 14px; height: 14px; filter: var(--terra-filter); }
   .mm-x:active { background: rgba(119, 113, 107, 0.18); transition: background 0s; }
   .mm-zu img, .mm-home img { display: block; width: 12px; height: auto; filter: brightness(0) invert(1); }
   .mm-zu img { width: auto; height: 16px; }   /* Pfeil und Haus gleich hoch (16 px), Breite folgt von selbst */
@@ -1364,7 +1366,7 @@ body.lights-out .lampen-schein {
     top: 10px;   /* Grafik samt Menüpunkten: größer = weiter unten (Linien laufen oben nicht mehr über den Rand hinaus */: Linien laufen oben über den Rand hinaus */
   }
   .mm-grafik > img { display: block; width: 100%; height: auto; }
-  .mm-grafik .menu-item { color: #F7F5F2; text-decoration: none; }   /* Schrift wie auf der Startseite (--fs-menu, 18 px) */
+  .mm-grafik .menu-item { color: var(--weiss); text-decoration: none; }   /* Schrift wie auf der Startseite (--fs-menu, 18 px) */
   .mm-spruch {
     position: absolute;
     left: 0;
@@ -1373,7 +1375,7 @@ body.lights-out .lampen-schein {
     margin: 0;
     padding: 0 8vw;
     text-align: center;
-    color: #F7F5F2;
+    color: var(--weiss);
     font-family: 'AD-Unghia', sans-serif;
     font-size: var(--fs-ui);
     line-height: 1.35;
@@ -1402,15 +1404,11 @@ body.lights-out .lampen-schein {
     z-index: 7;
     -webkit-tap-highlight-color: transparent;
   }
-  /* Grafik senkrecht gespiegelt: die Linien wachsen aus der Welle nach oben. Nur das Bild wird gespiegelt, die Menüpunkte (Text)
-     bleiben aufrecht und sitzen an den gespiegelten Linienenden (top = 100 % minus bisheriger Wert). */
-  .mm-grafik { top: auto; bottom: 40px; }
-  .mm-grafik > img { transform: scaleY(-1); }
-  .mm-grafik .menu-item.mi-ueber     { top: 65.71% !important; }
-  .mm-grafik .menu-item.mi-werke     { top: 52.14% !important; }
-  .mm-grafik .menu-item.mi-raku      { top: 38.63% !important; }
-  .mm-grafik .menu-item.mi-maerkte   { top: 25.05% !important; }
-  .mm-grafik .menu-item.mi-workshops { top: 11.42% !important; }
+  /* Oben laufen die Linien weich in das Terracotta aus, damit dort kein harter Schnitt am Rand der Grafik steht */
+  .mm-grafik > img {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 14%);
+  }
   .mm-boden { z-index: 6; }
   .mm-boden .foto-boden-fuell { background: #F7F5F2; height: calc(160px + env(safe-area-inset-bottom, 0px)); }   /* Lage der Welle im Menü: größer heißt höher (auf Terracotta braucht sie etwas mehr Höhe, damit man sie sieht) */
   .mm-boden .foto-boden-kante svg path { fill: #F7F5F2; }

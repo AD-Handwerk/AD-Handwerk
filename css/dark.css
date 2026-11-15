@@ -1,0 +1,226 @@
+/* ══════════════════════════════════════════════
+   DUNKELMODUS (wird nur geladen, wenn das Gerät auf Dunkel steht)
+   Eigene Gestaltung statt der automatischen Umrechnung von Safari:
+   - Seitenfläche: warmes Fast-Schwarz statt Beige
+   - Text: warmes Hellgrau, Überschriften in einem helleren Terracotta
+   - Terracotta-Flächen (Welle, Menü, Pop-ups, Foto) bleiben Terracotta, ihre helle Schrift ebenfalls
+   - Zeichnungen: Linien hell statt grau, Beige-Füllungen dunkel (eigene -dark.svg-Dateien)
+   ══════════════════════════════════════════════ */
+
+:root {
+  color-scheme: dark;
+  --beige: #1D1917;      /* Seitenhintergrund */
+  --taupe: #B9B1A8;      /* Fließtext */
+  --braun: #E9E3DC;
+  --terra-hell: #A64F32; /* Terracotta im Dunkelmodus überall: das dunklere Terracotta */
+  --sand: #B3ABA2;       /* Grau der Männchen für Schrift, Linien und Symbole auf dunklem Grund (auf Terracotta bleibt alles weiß) */
+  --flaeche: #1D1917;
+  --hero-rosa: #2C2321; /* Über uns: statt dem Rosa */
+  --terra: #A64F32; --terra-filter: brightness(0) invert(0.479) sepia(1.000) saturate(3.587) hue-rotate(-32.1deg) brightness(0.651);      /* Terracotta-Flächen im Dunkeln etwas dunkler (statt #BF5E3B) */
+}
+
+html, body { background: var(--beige); }
+
+/* ── Beige Flächen (Wellen, Seiten-Abschnitte) werden dunkel ── */
+.start-surface-beige svg path,
+.ueber-surface-beige svg path,
+.ueber-boden-welle-kante svg path,
+.foto-boden-kante svg path,
+.ueber-welle svg path { fill: var(--flaeche) !important; }
+.ueber-boden-welle-fuell,
+.foto-boden-fuell,
+.mm-boden .foto-boden-fuell { background: var(--flaeche) !important; }
+.ueber-mehr-zone, #ueber-content, html::after { background: var(--flaeche) !important; }
+.ueber-boden-welle-kante svg path { fill: var(--flaeche) !important; }
+
+/* ── Über uns: Seitenfarbe statt Rosa ── */
+html:has(#ueber-top), html:has(#ueber-top) body { background: var(--hero-rosa); }
+
+
+/* ══ Grundregel: alles auf Terracotta (Menüs, 404, Impressum am Computer, Scroll-Pfeil) bleibt weiß wie im Hellmodus.
+   Weiß auf dunklem Grund wird zum Grau der Männchen. ══ */
+/* ══ Alles, was im Hellmodus weiß ist, bekommt im Dunkelmodus das Beige der Seite (Grau der Männchen #B3ABA2) ══
+   Symbole (X, Pfeile, Haus), Logos und Linien, die per Filter weiß gefärbt werden: */
+.person-close img:not(.back-hover-circle),
+.person-back-oben img,
+.person-close:hover img:not(.back-hover-circle), .person-back-oben:hover img,
+.foto-close img:not(.back-hover-circle) { filter: brightness(0) invert(0.769) sepia(0.261) saturate(0.924) hue-rotate(-10.5deg) brightness(0.830); }
+
+/* Zeichnungen, die selbst weiß gemalt sind: eigene Dunkel-Fassungen mit Beige statt Weiß */
+.ueber-rahmen { content: url('../media/ad_grafik_ueber-uns_bilderrahmen-dark.svg'); }
+.panel-figure, .panel-center-logo img { content: url('../media/ad_grafik_ueber-uns_logo-groß-dark.svg'); }
+
+/* ── Terracotta als Text → helleres Terracotta, damit es auf Dunkel lesbar bleibt ── */
+.intro-text,
+.start-nav-home,
+.start-title-wrap h1,
+.home-klickmich-label,
+.storyboard-signature,
+.fussnote-stern,
+.page-nav-label,
+.page-back-label,
+.ueber-burger-label,
+.ueber-wisch-hinweis { color: var(--terra-hell) !important; }
+.start-title-line { background: var(--terra-hell); }
+
+/* ── Zeichnungen: eigene helle Fassungen (Bild per content ersetzt) ── */
+.home-logo-gimmick { content: url('../media/ad_logo-animation-home-dark.svg'); }
+.home-klickmich { content: url('../media/ad_grafik_burger_klick-mich-dark.svg'); }
+.home-anim-links { content: url('../media/ad_home-animation_bewegung_links-dark.svg'); }
+.home-anim-still { content: url('../media/ad_home-animation_still-dark.svg'); }
+.home-anim-rechts { content: url('../media/ad_home-animation_bewegung_rechts-dark.svg'); }
+.ueber-burger-btn img { content: url('../media/ad_logo-ohne-schrift-fuellung-dark.svg'); }
+
+/* Impressum-Fuß: am Computer bleibt er Terracotta (etwas dunkler), am Handy ist er die dunkle Wellenfläche mit Terracotta-Schrift */
+.impressum-bg { content: url('../media/ad_impressum-menu-background_ohne-filter-dark.svg'); }
+@media (max-width: 768px) {
+  .impressum-bg { content: url('../media/ad_impressum-menu-background_beige-dark.svg'); }
+  .impressum-nav a,
+  .impressum-heading,
+  .impressum-sep { color: var(--terra-hell) !important; }
+}
+
+/* ── Über uns Hero: Zeichnung etwas gedämpft, damit sie nicht grell auf dem dunklen Grund steht ── */
+.ueber-grafik { filter: brightness(0.82) saturate(0.95); }
+.ueber-foto { filter: brightness(0.9); }
+.ueber-body { color: var(--taupe); }
+
+/* ── Fred- und Doris-Fenster: Pastell abdunkeln, sonst sind sie in der Nacht grell ── */
+
+/* Regal unter dem Foto etwas dunkler */
+.ueber-foto { filter: brightness(0.85); }
+
+/* Dekoratives Hintergrundbild (Computer) dezenter */
+.ueber-bg-grafik { opacity: 0.06; }
+
+/* ── Markt-Pop-up (Computer: Sprechblase mit Männchen): Füllung fast schwarz, Kontur und Schrift weiß ── */
+.home-popup-blase { content: url('../media/ad_popup_blase_beige-dark.svg'); }
+.home-popup-text,
+.home-popup-date,
+.home-popup-link { color: #b3aba2; }   /* gleiche Farbe wie die Kontur und die Männchen */
+/* X in derselben Farbe (grau, vom Filter) */
+.home-popup-close img:not(.back-hover-circle) { filter: brightness(0) invert(0.7) sepia(0.12) saturate(0.6); }
+
+/* ── Terracotta-Flächen etwas dunkler: feste Farben, die nicht über --terra laufen ── */
+.start-surface > svg path { fill: #A64F32 !important; }
+body::after { background: #A64F32; }
+
+/* ── Markt-Pop-up über der Terracotta-Fläche: nicht weiß/beige, sondern dunkelgrau (Handy: Kreis; Computer: das X) ── */
+.home-popup.on-terra::before { background: #1D1917 !important; }
+.home-popup.on-terra::after,
+.home-popup.on-terra .home-popup-text,
+.home-popup.on-terra .home-popup-date { color: #b3aba2 !important; }
+.home-popup.on-terra .home-popup-cta { color: #b3aba2 !important; border-color: #b3aba2 !important; }
+.home-popup.on-terra .home-popup-close img:not(.back-hover-circle) { filter: brightness(0) invert(1) !important; }   /* Computer: X über Terracotta weiß wie im Hellmodus */
+
+/* ── Schrift und Rahmen, die im Hellmodus beige/weiß sind, in Grau der Männchen ── */
+.person-scroll-hint,
+.panel-nav-label,
+.person-close-label,
+.panel-heading,
+.panel-body,
+.panel-btn,
+.person-btn-label,
+.person-close-wrap-bottom .person-pfeil .person-btn-label { color: var(--sand); }
+.panel-btn { border-color: var(--sand); }
+
+.panel-btn, .home-popup-cta { border-color: var(--sand); }
+.home-popup-cta { color: var(--sand); }
+/* Scroll-Pfeil auf der Startseite: Pfeil und die zwei Striche */
+/* Pfeile in den Wechsel-Links (Fred/Doris) ebenfalls Grau der Männchen */
+.person-pfeil img:not(.back-hover-circle) { filter: brightness(0) invert(0.769) sepia(0.261) saturate(0.924) hue-rotate(-10.5deg) brightness(0.830); }
+
+/* Alfred > / < Doris auf der Über-uns-Seite: Terracotta wie die anderen Beschriftungen */
+.person-link, .person-doris, .person-doris a { color: var(--terra-hell); }
+.person-link img:not(.menu-hover-circle) { filter: brightness(0) invert(0.769) sepia(0.261) saturate(0.924) hue-rotate(-10.5deg) brightness(0.830); }
+
+
+/* Handy: der Pop-up-Kreis ist über Terracotta dunkel -> das X dort hellgrau (dunkles X wäre unsichtbar) */
+@media (max-width: 768px) {
+  .home-popup.on-terra .home-popup-close img:not(.back-hover-circle) { filter: brightness(0) invert(0.7) sepia(0.12) saturate(0.6) !important; }
+}
+
+/* ── Über uns, Fred- und Doris-Fenster: dunkelgraue Fläche wie der Header, Grafik und Texte hellgrau (Grau der Männchen) ── */
+#person-overlay { --weiss: #B3ABA2; --sand: #B3ABA2; }
+#person-overlay .panel-nav-label,
+#person-overlay .person-close-label,
+#person-overlay .panel-heading,
+#person-overlay .panel-body,
+#person-overlay .panel-btn,
+#person-overlay .person-btn-label,
+#person-overlay .person-scroll-hint,
+#person-overlay .person-link { color: #B3ABA2; }
+#person-overlay .panel-btn { border-color: #B3ABA2; }
+#person-overlay .person-close img:not(.back-hover-circle),
+#person-overlay .person-back-oben img,
+#person-overlay .person-pfeil img:not(.back-hover-circle),
+#person-overlay .person-link img:not(.menu-hover-circle) { filter: brightness(0) invert(0.769) sepia(0.261) saturate(0.924) hue-rotate(-10.5deg) brightness(0.830); }
+#person-overlay .person-link .menu-hover-circle { filter: none; }
+#person-overlay .panel-figure,
+#person-overlay .panel-center-logo img { content: url('../media/ad_grafik_ueber-uns_logo-groß-dark.svg'); }
+
+/* Impressum › Kontakt: Text der drei Buttons (E-Mail, Telefon, Adresse) hellgrau statt Terracotta */
+@media (max-width: 768px) {
+  .kontakt-btn { color: var(--sand) !important; }
+}
+
+/* Computer: Sprechblase mit Männchen über Terracotta -> Füllung Terracotta, Kontur und Schrift weiß */
+@media (min-width: 769px) {
+  .home-popup.on-terra .home-popup-blase { content: url('../media/ad_popup_blase_terra-dark.svg'); }
+  .home-popup.on-terra .home-popup-text,
+  .home-popup.on-terra .home-popup-date,
+  .home-popup.on-terra .home-popup-link { color: #F7F5F2 !important; }
+}
+
+/* Über uns, Fred- und Doris-Fenster: im Dunkelmodus dasselbe Dunkelgrau wie der Header oben
+   (hell: #8C9E82 / #BEA49C) */
+.panel-fred, .leisten-streifen.fred { background: #2C2321 !important; }
+.panel-doris, .leisten-streifen.doris { background: #2C2321 !important; }
+.person-slider { background: linear-gradient(to right, #2C2321 0%, #2C2321 50%, #2C2321 50%, #2C2321 100%) !important; }
+
+
+
+/* Handy: auf der dunklen Fläche ist der Pop-up-Kreis Terracotta -> Schrift, Flyer-Button und X weiß */
+@media (max-width: 768px) {
+  .home-popup .home-popup-text,
+  .home-popup .home-popup-date,
+  .home-popup .home-popup-link { color: #F7F5F2 !important; }
+  .home-popup .home-popup-cta { color: #F7F5F2 !important; border-color: #F7F5F2 !important; }
+  .home-popup .home-popup-close img:not(.back-hover-circle) { filter: brightness(0) invert(1) !important; }
+}
+
+/* Handy: Markt-Pop-up über Terracotta -> Kreis dunkelgrau, Schrift, Flyer-Button und X hellgrau */
+@media (max-width: 768px) {
+  .home-popup.on-terra::after,
+  .home-popup.on-terra .home-popup-text,
+  .home-popup.on-terra .home-popup-date,
+  .home-popup.on-terra .home-popup-link { color: #B3ABA2 !important; }
+  .home-popup.on-terra .home-popup-cta { color: #B3ABA2 !important; border-color: #B3ABA2 !important; }
+  .home-popup.on-terra .home-popup-close img:not(.back-hover-circle) { filter: brightness(0) invert(0.769) sepia(0.261) saturate(0.924) hue-rotate(-10.5deg) brightness(0.830) !important; }
+}
+
+/* Über uns: Überschrift „Schön, dass du da bist!“ hellgrau */
+.ueber-heading { color: var(--sand) !important; }
+
+/* ── Über uns, Burger-Menü: dunkelgrau statt Terracotta, Linien, Logo, Schrift und Symbole Terracotta ── */
+.ueber-nav-grafik { content: url('../media/ad_grafik_burger-menu_portrait-dark.svg'); }   /* Computer: Fläche #2C2321, Linien grau */
+.ueber-nav-item { color: var(--terra-hell); }
+.ueber-nav-home img:not(.back-hover-circle),
+.ueber-nav-btns .person-close img:not(.back-hover-circle) { filter: var(--terra-filter) !important; }
+@media (max-width: 768px) {
+  .ueber-mobil-menue { background: #2C2321; }
+  .mm-grafik > img { content: url('../media/ad_mobile_burger-menu-grafik-terra-dark.svg'); }
+  .mm-grafik .menu-item, .mm-spruch { color: var(--terra-hell); }
+  .mm-logo { filter: brightness(0) invert(0.479) sepia(1.000) saturate(3.587) hue-rotate(-32.1deg) brightness(0.651); }
+  .mm-zu img, .mm-home img { filter: var(--terra-filter); }
+}
+
+/* ── Über uns, Foto vergrößert: dunkelgraue Fläche statt Terracotta, X Terracotta ── */
+.foto-flaeche { background: #2C2321 !important; }
+.foto-close img:not(.back-hover-circle) { filter: var(--terra-filter) !important; }
+
+/* Über uns: Lampenschein größer (gleicher Mittelpunkt bei 23 % / 72,5 %) */
+.lampen-schein { left: calc(23% - 55vw); top: calc(72.5% - 55vw); width: 110vw; height: 110vw; }   /* quadratisch -> runder Schein ohne Kanten */
+
+/* Startseite: Punkte-Hintergrund im Dunkeln dezenter (hell: 0.3) */
+.dots { opacity: 0.12; }
