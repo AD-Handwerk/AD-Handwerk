@@ -3,9 +3,7 @@
 <head>
   <meta name="format-detection" content="telephone=no, email=no, address=no" />
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=404.html" />
   <meta name="robots" content="noindex" />
-  <script>location.replace("404.html");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
   <title>Werke – AD Handwerk</title>
@@ -14,11 +12,11 @@
   <link rel="icon" type="image/png" sizes="192x192" href="media/favicon-192.png" />
   <link rel="apple-touch-icon" href="media/apple-touch-icon.png" />
   <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="stylesheet" href="css/style.css?v=20261115200725" />
-  <link rel="stylesheet" href="css/ueber-uns.css?v=20261115200725" />
-  <link rel="stylesheet" href="css/werke.css?v=20261115200725" />
-  <link rel="stylesheet" href="css/dark.css?v=20261115200725" media="(prefers-color-scheme: dark)" />
-  <script src="js/seitenuebergang.js?v=20261115200725"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261120000050" />
+  <link rel="stylesheet" href="css/ueber-uns.css?v=20261120000050" />
+  <link rel="stylesheet" href="css/werke.css?v=20261120000050" />
+  <link rel="stylesheet" href="css/dark.css?v=20261120000050" media="(prefers-color-scheme: dark)" />
+  <script src="js/seitenuebergang.js?v=20261120000050"></script>
 </head>
 <body>
 
@@ -37,6 +35,43 @@
     <img src="media/ad_logo-ohne-schrift-fuellung.svg" alt="Menü" />
   </button>
 
+  <!-- Nur Handy: feste Welle am unteren Rand, auf der der Burger-Button sitzt (schwebt sonst frei) -->
+  <!-- Handy: zweite, höhere Welle dahinter (wie die Fläche unter dem Hero auf Über uns), beide tauchen beim Runterscrollen ab -->
+  <div class="werke-welle-oben" aria-hidden="true">
+    <div class="werke-welle-oben-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+    <div class="werke-welle-oben-fuell"></div>
+  </div>
+  <div class="ueber-boden-welle" aria-hidden="true">
+    <div class="ueber-boden-welle-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+    <div class="ueber-boden-welle-fuell"></div>
+  </div>
+
+  <!-- ── Handy-Menü: komplette Terracotta-Seite, schiebt sich von rechts herein ── -->
+  <div class="ueber-mobil-menue" id="ueberMobilMenue" aria-hidden="true">
+    <button class="mm-zu" id="mmZu" aria-label="Zurück, Menü schließen"><img src="media/ad_button_back_pfeil.svg" alt="" /></button>
+    <a href="index.html" class="mm-home" aria-label="Zur Startseite"><img src="media/ad_button_home.svg" alt="" /></a>
+    <div class="mm-grafik">
+      <img src="media/ad_mobile_burger-menu-grafik.svg" alt="" />
+      <a class="menu-item menu-item-aus mi-raku" aria-disabled="true"><span class="menu-dot"></span>Raku</a>
+      <a class="menu-item menu-item-aus mi-maerkte" aria-disabled="true"><span class="menu-dot"></span>Märkte</a>
+      <a href="ueber-uns.html" class="menu-item menu-item-page mi-ueber"><span class="menu-dot"></span>Über Uns</a>
+      <a href="werke.html" class="menu-item menu-item-page mi-werke"><span class="menu-dot"></span>Werke</a>
+      <a class="menu-item menu-item-aus mi-workshops" aria-disabled="true"><span class="menu-dot"></span>Workshops</a>
+    </div>
+    <img class="mm-logo" src="media/ad_logo-ohne-schrift.svg" alt="" aria-hidden="true" />
+    <a class="mm-logo-link" href="index.html" aria-label="Zur Startseite"></a>
+    <div class="foto-boden mm-boden" aria-hidden="true">
+      <div class="foto-boden-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+      <div class="foto-boden-fuell"></div>
+    </div>
+  </div>
+
   <!-- ── Nav Overlay ── -->
   <div class="ueber-nav-backdrop" id="ueberNavBackdrop"></div>
   <div id="ueber-nav-overlay">
@@ -51,7 +86,7 @@
     </div>
     <img src="media/ad_grafik_burger-menu_portrait.svg" alt="" class="ueber-nav-grafik" />
     <a href="ueber-uns.html" class="ueber-nav-item menu-item-page" data-dot-x="0.498" style="top:8vh"><img class="menu-hover-circle" style="width:8.5vw!important;height:8.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Über Uns</span></a>
-    <a class="ueber-nav-item menu-item-aus" aria-disabled="true" data-dot-x="0.474" style="top:17.8vh"><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Werke</span></a>
+    <a href="werke.html" class="ueber-nav-item menu-item-page" data-dot-x="0.474" style="top:17.8vh"><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Werke</span></a>
     <a class="ueber-nav-item menu-item-aus" aria-disabled="true" data-dot-x="0.56" style="top:31.3vh"><span class="menu-text">Raku<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:5.5vw!important;height:5.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
     <a class="ueber-nav-item menu-item-aus" aria-disabled="true" data-dot-x="0.51" style="top:69.3vh"><span class="menu-text">Märkte<span class="menu-dot"></span></span><img class="menu-hover-circle" style="width:7.5vw!important;height:7.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /></a>
     <a class="ueber-nav-item menu-item-aus" aria-disabled="true" data-dot-x="0.43" style="top:85vh"><img class="menu-hover-circle" style="width:9.5vw!important;height:9.5vw!important" src="media/ad_burger-menu-hover-circle.svg" alt="" /><span class="menu-text"><span class="menu-dot"></span>Workshops</span></a>
@@ -67,12 +102,12 @@
       </svg>
     </div>
     <a href="#" class="scroll-prompt" id="werkeScrollPrompt">
-      <span class="scroll-prompt-text">Scrolle nach unten für weitere Werke!</span>
+      <span class="scroll-prompt-text">Scrolle nach unten<br class="br-mob" /> für weitere Werke!</span>
       <img src="media/ad_burger-menu-feil-grafik.svg" alt="" class="scroll-prompt-arrow" />
     </a>
   </div>
 
-  <div class="regal-wrap">
+  <div class="regal-wrap regal-wrap-desktop">
 
     <!-- Positionen: --x = Mitte des Fachs, --b = Brettoberkante (von unten), --h = Höhe, jeweils in % des Regalabschnitts -->
     <div class="regal-section" data-reihe="1">
@@ -169,8 +204,125 @@
 
     <div class="regal-section regal-ende">
       <img src="media/ad_grafik_werke_regal_ende.svg" alt="" class="regal-svg" />
+      <div class="lampen-schein werke-lampe-schein werke-lampe-schein-desk"></div>
+      <button type="button" class="werke-lampe-btn werke-lampe-btn-desk" aria-label="Licht an/aus"></button>
     </div>
 
+  </div>
+
+
+  <!-- ── Handy: eigenes Regal (zwei Fächer nebeneinander, höhere Böden). Am Computer ausgeblendet. ── -->
+  <div class="regal-wrap regal-wrap-mobil">
+    <div class="regal-section" data-reihe="m1">
+      <img src="media/ad_grafik_werke_regal_mobile_mitte.svg" alt="" class="regal-svg" />
+      <div class="regal-produkte">
+        <button type="button" class="regal-produkt" style="--x:36%;--b:73.46%;--h:11.30%" data-produkt="pusteblume-gross" aria-label="Große Keramikkugel mit Pusteblumen-Motiv – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_pusteblume-gross.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_pusteblume-gross.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:46%;--b:53.81%;--h:14.74%" data-produkt="laterne-zwiebel" aria-label="Keramiklaterne mit Lochmuster und Henkel – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_laterne-zwiebel.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_laterne-zwiebel.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:66.17%;--b:53.81%;--h:10.81%" data-produkt="kuerbis-rund" aria-label="Runder Keramik-Kürbis mit Punkten – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_kuerbis-rund.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_kuerbis-rund.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:66.17%;--b:39.51%;--h:9.34%" data-produkt="pusteblume-klein" aria-label="Kleine Keramikkugel mit Pusteblumen-Motiv – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_pusteblume-klein.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_pusteblume-klein.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:38%;--b:15.58%;--h:18.18%" data-produkt="vase-graeser" aria-label="Rissglasierte Vase mit Gräsern – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_vase-graeser.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_vase-graeser.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:66.17%;--b:15.58%;--h:14.74%" data-produkt="laterne-hoch" aria-label="Hohe Keramiklaterne mit Henkel – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_laterne-hoch.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_laterne-hoch.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+      </div>
+    </div>
+    <div class="regal-section regal-ende" data-reihe="m2">
+      <img src="media/ad_grafik_werke_regal_mobile_ende.svg" alt="" class="regal-svg" />
+      <div class="lampen-schein werke-lampe-schein"></div>
+      <button type="button" class="werke-lampe-btn" id="werkeLampe" aria-label="Licht an/aus"></button>
+      <div class="regal-produkte">
+        <button type="button" class="regal-produkt" style="--x:45%;--b:75.36%;--h:11.00%" data-produkt="wichtel" aria-label="Keramik-Wichtel mit Zipfelmütze und Stern – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_wichtel.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_wichtel.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:36%;--b:61.90%;--h:7.33%" data-produkt="schale-blumen" aria-label="Keramikschale mit Blumenmuster – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_schale-blumen.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_schale-blumen.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:66.17%;--b:61.90%;--h:11.00%" data-produkt="schneemann" aria-label="Keramik-Schneemann mit Schal und Hut – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_schneemann.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_schneemann.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+        <button type="button" class="regal-produkt" style="--x:66.17%;--b:48.51%;--h:8.80%" data-produkt="kuerbis-punkte" aria-label="Keramik-Kürbis mit Punkten – Details ansehen">
+          <img class="produkt-blob" src="media/ad_burger-menu-hover-circle.svg" alt="" draggable="false" />
+          <picture>
+            <source srcset="media/produkte/ad_produkt_kuerbis-punkte.avif" type="image/avif" />
+            <img src="media/produkte/ad_produkt_kuerbis-punkte.png" alt="" loading="lazy" decoding="async" draggable="false" />
+          </picture>
+          <span class="produkt-label"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Handy: Werk groß ansehen (wie das Porträt auf Über uns): Terracotta-Vollbild, Foto im Blob, X auf der Welle ── -->
+  <div class="foto-overlay werk-foto-overlay" id="werkFotoOverlay" role="dialog" aria-modal="true" aria-label="Werk groß ansehen">
+    <div class="foto-flaeche werk-scroll" id="werkScroll">
+      <h2 class="werk-titel" id="werkTitel"></h2>
+      <div class="werk-karten" id="werkKarten"></div>
+      <div class="werk-punkte" id="werkPunkte"></div>
+    </div>
+    <div class="foto-boden" aria-hidden="true">
+      <div class="foto-boden-kante"><svg viewBox="-501 0 2336 1508" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-396.422 90.589C-335.605 17.6961 -307.98 83.5997 -42.6003 90.589C231.788 97.8158 242.047 28.4093 522.671 28.5512C763.075 28.6732 757.448 79.6102 1014.4 73.2183C1203.81 68.5064 1405.39 45.9219 1405.39 45.9219C1643.96 19.193 1764.95 -12.4248 1805.3 95.6434C1820.75 137.03 1815.45 174.996 1805.3 300.674L1775.57 1488L-429.127 1475.27C-429.127 1475.27 -565.28 292.976 -396.422 90.589Z" fill="#F7F5F2"/>
+    </svg></div>
+      <div class="foto-boden-fuell"></div>
+    </div>
+    <button type="button" class="foto-close werk-zurueck" id="werkFotoClose" aria-label="Zurück zum Regal">
+      <img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img src="media/ad_button_back_pfeil.svg" alt="" />
+    </button>
   </div>
 
   <!-- Blob-Form (wie auf der Workshop-Seite) -->
@@ -195,20 +347,29 @@
       <span class="produkt-hover-label produkt-hover-label-links">Zurück</span>
     </button>
 
-    <!-- Schritt 1: Illustration + Infos -->
-    <div class="produkt-step" id="produktStep1">
-      <div class="produkt-illu-wrap">
-        <picture class="produkt-illu">
-          <source id="produktIlluAvif" type="image/avif" />
-          <img id="produktIllu" alt="" draggable="false" />
-        </picture>
+    <!-- Computer: Seiten zum Blättern innerhalb des Blobs (1: Stück + Angaben, danach die Fotos) -->
+    <div class="pop-seiten" id="popSeiten">
+      <div class="pop-seite pop-seite-start">
+      <!-- Schritt 1: Illustration + Infos -->
+      <div class="produkt-step" id="produktStep1">
+        <div class="produkt-illu-wrap">
+          <picture class="produkt-illu">
+            <source id="produktIlluAvif" type="image/avif" />
+            <img id="produktIllu" alt="" draggable="false" />
+          </picture>
+        </div>
+        <button type="button" class="produkt-btn produkt-btn-fotos" id="produktFotosBtn">Mehr Fotos</button>
+        <h2 class="produkt-titel" id="produktTitel"></h2>
+        <p class="produkt-jahr" id="produktJahr"></p>
+        <ul class="produkt-liste" id="produktListe"></ul>
+        <p class="produkt-masse" id="produktMasse"></p>
       </div>
-      <button type="button" class="produkt-btn produkt-btn-fotos" id="produktFotosBtn">Mehr Fotos</button>
-      <h2 class="produkt-titel" id="produktTitel"></h2>
-      <p class="produkt-jahr" id="produktJahr"></p>
-      <ul class="produkt-liste" id="produktListe"></ul>
-      <p class="produkt-masse" id="produktMasse"></p>
+      </div>
     </div>
+    <button type="button" class="pop-pfeil pop-pfeil-zurueck" id="popZurueck" aria-label="Voriges Bild"><img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img class="pop-pfeil-icon" src="media/ad_button_back_pfeil.svg" alt="" /><span class="pop-pfeil-label" id="popZurueckLabel">Zurück</span></button>
+    <button type="button" class="pop-pfeil pop-pfeil-weiter" id="popWeiter" aria-label="Nächstes Bild"><img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img class="pop-pfeil-icon" src="media/ad_button_back_pfeil.svg" alt="" /><span class="pop-pfeil-label" id="popWeiterLabel">Zu den Fotos</span></button>
+    <button type="button" class="pop-pfeil pop-pfeil-zurueck pop-schliessen" id="popSchliessen" aria-label="Schließen"><img class="back-hover-circle" src="media/ad_burger-menu-hover-circle.svg" alt="" /><img class="pop-pfeil-icon" src="media/ad_button_close_kreuz.svg" alt="" /><span class="pop-pfeil-label">Schließen</span></button>
+    <div class="pop-punkte" id="popPunkte"></div>
 
     <!-- Schritt 2: echte Fotos (immer im Blob beschnitten) -->
     <div class="produkt-step" id="produktStep2" hidden>
@@ -307,9 +468,9 @@
     </div>
   </div>
 
-  <script src="js/ueber-uns.js?v=20261115200725" defer></script>
-  <script src="js/produkte.js?v=20261115200725" defer></script>
-  <script src="js/werke.js?v=20261115200725" defer></script>
-  <script src="js/ecken-label.js?v=20261115200725"></script>
+  <script src="js/ueber-uns.js?v=20261120000050" defer></script>
+  <script src="js/produkte.js?v=20261120000050" defer></script>
+  <script src="js/werke.js?v=20261120000050" defer></script>
+  <script src="js/ecken-label.js?v=20261120000050"></script>
 </body>
 </html>
