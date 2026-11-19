@@ -19,7 +19,8 @@ body::before {
   width: 100%;
   min-height: 100%;
   background-image: url('../media/ad_point-background_4K-transparent.png?v=2');
-  background-size: 50%;
+  background-size: calc(50vw + 60px);   /* gleiche Punktgröße wie auf der Startseite (.dots: 50 % von 100vw + 120px) */
+  background-position: -60px -60px;
   background-repeat: repeat;
   opacity: 0.3;
   pointer-events: none;
@@ -203,13 +204,16 @@ body::before {
   background: rgba(0, 0, 0, 0.5);
   z-index: 300;
   opacity: 0;
+  visibility: hidden;   /* wirklich weg, solange zu: iOS 26 Safari färbt seine Leisten sonst nach diesem unsichtbaren Vollbild-Element */
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
 }
 
 .produkt-backdrop.open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.4s ease, visibility 0s;
 }
 
 .produkt-overlay {
@@ -757,3 +761,572 @@ body::before {
 @media (max-width: 768px) {
   .produkt-foto-wrap { --foto: min(calc(var(--h) * 0.78), calc(var(--w) * 0.84)); }
 }
+
+/* ══════════ HANDY ══════════ */
+.regal-wrap-mobil { display: none; }
+.br-mob { display: none; }
+
+@media (max-width: 768px) {
+  html, body { overflow-x: hidden; }
+  .regal-wrap-desktop { display: none; }
+  .br-mob { display: inline; }
+
+  /* Eigenes Handy-Regal (ad_grafik_werke_regal_mobile_*.svg, Bildbreite 1879):
+     Pfosten liegen bei 26,3 % und 74,8 % der Bildbreite -> so vergrößert, dass sie bei 12 % und 89 % des Bildschirms stehen.
+     Was links und rechts davon liegt (Pflanze), wird am Rand angeschnitten. */
+  .regal-wrap-mobil {
+    display: block;
+    --regal-b: 158.8vw;
+    width: var(--regal-b);
+    margin: 120px 0 -10px -29.8vw;   /* Seite endet so, dass der Pflanzentopf unten hinter der Welle verschwindet */
+  }
+  .produkt-blob { width: calc(var(--regal-b) * 0.12); height: calc(var(--regal-b) * 0.12); bottom: 2px; }
+
+  /* Unten: die Welle samt Männchen kommt 1:1 von der Über-uns-Seite (.ueber-boden-welle, Burger-Button).
+     Die eigene Werke-Welle fällt am Handy weg, der Hinweis liegt links auf der Bodenwelle, der Pfeil in der Mitte. */
+  .werke-wave { display: none; }
+  .werke-scroll-prompt-wrap { z-index: 45; height: 60px; bottom: env(safe-area-inset-bottom, 0px); }
+  /* Text links auf der Welle (wie "Wischen, um zu Fred zu kommen"), Pfeil in der Bildschirmmitte */
+  .werke-scroll-prompt-wrap .scroll-prompt {
+    position: absolute;
+    inset: 0;
+    transform: none;
+    display: block;
+  }
+  .werke-scroll-prompt-wrap .scroll-prompt-text {
+    position: absolute;
+    left: calc(8vw - 12px);
+    bottom: 2px;
+    width: auto;
+    white-space: nowrap;
+    padding: 12px;
+    text-align: left;
+    white-space: normal;
+    line-height: 1.3;
+    font-size: var(--fs-ui);
+  }
+  .werke-scroll-prompt-wrap .scroll-prompt-arrow {
+    position: absolute;
+    left: calc(50% - 8px);
+    bottom: 22px;
+    margin: 0;
+  }
+}
+
+/* ── Handy: zwei Wellen-Schichten unten (wie auf Über uns: beige Fläche mit Männchen und Hinweis, davor die Bodenwelle).
+      Beim Runterscrollen taucht die hintere Welle samt Männchen ab, beim Hochscrollen kommt sie wieder; die vordere bleibt stehen. ── */
+.werke-welle-oben { display: none; }
+@media (max-width: 768px) {
+  .werke-welle-oben {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -120px;
+    z-index: 25;            /* hinter dem Männchen (30) und der Bodenwelle (40) */
+    pointer-events: none;
+  }
+  .werke-welle-oben-kante { height: calc(11vw + 10px); padding-top: 24px; overflow: hidden; }
+  .werke-welle-oben-kante svg { display: block; width: 140%; max-width: none; margin-left: -20%; height: auto; filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25)); }
+  .werke-welle-oben-kante svg path { fill: #F7F5F2; }
+  .werke-welle-oben-fuell { height: calc(120px + 120px + env(safe-area-inset-bottom, 0px)); margin-top: -1px; background: #F7F5F2; }
+
+  /* Die vordere Bodenwelle bleibt wie auf Über uns immer stehen; nur die hintere Welle (samt Hinweis) und das Männchen tauchen ab */
+  .werke-welle-oben,
+  .werke-scroll-prompt-wrap { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease; }
+  body.wellen-weg .werke-welle-oben,
+  body.wellen-weg .werke-scroll-prompt-wrap { transform: translateY(320px); }
+
+  /* Hinweis auf der beigen Fläche über der Bodenwelle */
+  .werke-scroll-prompt-wrap { bottom: calc(46px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* Handy: Punkte wie auf der Startseite am Handy (.dots: 90 % von 100vw + 60px) */
+@media (max-width: 768px) {
+  body::before { background-size: calc(90vw + 54px); }
+}
+
+
+/* Handy: ohne zweite Welle und ohne Scroll-Hinweis (wie Über uns: nur die feste Bodenwelle mit dem Männchen) */
+@media (max-width: 768px) {
+  .werke-welle-oben,
+  .werke-scroll-prompt-wrap { display: none !important; }
+}
+
+/* ── Handy: Lampe im Regal (Ende-Stück) wie auf Über uns: Schein geht an, wenn die Lampe im mittleren Bildschirmbereich ist,
+      Tippen auf die Lampe schaltet um. Lampe in der Zeichnung bei ca. 62,5 % / 64,1 % des Ende-Stücks. ── */
+.werke-lampe-btn { display: none; }
+@media (max-width: 768px) {
+  .regal-wrap-mobil .werke-lampe-schein {
+    left: calc(62.5% - 55vw);
+    top: calc(64.1% - 55vw);
+    width: 110vw;
+    height: 110vw;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .werke-lampe-btn {
+    display: block;
+    position: absolute;
+    left: 57%;
+    top: 59%;
+    width: 11%;
+    height: 9%;
+    padding: 0;
+    border: 0;
+    background: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 5;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Handy: Regal über dem schmalen beigen Streifen am unteren Rand (html::after, z-index 2, färbt die Safari-Leiste),
+   wie der Inhalt auf Über uns (z-index 3) – sonst schneidet der Streifen die Pfosten über der Welle ab */
+@media (max-width: 768px) {
+  .regal-wrap-mobil { position: relative; z-index: 3; }
+}
+
+/* ── Handy: Werk-Pop-up in Form und Größe wie das Markt-Pop-up (Blob, quadratisch, bis 370 px, Terracotta, weiße Schrift, X unten mittig) ── */
+@media (max-width: 768px) {
+  .produkt-overlay,
+  .produkt-overlay.schritt2 {
+    --w: min(88vw, 370px);
+    --h: var(--w);
+    padding: 0 0 13%;
+  }
+  .produkt-step { width: 70%; }
+  .produkt-illu-wrap { width: calc(var(--h) * 0.3); height: calc(var(--h) * 0.3); }
+  .produkt-btn-fotos { margin-top: 8px; padding: 5px 16px; font-size: 13px; }
+  .produkt-titel { margin-top: 8px; font-size: clamp(18px, 5.4vw, 22px); line-height: 1.15; }
+  .produkt-jahr { margin-top: 2px; font-size: 14px; }
+  .produkt-liste { margin-top: 6px; font-size: 13px; line-height: 1.3; flex-direction: column; gap: 0; }
+  .produkt-liste li + li::before { display: none; }   /* untereinander statt mit Trennstrichen (der Strich landete sonst am Zeilenanfang) */
+  .produkt-illu-wrap { width: calc(var(--h) * 0.24); height: calc(var(--h) * 0.24); }
+  .produkt-overlay:not(.schritt2) { padding: 6% 0 14%; }
+  .produkt-masse { font-size: 13px; }
+  .produkt-close, .produkt-zurueck { bottom: 5%; }
+  /* Foto-Schritt: Foto füllt den Blob */
+  .produkt-foto-wrap { --foto: calc(var(--w) * 0.72); }
+}
+
+/* ── Handy: Werk groß – Karten zum Wischen (wie die Apple-Highlights):
+      oben der Titel, darunter Karten mit dünner Kontur (die nächste schaut rechts herein), darunter die Punkte.
+      Karte 1: Kurzbeschreibung + freigestelltes Stück, weitere Karten: die Fotos. Welle/X aus ueber-uns.css. ── */
+@media (max-width: 768px) {
+  .werk-foto-overlay .werk-scroll {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 90px;          /* Platz für X und Welle */
+    overflow: hidden;
+  }
+  .werk-titel {
+    margin: 0 0 18px;
+    text-align: center;
+    color: #F7F5F2;
+    font-family: 'AD-Unghia', sans-serif;
+    font-weight: 400;
+    font-size: var(--fs-headline, 26px);
+    line-height: 1.2;
+  }
+  .werk-karten {
+    display: flex;
+    width: 100%;
+    align-self: stretch;   /* sonst wird die Reihe so breit wie alle Karten und mittig gesetzt */
+    box-sizing: border-box;
+    gap: 6vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 10vw;
+    scroll-padding: 0 10vw;
+  }
+  .werk-karten::-webkit-scrollbar { display: none; }
+  .werk-karte {
+    flex: 0 0 80vw;
+    height: min(68vh, 124vw);
+    scroll-snap-align: start;
+    border: 1.5px solid rgba(247, 245, 242, 0.55);
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .werk-karte-text {
+    margin: 28px 9% 0;
+    text-align: center;
+    color: #F7F5F2;
+    font-family: 'AD-Unghia', sans-serif;
+    font-size: var(--fs-label, 20px);
+    line-height: 1.3;
+  }
+  .werk-karte-stueck {
+    flex: 1;
+    min-height: 0;
+    width: 40%;
+    max-height: 40%;
+    margin: auto 0;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.25));
+  }
+  .werk-karte-foto { width: 100%; height: 100%; object-fit: cover; }
+  /* Punkte: liegen unten auf der beigen Welle, terracotta, in der unförmigen Blob-Form; der aktuelle ist größer und voll */
+  .werk-punkte {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(0px + env(safe-area-inset-bottom, 0px));   /* Punkte auf der Welle (mit 8 px Innenabstand der Leiste; größer = höher) */
+    z-index: 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    pointer-events: none;
+  }
+  .werk-punkte[hidden] { display: none; }
+  .werk-punkt {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+    border: 0;
+    background: var(--terra);
+    opacity: 0.4;
+    clip-path: url(#blobClip);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .werk-punkt.aktiv { width: 9px; height: 9px; opacity: 1; }
+  .werk-foto-overlay .foto-boden { z-index: 4; }
+  /* Welle und X genau wie beim Foto auf Über uns (Stile aus ueber-uns.css), nur über dem Scroll-Inhalt */
+  .werk-foto-overlay .foto-close { z-index: 5; }
+}
+
+/* Handy: in der Werk-Ansicht nur seitlich wischen (Karten), kein senkrechtes Scrollen – weder im Pop-up noch die Seite dahinter */
+@media (max-width: 768px) {
+  .werk-foto-overlay { touch-action: none; overscroll-behavior: none; }
+  .werk-foto-overlay .werk-karten { touch-action: pan-x; overscroll-behavior-x: contain; }
+  .werk-foto-overlay .werk-punkt,
+  .werk-foto-overlay .foto-close { touch-action: manipulation; }
+}
+
+/* Handy: erste Karte (Beschreibung + freigestelltes Stück) ohne Rahmen */
+@media (max-width: 768px) {
+  .werk-karte.werk-karte-start { border-color: transparent; }
+}
+
+/* Handy: Schließen als Zurück-Pfeil oben links, an derselben Stelle und in derselben Größe wie auf den anderen Seiten (weiß) */
+@media (max-width: 768px) {
+  .werk-foto-overlay .foto-close.werk-zurueck {
+    top: 6px;
+    left: calc(8vw - 16px);
+    bottom: auto;
+    width: auto;
+    height: auto;
+    padding: 16px;
+  }
+  .werk-foto-overlay .foto-close.werk-zurueck img:not(.back-hover-circle) { width: 12px; height: auto; }
+}
+
+/* Handy: Titel des Werks oben rechts in der Ecke wie "(Werke)" auf den Seiten (gleiche Stelle, Größe, Klammern), weiß */
+@media (max-width: 768px) {
+  .werk-foto-overlay .werk-titel {
+    position: absolute;
+    top: 6px;
+    right: calc(8vw - 12px);
+    left: auto;
+    margin: 0;
+    padding: 14px 12px;
+    max-width: 62vw;
+    background: none;
+    text-align: right;
+    font-size: var(--fs-label);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 5;
+  }
+  .werk-foto-overlay .werk-titel::before { content: '('; }
+  .werk-foto-overlay .werk-titel::after { content: ')'; }
+}
+
+/* Handy: erste Karte – Stück oben, Text darunter */
+@media (max-width: 768px) {
+  .werk-karte-start { justify-content: center; }
+  .werk-karte-start .werk-karte-stueck { flex: 0 1 auto; margin: 0; }
+  .werk-karte-start .werk-karte-text { margin: calc(24px + 1.3em) 9% 0; }   /* eine Zeile tiefer */
+}
+
+/* Handy: Foto-Karten in der Form "Rechteck mit unförmigen Blob-Ecken" (Pfad setzt werke.js passend zur Größe), ohne Kontur */
+@media (max-width: 768px) {
+  .werk-karte:not(.werk-karte-start) { border: 0; border-radius: 0; }
+}
+
+/* Handy: erste Karte mit leichtem Hintergrund in derselben Blob-Rechteck-Form wie die Fotos (Schwarz, 10 % Deckkraft) */
+@media (max-width: 768px) {
+  .werk-karte.werk-karte-start { background: rgba(0, 0, 0, 0.1); }
+}
+
+/* Handy: Karten 30 px tiefer (Punkte bleiben unten) */
+@media (max-width: 768px) {
+  .werk-foto-overlay .werk-karten { margin-top: 60px; }
+}
+
+/* Handy: Lupe auf den Fotos (werke.js) – kein iOS-Bildmenü beim Halten, weiches Ein- und Auszoomen */
+@media (max-width: 768px) {
+  .werk-karte-foto {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .werk-karte-foto.lupe { transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); }
+}
+
+/* Computer: Welle an derselben Stelle wie auf Über uns (Oberkante bei 44 % der Breite von oben, unabhängig von der Fensterhöhe),
+   der Hinweis darauf wie "Du willst mehr über uns lesen?" */
+@media (min-width: 769px) {
+  .werke-scroll-prompt-wrap { top: 44vw; bottom: 0; height: auto; }
+  .werke-wave svg { height: auto; }
+  .werke-wave::after { content: ''; position: absolute; left: 0; right: 0; top: 12vw; bottom: 0; background: #F7F5F2; }
+  .werke-scroll-prompt-wrap .scroll-prompt { top: 5.8vw; bottom: auto; }
+}
+
+/* Werk-Pop-up (Computer): ohne Jahreszahl – die Angaben stehen direkt unter dem Titel, wo vorher das Jahr war */
+.produkt-liste { margin-top: calc(var(--h) * 0.012); }
+
+/* ══════════ COMPUTER: im selben Blob weiterblättern ══════════
+   Seite 1 = Stück + Angaben (wie bisher), danach füllt je ein Foto den ganzen Blob. Unten die Punkte statt des X,
+   links/rechts kleine Pfeile. Schließen: Klick daneben oder Esc. */
+.pop-seiten {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.pop-seiten::-webkit-scrollbar { display: none; }
+.pop-seite {
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5% 0 12%;
+  box-sizing: border-box;
+}
+/* Foto-Seiten: außen ein Rand im normalen Terracotta, darin das Foto als Blob; am Fotorand liegt nach innen versetzt
+   ein dunklerer Ring (Schwarz 10 %) halbtransparent ÜBER dem Bild */
+.pop-seite-foto { position: relative; padding: 5%; background: none; }
+.pop-seite-foto img { width: 100%; height: 100%; object-fit: cover; display: block; clip-path: url(#blobClip); }
+.pop-seite-foto::after {
+  content: '';
+  position: absolute;
+  inset: 5%;
+  pointer-events: none;
+  clip-path: url(#blobClip);
+  /* weicher Rand: am Fotorand Schwarz 10 %, nach innen auf 0 % auslaufend */
+  background: radial-gradient(ellipse closest-side at 50% 50%, rgba(0, 0, 0, 0) 72%, rgba(0, 0, 0, 0.1) 100%),
+              radial-gradient(ellipse farthest-side at 50% 50%, rgba(0, 0, 0, 0) 92%, rgba(0, 0, 0, 0.1) 100%);
+}
+.pop-seite-start .produkt-step { width: 62%; }
+.produkt-btn-fotos, .produkt-close, .produkt-zurueck { display: none !important; }   /* blättern statt "Mehr Fotos", Punkte statt X */
+
+.pop-punkte {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  z-index: 4;
+}
+.pop-punkte[hidden] { display: none; }
+.pop-punkt {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  background: #F7F5F2;
+  opacity: 0.45;
+  clip-path: url(#blobClip);
+  cursor: pointer;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+  transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+.pop-punkt.aktiv { width: 13px; height: 13px; opacity: 1; }
+
+.pop-pfeil {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  padding: 14px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.pop-pfeil[hidden] { display: none; }
+.pop-pfeil-zurueck { left: 7.5%; }
+.pop-pfeil-weiter { right: 7.5%; }
+.pop-pfeil img { display: block; height: 20px; width: auto; filter: brightness(0) invert(1) drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5)); }
+.pop-pfeil-weiter img { transform: rotate(180deg); }
+
+/* Pop-up (Computer), erste Seite: Titel und Angaben eine Zeile tiefer (das Stück bleibt, wo es ist) */
+.pop-seite-start .produkt-titel,
+.pop-seite-start .produkt-liste,
+.pop-seite-start .produkt-masse { position: relative; top: calc(1.45 * clamp(15px, calc(var(--h) * 0.022), 20px)); }
+
+/* Werke ohne Fotos: Hinweis statt der Punkte (Pop-up am Computer weiß auf Terracotta, am Handy terracotta auf der Welle) */
+.keine-fotos {
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(14px, 1.1vw, 18px);
+  line-height: 1;
+  color: #F7F5F2;
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .werk-punkte .keine-fotos { color: var(--terra); font-size: var(--fs-ui, 16px); pointer-events: none; }
+}
+
+/* Pop-up-Pfeile (Computer): gewohnter Hover (heller Blob dahinter, Symbol wird terracotta) und Erklärung, die neben dem
+   Pfeil einblendet (rechter Pfeil: Text links davon, linker Pfeil: Text rechts davon). Auf der Infoseite ohne Schatten. */
+.pop-pfeil { display: flex; align-items: center; justify-content: center; overflow: visible; }
+.pop-pfeil .pop-pfeil-icon { position: relative; z-index: 1; }
+.pop-pfeil img.pop-pfeil-icon { display: block; height: 20px; width: auto; filter: brightness(0) invert(1) drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5)); }
+.pop-pfeil-weiter img.pop-pfeil-icon { transform: rotate(180deg); }
+.pop-pfeil img.back-hover-circle { transform: translate(-50%, -50%) scale(0); }   /* Kreis nicht mitdrehen */
+.produkt-overlay.pop-infoseite .pop-pfeil img.pop-pfeil-icon { filter: brightness(0) invert(1); }
+.pop-pfeil:hover img.back-hover-circle { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.pop-pfeil:hover img.pop-pfeil-icon { filter: var(--terra-filter); }
+.pop-pfeil-label {
+  position: absolute;
+  top: 50%;
+  font-family: 'AD-Unghia', sans-serif;
+  font-size: clamp(14px, 1.1vw, 18px);
+  line-height: 1;
+  color: #F7F5F2;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.pop-pfeil-weiter .pop-pfeil-label { right: calc(100% + 10px); transform: translate(8px, -50%); }   /* Abstand zum Hover-Kreis */
+.pop-pfeil-zurueck .pop-pfeil-label { left: calc(100% + 10px); transform: translate(-8px, -50%); }
+@media (hover: hover) {
+  .pop-pfeil:hover .pop-pfeil-label { opacity: 1; transform: translate(0, -50%); }
+}
+
+/* Pop-up (Computer): Schließen-Kreuz links gegenüber dem Pfeil – nur auf der ersten Seite des Werks */
+.pop-schliessen { display: none; }
+.produkt-overlay.pop-infoseite .pop-schliessen { display: flex; }
+.pop-schliessen img.pop-pfeil-icon { height: 16px; }
+
+/* Hover-Fix: auch auf der Infoseite wird das Symbol beim Hover terracotta (sonst weiß auf weißem Kreis) */
+.produkt-overlay .pop-pfeil:hover img.pop-pfeil-icon,
+.produkt-overlay.pop-infoseite .pop-pfeil:hover img.pop-pfeil-icon { filter: var(--terra-filter); }
+
+/* Hover-Texte nur auf der ersten Seite (Infoseite); auf den Fotos stören sie */
+.produkt-overlay:not(.pop-infoseite) .pop-pfeil-label { display: none; }
+
+/* Hover auf den Punkten (Computer): der Punkt wird voll und etwas größer, wie der aktive */
+@media (hover: hover) {
+  .pop-punkt:hover, .werk-punkt:hover { opacity: 1; width: 13px; height: 13px; }
+}
+
+/* Handy: Punkte antippbar – 28 px große, unsichtbare Tippfläche, der Punkt selbst bleibt klein (als ::after) */
+@media (max-width: 768px) {
+  .werk-punkte { gap: 0; }
+  .werk-punkt,
+  .werk-punkt.aktiv {
+    position: relative;
+    width: 15px;            /* Abstand zwischen den Punkten (Tippen/Wischen geht über die ganze Leiste) */
+    height: 28px;
+    background: none;
+    clip-path: none;
+    opacity: 1;
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+  .werk-punkt::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    transform: translate(-50%, -50%);
+    background: var(--terra);
+    opacity: 0.4;
+    clip-path: url(#blobClip);
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  }
+  .werk-punkt.aktiv::after { width: 9px; height: 9px; opacity: 1; }
+}
+
+/* Handy: Wischen über die Punkte – die ganze Leiste nimmt den Finger an (etwas höher als die Punkte) */
+@media (max-width: 768px) {
+  .werk-punkte { pointer-events: auto; padding: 8px 14px; touch-action: none; }
+}
+
+/* Handy: Punkte-Leiste nur so breit wie die Punkte (mittig) – über die volle Breite am unteren Rand würde Safari
+   seine Leiste nach diesem durchsichtigen Element färben (falsches Grau) */
+@media (max-width: 768px) {
+  .werk-foto-overlay .werk-punkte { left: 50%; right: auto; transform: translateX(-50%); }
+}
+
+/* Computer: Zoom auf den Fotos im Pop-up (werke.js) */
+@media (min-width: 769px) {
+  .pop-seite-foto { overflow: hidden; }
+  .pop-seite-foto img { cursor: zoom-in; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+  .pop-seite-foto img.zoom { cursor: zoom-out; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform-origin 0.08s linear; }
+}
+
+/* Computer: Regal über dem Punkte-Hintergrund (body::before ist positioniert und lag sonst über den Werken) */
+.regal-wrap-desktop { position: relative; z-index: 1; }
+
+/* Computer: Lampe im Regal-Ende (Lampe in der Zeichnung bei ca. 33,8 % / 62,2 % des Ende-Stücks) */
+.werke-lampe-schein-desk {
+  left: calc(33.6% - 22vw);
+  top: calc(63% - 22vw);
+  width: 44vw;
+  height: 44vw;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.werke-lampe-schein-desk.an { opacity: 1; }
+.werke-lampe-btn-desk {
+  display: block;
+  position: absolute;
+  left: 31.5%;
+  top: 58%;
+  width: 4.5%;
+  height: 10%;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 5;
+}
+@media (max-width: 768px) { .werke-lampe-btn-desk { display: none; } }

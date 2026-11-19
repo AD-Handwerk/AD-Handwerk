@@ -220,7 +220,55 @@ body::after { background: #A64F32; }
 .foto-close img:not(.back-hover-circle) { filter: var(--terra-filter) !important; }
 
 /* Über uns: Lampenschein größer (gleicher Mittelpunkt bei 23 % / 72,5 %) */
-.lampen-schein { left: calc(23% - 55vw); top: calc(72.5% - 55vw); width: 110vw; height: 110vw; }   /* quadratisch -> runder Schein ohne Kanten */
+.ueber-rahmen-wrap .lampen-schein { left: calc(23% - 55vw); top: calc(72.5% - 55vw); width: 110vw; height: 110vw; }   /* quadratisch -> runder Schein ohne Kanten */
 
 /* Startseite: Punkte-Hintergrund im Dunkeln dezenter (hell: 0.3) */
 .dots { opacity: 0.12; }
+
+/* ══════════ WERKE-SEITE ══════════ */
+html:has(.regal-wrap) { background: var(--flaeche) !important; }   /* unter der Seite (Impressum-Spalt, Überscrollen) dunkel wie die Welle */
+html:has(.regal-wrap) body { background: var(--hero-rosa) !important; }   /* helleres Dunkelgrau wie oben auf Über uns */
+html:has(.regal-wrap) body::before { opacity: 0.12; }   /* Punkte dezent wie auf der Startseite */
+/* Regal: Pfosten grau wie die Männchen, Kater etwas heller (eigene -dark.svg-Fassungen) */
+img.regal-svg[src*="regal_mittelteil"] { content: url('../media/ad_grafik_werke_regal_mittelteil-dark.svg'); }
+img.regal-svg[src*="regal_ende"] { content: url('../media/ad_grafik_werke_regal_ende-dark.svg'); }
+img.regal-svg[src*="regal_mobile_mitte"] { content: url('../media/ad_grafik_werke_regal_mobile_mitte-dark.svg'); }
+img.regal-svg[src*="regal_mobile_ende"] { content: url('../media/ad_grafik_werke_regal_mobile_ende-dark.svg'); }
+.werke-wave svg path, .werke-welle-oben-kante svg path { fill: var(--flaeche) !important; }
+.werke-welle-oben-fuell { background: var(--flaeche) !important; }
+/* Hover-Schild über den Werken (Computer) */
+.produkt-label { background: #2C2321; color: var(--sand); }
+/* Werk-Pop-up am Computer: dunkelgraue Fläche statt Beige/Terracotta, Schrift hellgrau */
+.produkt-overlay, .produkt-overlay.terracotta { background: #2C2321 !important; }
+.produkt-overlay .produkt-titel, .produkt-overlay .produkt-jahr, .produkt-overlay .produkt-liste,
+.produkt-overlay .produkt-masse, .produkt-overlay .produkt-titel-klein { color: var(--sand) !important; }
+/* Werk-Ansicht am Handy: Fläche dunkelgrau (wie das Foto auf Über uns), Titel und Pfeil dunkles Terracotta, Angaben hellgrau */
+.werk-foto-overlay .werk-titel { color: var(--terra) !important; }
+.werk-foto-overlay .foto-close img:not(.back-hover-circle) { filter: var(--terra-filter) !important; }
+.werk-karte-text { color: var(--sand) !important; }
+
+/* Werke: der schmale Streifen am unteren Rand (html::after, färbt die Safari-Leiste) – Wellenfarbe, nur 12 px hoch,
+   sonst steht er als dunkleres Rechteck über der Welle */
+html:has(.regal-wrap)::after { background: var(--flaeche) !important; z-index: -1 !important; }   /* hinter dem Seitenhintergrund: unsichtbar, färbt aber weiter die Safari-Leiste */
+
+/* Werke: Regal-Zeichnung „farbig abwedeln“ auf den Hintergrund – das LED-Licht hellt den dunklen Grund auf statt olivgrau zu wirken */
+@media (max-width: 768px) { img.regal-svg { mix-blend-mode: color-dodge; } }   /* nur am Handy: am Computer färbt es das Regal grell orange */
+
+/* Werke am Computer: oben kein dunkler Streifen (Abstand des Regals soll nicht aus dem body herausragen), Welle unten dunkel gefüllt */
+html:has(.regal-wrap) body { display: flow-root; }
+.werke-wave::after { background: var(--flaeche) !important; }
+
+
+/* Werk-Pop-up (Computer) im Dunkelmodus: Pfeile, Schließen-Kreuz und Punkte im dunklen Terracotta, Hover-Kreis weiß wie überall */
+.produkt-overlay .pop-pfeil img.pop-pfeil-icon,
+.produkt-overlay.pop-infoseite .pop-pfeil img.pop-pfeil-icon { filter: var(--terra-filter) !important; }
+.produkt-overlay .pop-pfeil-label { color: var(--terra); }
+.pop-punkt { background: var(--terra); filter: none; }
+.produkt-overlay .keine-fotos { color: var(--terra); }
+
+/* Auf den Foto-Seiten: Pfeile und Punkte weiß statt Terracotta, damit sie auf dem Foto lesbar sind */
+.produkt-overlay:not(.pop-infoseite) .pop-pfeil img.pop-pfeil-icon {
+  filter: brightness(0) invert(1) drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5)) !important;
+}
+.produkt-overlay:not(.pop-infoseite) .pop-pfeil:hover img.pop-pfeil-icon { filter: var(--terra-filter) !important; }
+.produkt-overlay:not(.pop-infoseite) .pop-punkt { background: #F7F5F2; filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4)); }
