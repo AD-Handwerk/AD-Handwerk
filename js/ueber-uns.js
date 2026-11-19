@@ -87,7 +87,9 @@ function zeigePanel(panel) {
 // Streifen ganz oben im Overlay in der Farbe des sichtbaren Fensters. Bei jedem Wechsel wird ein neues Element eingesetzt und das
 // alte entfernt, dazu 1 px Scroll-Stups: so liest iOS 26 Safari die Farbe der oberen Leiste jedes Mal neu.
 let leistenTimer = null;
-const LEISTEN_FARBE = { fred: '#8C9E82', doris: '#BEA49C' };
+const LEISTEN_FARBE = window.matchMedia('(prefers-color-scheme: dark)').matches
+  ? { fred: '#2C2321', doris: '#2C2321' }   // Dunkelmodus: gedämpft (wie css/dark.css)
+  : { fred: '#8C9E82', doris: '#BEA49C' };
 const handyFarben = () => window.matchMedia('(max-width: 768px)').matches;
 function setzeSeitenfarbe(farbe) {
   // zusätzlich zum Streifen: Seitenhintergrund und theme-color in der Farbe des Fensters (oder wieder zurück auf den Normalzustand)
@@ -226,6 +228,16 @@ function closeNav() {
 }
 
 document.getElementById('ueberBurgerBtn').addEventListener('click', openNav);
+
+// Zurück-Taste (Safari stellt die Seite aus dem Zwischenspeicher genau so wieder her, wie man sie verlassen hat):
+// war beim Weggehen das Menü offen, wird es beim Zurückkommen geschlossen
+window.addEventListener('pageshow', (e) => {
+  if (!e.persisted) return;
+  const mm = document.getElementById('ueberMobilMenue');
+  const nav = document.getElementById('ueber-nav-overlay');
+  if ((mm && mm.classList.contains('open')) || (nav && nav.classList.contains('open'))) closeNav();
+});
+
 document.getElementById('ueberNavClose').addEventListener('click', closeNav);
 if (document.getElementById('mmZu')) document.getElementById('mmZu').addEventListener('click', closeNav);
 if (document.getElementById('mmX')) document.getElementById('mmX').addEventListener('click', closeNav);
@@ -441,14 +453,14 @@ document.getElementById('lampeToggle').addEventListener('mouseleave', () => {
     an = wert;
     schein.classList.toggle('an', an);
   }
-  // an, wenn die Mitte des Bilderrahmens im mittleren Teil des Bildschirms liegt (zwischen 20 % und 85 % der Höhe)
+  // an, wenn die Mitte des Bilderrahmens im mittleren Teil des Bildschirms liegt (zwischen 20 % und 60 % der Höhe, geht also erst spät an)
   let geplant = false;
   function pruefe() {
     geplant = false;
     if (!mobil.matches) return;
     const r = rahmen.getBoundingClientRect();
     const mitte = r.top + r.height / 2;
-    setze(mitte > window.innerHeight * 0.2 && mitte < window.innerHeight * 0.85);
+    setze(mitte > window.innerHeight * 0.2 && mitte < window.innerHeight * 0.6);
   }
   function plane() { if (!geplant) { geplant = true; requestAnimationFrame(pruefe); } }
   window.addEventListener('scroll', plane, { passive: true });

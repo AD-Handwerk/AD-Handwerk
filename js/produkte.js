@@ -110,7 +110,7 @@ const PRODUKTE = {
     jahr: '2025',
     liste: ['Tonware gebrannt', 'Rakutechnik', 'Glasur weiß'],
     masse: 'H 20 cm',
-    freisteller: 'media/produkte/foto_schneemann',
+    freisteller: 'media/produkte/foto_schneemann-seite',   // Seitenansicht mit Nase (aus IMG_8485 freigestellt)
     fotos: [
       foto(8483, 'Schneemann mit blauem Schal'),
       foto(8484, 'Schneemann, Seitenansicht'),
