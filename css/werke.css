@@ -1330,3 +1330,9 @@ body::before {
   z-index: 5;
 }
 @media (max-width: 768px) { .werke-lampe-btn-desk { display: none; } }
+
+/* Handy: Hinweis "Fotos demnächst!" ist höher als die Punkte – etwas anheben, damit er ganz auf der Welle steht */
+@media (max-width: 768px) {
+  .werk-foto-overlay .werk-punkte:has(.keine-fotos) { bottom: calc(10px + env(safe-area-inset-bottom, 0px)); padding: 0; }
+  .werk-punkte .keine-fotos { line-height: 1.3; }
+}
