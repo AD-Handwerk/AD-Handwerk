@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1879.232 2034.848">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #f7f5f2;
+      }
+
+      .cls-3 {
+        fill: url(#Unbenannter_Verlauf_5-3);
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8 {
+        isolation: isolate;
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-6, .cls-8 {
+        mix-blend-mode: multiply;
+        opacity: .5;
+      }
+
+      .cls-4 {
+        fill: url(#Unbenannter_Verlauf_5-5);
+      }
+
+      .cls-5 {
+        fill: url(#Unbenannter_Verlauf_5-4);
+      }
+
+      .cls-6 {
+        fill: url(#Unbenannter_Verlauf_5-2);
+      }
+
+      .cls-9 {
+        fill: #c6baa1;
+      }
+
+      .cls-10, .cls-11 {
+        fill: #34363a;
+      }
+
+      .cls-12 {
+        fill: #f4f0ea;
+      }
+
+      .cls-8 {
+        fill: url(#Unbenannter_Verlauf_5);
+      }
+
+      .cls-13 {
+        clip-path: url(#clippath-2);
+      }
+
+      .cls-11 {
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+
+      .cls-14 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <linearGradient id="Unbenannter_Verlauf_5" data-name="Unbenannter Verlauf 5" x1="-2535.017" y1="771.008" x2="-2535.017" y2="707.598" gradientTransform="translate(-1595.4007 1327.7501) rotate(-180)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6e952" stop-opacity=".5"/>
+      <stop offset=".2" stop-color="#f6e954" stop-opacity=".49"/>
+      <stop offset=".38" stop-color="#f6eb5c" stop-opacity=".44"/>
+      <stop offset=".55" stop-color="#f8ed6f" stop-opacity=".37"/>
+      <stop offset=".71" stop-color="#f9f290" stop-opacity=".27"/>
+      <stop offset=".86" stop-color="#fbf7c2" stop-opacity=".14"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="Unbenannter_Verlauf_5-2" data-name="Unbenannter Verlauf 5" y1="1140.578" y2="1077.168" xlink:href="#Unbenannter_Verlauf_5"/>
+    <linearGradient id="Unbenannter_Verlauf_5-3" data-name="Unbenannter Verlauf 5" y1="371.378" y2="307.958" xlink:href="#Unbenannter_Verlauf_5"/>
+    <linearGradient id="Unbenannter_Verlauf_5-4" data-name="Unbenannter Verlauf 5" y1="79.868" y2="16.458" xlink:href="#Unbenannter_Verlauf_5"/>
+    <linearGradient id="Unbenannter_Verlauf_5-5" data-name="Unbenannter Verlauf 5" y1="-407.242" y2="-470.662" xlink:href="#Unbenannter_Verlauf_5"/>
+    <clipPath id="clippath">
+      <rect class="cls-1" x="2461.25" y="-751.296" width="1183.771" height="2047.035"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="cls-1" x="2460.397" y="-410.449" width="1183.771" height="2047.035"/>
+    </clipPath>
+  </defs>
+  <g class="cls-7">
+    <g id="Ebene_1" data-name="Ebene 1">
+      <g>
+        <rect class="cls-9" x="491.75" y="540.15" width="913.672" height="28.59"/>
+        <polygon class="cls-8" points="396.045 624.963 1483.187 624.963 1405.417 570.222 491.745 570.222 396.045 624.963"/>
+        <rect class="cls-9" x="491.75" y="170.581" width="913.672" height="28.59"/>
+        <polygon class="cls-6" points="396.045 255.393 1483.187 255.393 1405.417 200.653 491.745 200.653 396.045 255.393"/>
+        <rect class="cls-9" x="491.75" y="939.786" width="913.672" height="28.59"/>
+        <polygon class="cls-3" points="396.045 1024.592 1483.187 1024.592 1405.417 969.852 491.745 969.852 396.045 1024.592"/>
+        <rect class="cls-9" x="491.75" y="1231.293" width="913.672" height="28.59"/>
+        <polygon class="cls-5" points="396.045 1316.092 1483.187 1316.092 1405.417 1261.363 491.745 1261.363 396.045 1316.092"/>
+        <rect class="cls-9" x="491.75" y="1718.41" width="913.672" height="28.59"/>
+        <polygon class="cls-4" points="396.045 1803.212 1483.187 1803.212 1405.417 1748.472 491.745 1748.472 396.045 1803.212"/>
+        <rect class="cls-10" x="1399.907" y="14.338" width="11.04" height="2020.51"/>
+        <rect class="cls-10" x="1076.357" y="14.338" width="11.04" height="2020.51"/>
+        <rect class="cls-10" x="489.044" y="14.338" width="11.04" height="2020.51"/>
+        <rect class="cls-10" x="485.239" width="18.8" height="28.67"/>
+        <circle class="cls-11" cx="1405.425" cy="579.213" r="10.47"/>
+        <circle class="cls-11" cx="1081.875" cy="579.213" r="10.47"/>
+        <circle class="cls-11" cx="494.555" cy="579.213" r="10.47"/>
+        <rect class="cls-10" x="1396.017" width="18.8" height="28.67"/>
+        <rect class="cls-10" x="1072.477" width="18.8" height="28.67"/>
+        <circle class="cls-11" cx="1405.425" cy="209.643" r="10.47"/>
+        <circle class="cls-11" cx="1081.875" cy="209.643" r="10.47"/>
+        <circle class="cls-11" cx="494.555" cy="209.643" r="10.47"/>
+        <circle class="cls-11" cx="1405.425" cy="978.843" r="10.47"/>
+        <circle class="cls-11" cx="1081.875" cy="978.843" r="10.47"/>
+        <circle class="cls-11" cx="494.555" cy="978.843" r="10.47"/>
+        <circle class="cls-11" cx="1405.425" cy="1270.342" r="10.47"/>
+        <circle class="cls-11" cx="1081.875" cy="1270.342" r="10.47"/>
+        <circle class="cls-11" cx="494.555" cy="1270.342" r="10.47"/>
+        <circle class="cls-11" cx="1405.425" cy="1757.462" r="10.47"/>
+        <circle class="cls-11" cx="1081.875" cy="1757.462" r="10.47"/>
+        <circle class="cls-11" cx="494.555" cy="1757.462" r="10.47"/>
+      </g>
+      <g class="cls-14">
+        <path class="cls-2" d="M1639.761-635.607c80.632-74.115,117.256-7.106,469.098,0,363.785,7.348,377.386-63.222,749.44-63.077,318.728.124,311.268,51.915,651.941,45.416,251.121-4.791,518.373-27.754,518.373-27.754,316.291-27.177,476.706-59.325,530.199,50.555,20.486,42.08,13.457,80.683,0,208.467,0,0-17.141,162.762-39.42,533.23-20.965,348.612-32.812,545.618-7.884,653.481,3.021,13.072,16.313,66.94,1.971,126.155-2.745,11.335-14.104,58.232-44.655,83.262-44.882,36.771-107.361,6.83-122.879,0-51.328-22.59-352.864-24.312-955.935-27.754-444.42-2.537-348.626,59.278-712.635,45.743-498.745-18.545-620.27-132.422-836.57-35.651-37.574,16.81-141.578,68.418-201.042,7.569-49.229-50.375-44.7-154.054-43.362-191.755,21.727-611.923-180.511-1202.107,43.362-1407.886Z"/>
+      </g>
+      <g class="cls-13">
+        <path class="cls-12" d="M1638.909-294.76c80.632-74.115,117.256-7.106,469.098,0,363.785,7.348,377.386-63.222,749.44-63.077,318.728.124,311.268,51.915,651.941,45.416,251.121-4.791,518.373-27.754,518.373-27.754,316.291-27.177,476.706-59.325,530.199,50.555,20.486,42.08,13.457,80.683,0,208.467,0,0-17.141,162.762-39.42,533.23-20.965,348.612-32.812,545.618-7.884,653.481,3.021,13.072,16.313,66.94,1.971,126.155-2.745,11.335-14.104,58.232-44.655,83.262-44.882,36.771-107.361,6.83-122.879,0-51.328-22.59-352.864-24.312-955.935-27.754-444.42-2.537-348.626,59.278-712.635,45.743-498.745-18.545-620.27-132.422-836.57-35.651-37.574,16.81-141.578,68.418-201.042,7.569-49.229-50.375-44.7-154.054-43.362-191.755,21.727-611.923-180.511-1202.107,43.362-1407.886Z"/>
+      </g>
+    </g>
+  </g>
+</svg>
